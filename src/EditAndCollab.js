@@ -4,7 +4,7 @@ function EditAndCollab() {
     return (
         <div>
             <h2>
-                Book Edit and Collab Spaces here!
+                Book Edit and Collaboration Spaces here!
             </h2>
         </div>
     )
