@@ -1,13 +1,24 @@
 import React from 'react'
+import SlideCalendar from './components/slideCalendar';
+import SlideMessage from './components/slideMessage';
+
+
+
 
 function ATCalendar() {
-    return (
+    return(  
+
         <div>
-            <h2>
-                Display calendar view(s) from Airtable
-            </h2>
+            <SlideMessage/>
+            <SlideCalendar/>        
         </div>
-    )
+            
+
+    ) 
+
+    
+        
+    
 }
 
 export default ATCalendar

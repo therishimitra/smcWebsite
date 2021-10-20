@@ -1,13 +1,20 @@
 import React from 'react'
+import SlideCalendarReh from './components/slideCalendarReh';
+import SlideMessageReh from './components/slideMessageReh';
+
+
+
 
 function Rehearsal() {
-    return (
+    return(  
+
         <div>
-            <h2>
-                Book Rehearsal Spaces here!
-            </h2>
+            <SlideMessageReh/>
+            <SlideCalendarReh/>        
         </div>
-    )
+            
+    )   
+    
 }
 
 export default Rehearsal

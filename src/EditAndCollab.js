@@ -1,13 +1,17 @@
 import React from 'react'
+import SlideCalendarCollab from './components/slideCalendarCollab';
+import SlideMessageCollab from './components/slideMessageCollab';
 
 function EditAndCollab() {
-    return (
+    return(  
+
         <div>
-            <h2>
-                Book Edit and Collaboration Spaces here!
-            </h2>
+            <SlideMessageCollab/>
+            <SlideCalendarCollab/>        
         </div>
-    )
+            
+
+    ) 
 }
 
 export default EditAndCollab
