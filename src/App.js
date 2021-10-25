@@ -3,7 +3,7 @@ import './App.css';
 import CustomBtn from './components/customBtn';
 import NavBar from './components/navBar';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ATCalendar from './ATCalendar';
 import Recording from './Recording';
 import Rehearsal from './Rehearsal';
