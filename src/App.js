@@ -14,7 +14,7 @@ import Drawer from './components/drawer';
 const theme = createTheme({
   palette: {
     background: {
-      default: "#242424"
+      default: "#242424" //g
     },
     primary: {
       main:"#2e1667",
