@@ -1,8 +1,10 @@
 import React from 'react'
+import ReactDOM from 'react-dom';   
 import SlideCalendarRec from './components/slideCalendarRec';
 import SlideMessageRec from './components/slideMessageRec';
 
 
+//testing
 
 
 function Recording() {
@@ -10,7 +12,8 @@ function Recording() {
 
         <div>
             <SlideMessageRec/>
-            <SlideCalendarRec/>        
+            <SlideCalendarRec/> 
+            
         </div>
             
 
