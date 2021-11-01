@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles'
 import './App.css';
 import CustomBtn from './components/customBtn';
@@ -59,16 +60,14 @@ function App() {
       <div className={classes.container}>
        <Drawer/>
       </div>
+      
         <Switch>
           <Route path = "/" exact component={ATCalendar}/>
           <Route path = "/Recording" exact component={Recording}/>
           <Route path = "/Rehearsal" exact component={Rehearsal}/>
           <Route path = "/EditAndCollab" exact component={EditAndCollab}/>
         </Switch>
-      
-      
-      
-
+    
       </ThemeProvider>
       
       </div>

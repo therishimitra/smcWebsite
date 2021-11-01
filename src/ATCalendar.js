@@ -1,7 +1,8 @@
 import React from 'react'
 import SlideCalendar from './components/slideCalendar';
 import SlideMessage from './components/slideMessage';
-
+import NameInput from './components/NameInput';
+import AirtablAPI from './components/AirtableAPI';
 
 
 
@@ -10,7 +11,8 @@ function ATCalendar() {
 
         <div>
             <SlideMessage/>
-            <SlideCalendar/>        
+            <SlideCalendar/> 
+                        <NameInput/>
         </div>
             
 
