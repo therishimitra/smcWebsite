@@ -41,15 +41,8 @@ const theme = createTheme({
 });
 
 
-const useStyles = makeStyles({
-  container: {
-    display: "flex"
-  }
-});
-
-
 function App() {
-  const classes = useStyles();
+
   return (
 
     <Router>
@@ -57,9 +50,7 @@ function App() {
       
       <ThemeProvider theme={theme}>
 
-      <div className={classes.container}>
-       <Drawer/>
-      </div>
+       <NavBar/>
       
         <Switch>
           <Route path = "/" exact component={ATCalendar}/>
