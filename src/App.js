@@ -5,11 +5,13 @@ import CustomBtn from './components/customBtn';
 import NavBar from './components/navBar';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ATCalendar from './ATCalendar';
-import Recording from './Recording';
-import Rehearsal from './Rehearsal';
-import EditAndCollab from './EditAndCollab';
-import Drawer from './components/drawer';
+
+import home from './pages/home';
+import schedules from './pages/schedules'
+import gear from './pages/gear'
+import contact from './pages/contact'
+
+
 
 
 
@@ -54,10 +56,10 @@ function App() {
        <NavBar/>
         
         <Switch>
-          <Route path = "/" exact component={ATCalendar}/>
-          <Route path = "/Recording" exact component={Recording}/>
-          <Route path = "/Rehearsal" exact component={Rehearsal}/>
-          <Route path = "/EditAndCollab" exact component={EditAndCollab}/>
+          <Route path = "/" exact component={home}/>
+          <Route path = "/schedules" exact component={schedules}/>
+          <Route path = "/gear" exact component={gear}/>
+          <Route path = "/contact" exact component={contact}/>
         </Switch>
     
       </ThemeProvider>

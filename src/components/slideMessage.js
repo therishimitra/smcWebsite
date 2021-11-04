@@ -30,7 +30,7 @@ function SlideMessage() {
                 Note:
             </h1>
             <h3>
-                Please review the calendar below before booking your SMC time to see availability of rooms
+                Please review the calendar below before booking your SMC time to see availability of rooms. Click on the 'Room Schedules' tab to view schedules for specific rooms.
             </h3>
         </div>
     </animated.div>

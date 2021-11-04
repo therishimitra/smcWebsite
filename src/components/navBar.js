@@ -51,22 +51,22 @@ function NavBar() {
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 
                 <NavLink exact to='/' className="main-nav" activeClassName="main-nav-active">
-                    <CustomBtn txt="View Calendar"/>                   
+                    <CustomBtn txt="Book Rooms"/>                   
                 </NavLink>
                 
 
-                <NavLink to='/Recording' className="main-nav" activeClassName="main-nav-active" >
-                    <CustomBtn txt="Book Recording Studio"/>
+                <NavLink to='/schedules' className="main-nav" activeClassName="main-nav-active" >
+                    <CustomBtn txt="Room Schedules"/>
                 </NavLink>
                 
 
-                <NavLink to='/Rehearsal' className="main-nav" activeClassName="main-nav-active">
-                    <CustomBtn txt="Book Rehearsal Spaces"/>
+                <NavLink to='/gear' className="main-nav" activeClassName="main-nav-active">
+                    <CustomBtn txt="Gear Checkout"/>
                 </NavLink>
                 
 
-                <NavLink to='/EditAndCollab' className="main-nav" activeClassName="main-nav-active">
-                    <CustomBtn txt="Book Edit and Collab Spaces"/>
+                <NavLink to='/contact' className="main-nav" activeClassName="main-nav-active">
+                    <CustomBtn txt="Contact Us"/>
                 </NavLink>
 
             </Toolbar>
