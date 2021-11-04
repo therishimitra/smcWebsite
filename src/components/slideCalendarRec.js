@@ -33,7 +33,7 @@ function SlideCalendarRec() {
     <animated.div style={slideStyle}>
         <div style={noteStyle}>
             <br></br>
-            <iframe class="airtable-embed" 
+            <iframe className="airtable-embed" 
                 src="https://airtable.com/embed/shr4OwRJGGOsC2lzf?backgroundColor=red"
                 frameborder="0"
                 sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"

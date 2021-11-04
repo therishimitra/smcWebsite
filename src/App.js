@@ -12,6 +12,7 @@ import EditAndCollab from './EditAndCollab';
 import Drawer from './components/drawer';
 
 
+
 const theme = createTheme({
   palette: {
     background: {
@@ -51,7 +52,7 @@ function App() {
       <ThemeProvider theme={theme}>
 
        <NavBar/>
-      
+        
         <Switch>
           <Route path = "/" exact component={ATCalendar}/>
           <Route path = "/Recording" exact component={Recording}/>

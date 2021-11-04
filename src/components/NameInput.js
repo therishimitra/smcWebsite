@@ -15,16 +15,60 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var x=0 //counting number of records pulled using x
+var arr = [];
+const SMCpeople = [];
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+base('SMC People').select({
+    // Selecting the first 3 records in ALL PEOPLE:
+    view: "ALL PEOPLE"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+      //arr[x] =   record.get('Person');
+      
+      SMCpeople.push( {name: record.get('Person'), id: x + 1});
+      x=x+1;
+        
+        //console.log(x,'Retrieved', record.get('Person'), record)
+        //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+
+//console.log('arr',arr)
+//console.log('len',arr.length)
+
+
+//const People = [];
+//const len = 208;
+//console.log(arr.length)
+//for (var idx = 0; idx < len; idx++) {
+//  People.push( {name: arr[idx], id: idx + 1});
+//}
+console.log('People',SMCpeople)
+
 // This will be used to store input data
 const userValues = [];
 
-const SMCpeople = [
-  { name: 'Yilei Li', id: 1 , },
-  { name: 'Rishi Mitra', id: 2 },
-  { name: 'Geethika', id: 3 },
-  { name: 'Devansh', id: 4 },
-  { name: 'Anna', id: 5 },
-]
+
+//const SMCpeople = [
+//  { name: 'Yilei Li', id: 1 },
+//  { name: 'Rishi Mitra', id: 2 },
+//  { name: 'Geethika', id: 3 },
+//  { name: 'Devansh', id: 4 },
+//  { name: 'Anna', id: 5 },
+//]
 
 const defaultValues = {
   name: "",
