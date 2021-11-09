@@ -67,7 +67,7 @@ export default function DateTimeValidation() {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack spacing={1}>
         <div>
-          <FormControl sx={{ m: 1, width: 300 }}>
+          <FormControl sx={{ m: 1, width: 400 }}>
             <DateTimePicker
               clearable
               placeholder="Enter time"
@@ -85,7 +85,7 @@ export default function DateTimeValidation() {
         </div>
 
         <div>
-          <FormControl sx={{ m: 1, width: 300 }}>
+          <FormControl sx={{ m: 1, width: 400 }}>
             <DateTimePicker
               renderInput={(params) => <TextField {...params} />}
               label="Proposed end time"

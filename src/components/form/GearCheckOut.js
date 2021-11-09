@@ -85,7 +85,12 @@ export default function CourseSelectionInput() {
 
   return (
     <Stack spacing={2}>
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap" , justifyContent: 'center'}}>
+      
+      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", textAlign: "left",
+          m: 2,
+          fontSize: 24,
+          fontFamily: "Monospace",
+          lineHeight: 2}}>
         <FormControl sx={{ m: 2, width: 500 }} variant="standard">
           <FormLabel component="legend">
             Need any gears?

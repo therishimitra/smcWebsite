@@ -32,12 +32,12 @@ export default function CourseSelectionInput() {
   };
 
   const courseInput = (
-    <FormControl sx={{ m: 3, width: 500 }} variant="standard">
+    <FormControl sx={{ m: 1 }} variant="standard">
       <Autocomplete
         multiple
         freeSolo
         disableCloseOnSelect
-        sx={{ width: 480 }}
+        sx={{ width: 400 }}
         value={course}
         onChange={(event, newValue) => {
           if (typeof newValue === "string") {
@@ -79,8 +79,12 @@ export default function CourseSelectionInput() {
   );
 
   return (
-    <Stack spacing={2}>
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap" }}>
+    <Stack spacing={0}>
+      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", textAlign: "left",
+          m: 2,
+          fontSize: 24,
+          fontFamily: "Monospace",
+          lineHeight: 2}}>
         <FormControl sx={{ m: 2, width: 500 }} variant="standard">
           <FormLabel component="legend">
             Is this time slot for a course assignment?
@@ -102,9 +106,9 @@ export default function CourseSelectionInput() {
           />
         </FormControl>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap" }}>
-        <Fade in={isCourse}>{courseInput}</Fade>
-      </Box>
+      <Box sx={{ justifyContent: 'center'}}>
+       {isCourse && <Fade in={isCourse}>{courseInput}</Fade>}
+       </Box>
     </Stack>
   );
 }
