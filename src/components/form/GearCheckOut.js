@@ -11,6 +11,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
+import SlideCalendar from '../slideCalendar';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -65,7 +66,7 @@ export default function CourseSelectionInput() {
               checkedIcon={checkedIcon}
               style={{ marginRight: 8 }}
               checked={selected}
-              // thank fucking god this fucking works
+              
               sx={{
                 color: pink[800],
                 "&.Mui-checked": {
@@ -88,9 +89,8 @@ export default function CourseSelectionInput() {
       <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap" , justifyContent: 'center'}}>
         <FormControl sx={{ m: 2, width: 500 }} variant="standard">
           <FormLabel component="legend">
-            Need any gears?
-          </FormLabel>
-          <FormControlLabel
+            
+            <FormControlLabel
             control={
               <Checkbox
                 checked={isGear}
@@ -103,12 +103,16 @@ export default function CourseSelectionInput() {
                 }}
               />
             }
-            label="Gear check-out"
+            label="I need to check-out some gear for this event"
           />
+          </FormLabel>
+          
         </FormControl>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap" }}>
-        <Fade in={isGear}>{gearInput}</Fade>
+      
+      <Box 
+        sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", justifyContent: 'center' }}>
+          <Fade in={isGear}>{gearInput}</Fade>
       </Box>
     </Stack>
   );
