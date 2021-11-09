@@ -2,7 +2,7 @@ import * as React from 'react';
 import Airtable from 'airtable';
 import { useEffect } from 'react';
 
-//Needs to be integrated with gear checkout
+//Needs to be integrated with gearcheckout
 
 const base = new Airtable({apiKey: "keyn6GGT4mwqMtlaF"}).base('appw5uy7KwYsJqmBr')
 
