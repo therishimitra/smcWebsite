@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 3000
+    minWidth: 300
   },
   inputLabel: {
     color: "gray",
@@ -151,7 +151,7 @@ export default function RoomSelectionInput() {
   };
 
   const roomSelectionStudio = (
-    <FormControl className={classes.formControl}>
+    <FormControl sx={{ m: 1, width: 400 }}>
       <InputLabel className={classes.inputLabel}>
         Select studio room(s)
       </InputLabel>
@@ -206,7 +206,7 @@ export default function RoomSelectionInput() {
   );
 
   const roomSelectionRehearsal = (
-    <FormControl sx={{ m: 1, width: 300 }}>
+    <FormControl sx={{ m: 1, width: 400 }}>
       <InputLabel id="demo-multiple-chip-label">
         Select rehearsal room(s)
       </InputLabel>
@@ -261,7 +261,7 @@ export default function RoomSelectionInput() {
   );
 
   const roomSelectionECspace = (
-    <FormControl sx={{ m: 1, width: 300 }}>
+    <FormControl sx={{ m: 1, width: 400 }}>
       <InputLabel id="demo-multiple-chip-label">
         Select Edit & Collaboration room(s)
       </InputLabel>
@@ -319,7 +319,7 @@ export default function RoomSelectionInput() {
     <div>
       <Stack spacing={1}>
         <div>
-          <FormControl className={classes.formControl}>
+          <FormControl sx={{ m: 1, width: 400 }}>
             <InputLabel className={classes.inputLabel}>Room Type</InputLabel>
             <Select
               className={classes.select}

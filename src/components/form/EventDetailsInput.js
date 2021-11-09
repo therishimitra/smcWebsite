@@ -96,12 +96,11 @@ export default function EventDetailsInput() {
   };
 
   const FacultySelection = (
-    <FormControl sx={{ m: 1, width: 500 }} variant="standard">
+    <FormControl sx={{ m: 1, width: 400 }} variant="standard">
       <Autocomplete
         multiple
         freeSolo
         disableCloseOnSelect
-        sx={{ width: 300 }}
         value={faculty}
         onChange={(event, newValue) => {
           if (typeof newValue === "string") {
@@ -149,7 +148,7 @@ export default function EventDetailsInput() {
         <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: 300 }
+            "& > :not(style)": { m: 1, width: 400 }
           }}
           noValidate
           autoComplete="off"
@@ -166,7 +165,7 @@ export default function EventDetailsInput() {
           />
         </Box>
         <div>
-          <FormControl sx={{ m: 1, width: 300 }}>
+          <FormControl sx={{ m: 1, width: 400 }}>
             <InputLabel id="demo-multiple-chip-label">
               Event Type
             </InputLabel>
@@ -208,7 +207,7 @@ export default function EventDetailsInput() {
         </div>
 
         <div>
-          <FormControl sx={{ m: 1, width: 300 }}>
+          <FormControl sx={{ m: 1, width: 400 }}>
             <InputLabel id="demo-multiple-chip-label">
               Intend of Use
             </InputLabel>

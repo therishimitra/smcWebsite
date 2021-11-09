@@ -22,7 +22,7 @@ import FormLabel from "@mui/material/FormLabel";
 
 
 
-var x=0 //counting number of records pulled using x
+var x = 0 //counting number of records pulled using x
 const SMCpeople = [];
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
@@ -35,7 +35,7 @@ base('SMC People').select({
       
       
       SMCpeople.push( {name: record.get('Person'), id: x + 1});
-      x=x+1;
+      x = x + 1;
         
         //console.log(x,'Retrieved', record.get('Person'), record)
         console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
@@ -84,8 +84,9 @@ var emojis = [
   "😈"
 ];
 
-var userEmoji = [];
-var userNameList = [];
+const userEmoji = [];
+const userNameList = [];
+
 
 function renderItem({ item, handleRemoveName }) {
   const emoji = userEmoji[userNameList.indexOf(item)];
@@ -110,7 +111,7 @@ function renderItem({ item, handleRemoveName }) {
 
 const filter = createFilterOptions();
 
-function NameInput() {
+function NameInput({count, setUserCount}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -128,6 +129,9 @@ function NameInput() {
   const handleRemoveName = (item) => {
     setNameInDisplay((prev) => [...prev.filter((i) => i !== item)]);
     userNameList.splice(userNameList.indexOf(item), 1);
+    userValues.splice(userValues.indexOf(item), 1);
+    setUserCount(userNameList.length); // send data to home
+
     console.log(userNameList);
   };
 
@@ -151,20 +155,25 @@ function NameInput() {
     } else {
       setValue(newValue);
     }
-    if (userValues.indexOf(newValue) > -1) {
-      console.log(userValues.indexOf(newValue));
-      setError(true);
-    } else if (newValue != null) {
-      setError(false);
-      const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-      userEmoji.push(randomEmoji);
-      handleClose();
-      userValues.push(newValue);
-      userNameList.push(newValue.name);
-      console.log(userValues);
-      console.log(userNameList);
-      handleAddName();
-    }
+    if (newValue != null) {
+      if (userNameList.indexOf(newValue.name) > -1) {
+        console.log(userNameList.indexOf(newValue));
+        setError(true);
+      } else {
+        setError(false);
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        userEmoji.push(randomEmoji);
+        handleClose();
+        userValues.push(newValue);
+        userNameList.push(newValue.name);
+        setUserCount(userNameList.length); // send data to home
+
+        console.log(userValues);
+        console.log(userNameList);
+        console.log(userNameList.length);
+        handleAddName();
+      }
+  }
   };
 
   const nameInputDialog = (
@@ -272,3 +281,8 @@ function NameInput() {
 }
 
 export default NameInput;
+
+export function nameEntered() {
+
+  return userNameList.length
+}
