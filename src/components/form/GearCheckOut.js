@@ -15,18 +15,57 @@ import Fade from "@mui/material/Fade";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+
+
+////////////////////////////////////API Magic//////////////////////////////////////////////////////
+const gearList = []; 
+
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+
+base('Gear').select({
+    view: "All Gear 🔒"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        //console.log('Retrieved', record.get('Item'), record);
+        gearList.push(record.get('Item'))
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+//console.log(gList)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This will be used to store input data
 var userGear;
 
-const gearList = [
-  "a gear 1",
-  "a gear 2",
-  "b gear 1",
-  "b gear 2",
-  "c gear 1",
-  "c gear 2"
-];
+const embedStyle = {
+  background: "transparent",
+  border: ""
+  
+};
 
+const iFrameGear =(
+  <iframe class="airtable-embed" 
+                src="https://airtable.com/embed/shrmH9r8B0Zd8LwcU?backgroundColor=red"
+                frameborder="0"
+                sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"
+                loading="lazy"
+                onmousewheel=""
+                width="100%" 
+                height="533"
+                style={embedStyle}
+                
+            />
+);
 
 export default function CourseSelectionInput() {
   const [isGear, setIsGear] = React.useState(false);
@@ -37,12 +76,11 @@ export default function CourseSelectionInput() {
   };
 
   const gearInput = (
-    <FormControl sx={{ m: 3, width: 500 }} variant="standard">
+    <FormControl sx={{ m: 1, width: 400 }} variant="standard">
       <Autocomplete
         multiple
         freeSolo
         disableCloseOnSelect
-        sx={{ width: 480 }}
         value={gear}
         onChange={(event, newValue) => {
           if (typeof newValue === "string") {
@@ -77,23 +115,24 @@ export default function CourseSelectionInput() {
           </li>
         )}
         renderInput={(params) => (
-          <TextField {...params} variant="outlined" label="Add Gear(s)" />
+          <TextField {...params} variant="outlined" label="Add Gear(s)" helperText="Available gear can be viewed below."/>
         )}
       ></Autocomplete>
+      <br />
     </FormControl>
   );
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={0}>
       
       <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", textAlign: "left",
-          m: 2,
+          m: 1,
           fontSize: 24,
           fontFamily: "Monospace",
           lineHeight: 2}}>
-        <FormControl sx={{ m: 2, width: 500 }} variant="standard">
+        <FormControl sx={{ m: 1, width: 400 }} variant="standard">
           <FormLabel component="legend">
-            Need any gears?
+            Need to checkout gear for the event?
           </FormLabel>
           <FormControlLabel
             control={
@@ -112,9 +151,15 @@ export default function CourseSelectionInput() {
           />
         </FormControl>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap" }}>
+      
+      {isGear && 
+      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", justifyContent: 'center' }}>
+        
         <Fade in={isGear}>{gearInput}</Fade>
+        <Fade in={isGear}>{iFrameGear}</Fade>
+        
       </Box>
+      }
     </Stack>
   );
 }

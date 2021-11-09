@@ -38,7 +38,7 @@ base('SMC People').select({
       x = x + 1;
         
         //console.log(x,'Retrieved', record.get('Person'), record)
-        console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
+        //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
