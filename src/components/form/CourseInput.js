@@ -15,6 +15,34 @@ import Fade from "@mui/material/Fade";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+
+////////////////////////////////////API Magic//////////////////////////////////////////////////////
+const classList = []; 
+
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+
+base('Classes').select({
+    view: "Grid view"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        //console.log('Retrieved', record.get('Item'), record);
+        classList.push(record.get('Name'))
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+//console.log(classList)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This will be used to store input data
 var userCourse;
 
