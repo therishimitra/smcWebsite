@@ -1,7 +1,7 @@
 import React from 'react'
 import SlideCalendar from '../components/slideCalendar';
 import SlideMessage from '../components/slideMessage';
-import NameInput, { userNameList } from '../components/form/NameInput';
+import NameInput from '../components/form/NameInput';
 import nameEntered from '../components/form/NameInput';
 import EventDetailsInput from '../components/form/EventDetailsInput';
 import RoomSelection from '../components/form/RoomSelection';
@@ -13,7 +13,34 @@ import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
+var x = 0 //counting number of records pulled using x
+const SMCpeople = [];
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+base('SMC People').select({
+    view: "ALL PEOPLE"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
 
+    records.forEach(function(record) {
+      
+      
+      SMCpeople.push( {name: record.get('Person'), id: x + 1});
+      x = x + 1;
+        
+        //console.log(x,'Retrieved', record.get('Person'), record)
+        //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Home() {
 
@@ -21,7 +48,7 @@ function Home() {
 
     const nameInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
-         <NameInput count={userCount} setUserCount={setUserCount}/>
+         <NameInput SMCpeople={SMCpeople} setUserCount={setUserCount}/>
         </Paper>
     );
 

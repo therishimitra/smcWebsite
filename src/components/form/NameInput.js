@@ -22,34 +22,7 @@ import FormLabel from "@mui/material/FormLabel";
 
 
 
-var x = 0 //counting number of records pulled using x
-const SMCpeople = [];
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
-base('SMC People').select({
-    view: "ALL PEOPLE"
-}).eachPage(function page(records, fetchNextPage) {
-    // This function (`page`) will get called for each page of records.
 
-    records.forEach(function(record) {
-      
-      
-      SMCpeople.push( {name: record.get('Person'), id: x + 1});
-      x = x + 1;
-        
-        //console.log(x,'Retrieved', record.get('Person'), record)
-        //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
-    });
-
-    // To fetch the next page of records, call `fetchNextPage`.
-    // If there are more records, `page` will get called again.
-    // If there are no more records, `done` will get called.
-    fetchNextPage();
-
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This will be used to store input data
 var userValues = [];
 
@@ -111,7 +84,7 @@ function renderItem({ item, handleRemoveName }) {
 
 const filter = createFilterOptions();
 
-function NameInput({count, setUserCount}) {
+function NameInput({SMCpeople, setUserCount}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
