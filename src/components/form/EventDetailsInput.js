@@ -123,7 +123,7 @@ export default function EventDetailsInput() {
               checkedIcon={checkedIcon}
               style={{ marginRight: 8 }}
               checked={selected}
-              // thank fucking god this fucking works
+              
               sx={{
                 color: pink[800],
                 "&.Mui-checked": {
@@ -209,7 +209,7 @@ export default function EventDetailsInput() {
         <div>
           <FormControl sx={{ m: 1, width: 400 }}>
             <InputLabel id="demo-multiple-chip-label">
-              Intend of Use
+              Intended Use
             </InputLabel>
             <Select
               labelId="event-multiple-selection"
