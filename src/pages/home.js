@@ -14,7 +14,10 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 var x = 0 //counting number of records pulled using x
+
 const SMCpeople = [];
+const facultyList = [];
+
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
 base('SMC People').select({
@@ -27,8 +30,13 @@ base('SMC People').select({
       
       SMCpeople.push( {name: record.get('Person'), id: x + 1});
       x = x + 1;
-        
-        //console.log(x,'Retrieved', record.get('Person'), record)
+      
+      if(record.get('Role').includes('Faculty/Staff 🎓'))
+      {
+        facultyList.push(record.get('Person'));
+      }
+
+      //console.log(x,'Retrieved', record.get('Person'), record)
         //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
     });
 
@@ -41,6 +49,8 @@ base('SMC People').select({
     if (err) { console.error(err); return; }
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+console.log(facultyList);
 
 function Home() {
 
@@ -65,7 +75,7 @@ function Home() {
       >  Event Details
       </Box>
 
-        <EventDetailsInput />
+        <EventDetailsInput facultyList = {facultyList}/>
         <br />
         </Paper>
     );

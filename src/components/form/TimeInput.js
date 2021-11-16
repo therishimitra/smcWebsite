@@ -74,7 +74,7 @@ export default function DateTimeValidation() {
       <div>
         {invalidTime && 
           <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="error">Proposed end time shold exceed start time!</Alert>
+          <Alert severity="error">Proposed end time should not exceed start time!</Alert>
           </Snackbar>
         }
       </div>

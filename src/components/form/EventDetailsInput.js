@@ -43,12 +43,7 @@ const eventTypes = [
   "Rehearsal 🎼"
 ];
 
-const facultyList = [
-  "faculty1",
-  "faculty2",
-  "faculty3",
-  "faculty4"
-];
+
 
 const eventUsages = ["Personal 😀", "Academic 🎓"];
 
@@ -61,7 +56,8 @@ function getStyles(type, eventType, theme) {
   };
 }
 
-export default function EventDetailsInput() {
+export default function EventDetailsInput({facultyList}) {
+
   const theme = useTheme();
   const [eventType, setEventType] = React.useState([]);
   const [eventUsage, setEventUsage] = React.useState([]);
