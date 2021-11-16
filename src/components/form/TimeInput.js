@@ -5,6 +5,9 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import Stack from "@mui/material/Stack";
 import FormControl from "@mui/material/FormControl";
+import MuiAlert from '@mui/material/Alert';
+
+import Snackbar from '@mui/material/Snackbar'; //test
 
 // This will be used to store input data
 var StartTime;
@@ -17,6 +20,7 @@ function ISODateString(d) {
   if (d === null) return null;
 
   console.log(d.getUTCHours());
+
   if (d.getUTCHours() < 4) {
     return (
       d.getUTCFullYear() +
@@ -48,17 +52,31 @@ function ISODateString(d) {
   }
 }
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" horizontal="center" {...props} />;
+});
+
 export default function DateTimeValidation() {
   const [startValue, setSartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
   const [invalidTime, setInvalidTime] = React.useState(false);
 
-  const TimeCheck = () => {
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+  }
+
+  const EndTimeCheck = () => {
     if (StartTime > EndTime) setInvalidTime(true);
     else setInvalidTime(false);
     return (
       <div>
-        {invalidTime && <p>Error: proposed end time shold exceed start time</p>}
+        {invalidTime && 
+          <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <Alert severity="error">Proposed end time shold exceed start time!</Alert>
+          </Snackbar>
+        }
       </div>
     );
   };
@@ -79,7 +97,9 @@ export default function DateTimeValidation() {
                 StartTime = ISODateString(newValue);
                 console.log(StartTime);
               }}
-              minDateTime={new Date()}
+              minDate={new Date()}
+              minTime={new Date(0, 0, 0, 8)}
+              maxTime={new Date(0, 0, 0, 23, 59)}
             />
           </FormControl>
         </div>
@@ -95,13 +115,17 @@ export default function DateTimeValidation() {
                 EndTime = ISODateString(newValue);
                 console.log(EndTime);
               }}
+              minTimeMessage
+              maxTimeMessage
               minDate={new Date()}
+              minTime={new Date(0, 0, 0, 8)}
+              maxTime={new Date(0, 0, 0, 23, 59)}
               clearable={true}
             />
           </FormControl>
         </div>
       </Stack>
-      <TimeCheck />
+      <EndTimeCheck />
     </LocalizationProvider>
   );
 }

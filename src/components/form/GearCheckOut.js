@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
+import FormControl, { useFormControl } from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { pink } from "@mui/material/colors";
@@ -11,6 +11,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -67,9 +68,45 @@ const iFrameGear =(
             />
 );
 
+function sleep(delay = 0) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+}
+
+
 export default function CourseSelectionInput() {
   const [isGear, setIsGear] = React.useState(false);
   const [gear, setGear] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const loading = open && options.length === 0;
+
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      await sleep(1e3); // For demo purposes.
+
+      if (active) {
+        setOptions([...gearList]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
 
   const handleChangeGear = (event) => {
     setIsGear(event.target.checked);
@@ -78,6 +115,13 @@ export default function CourseSelectionInput() {
   const gearInput = (
     <FormControl sx={{ m: 1, width: 400 }} variant="standard">
       <Autocomplete
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          setOpen(false);
+        }}
         multiple
         freeSolo
         disableCloseOnSelect
@@ -94,7 +138,7 @@ export default function CourseSelectionInput() {
           }
         }}
         id="Search-for-course"
-        options={gearList}
+        options={options}
         getOptionLabel={(option) => option}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
@@ -103,7 +147,6 @@ export default function CourseSelectionInput() {
               checkedIcon={checkedIcon}
               style={{ marginRight: 8 }}
               checked={selected}
-              // thank fucking god this fucking works
               sx={{
                 color: pink[800],
                 "&.Mui-checked": {
@@ -115,22 +158,38 @@ export default function CourseSelectionInput() {
           </li>
         )}
         renderInput={(params) => (
-          <TextField {...params} variant="outlined" label="Add Gear(s)" helperText="Available gear can be viewed below."/>
+          <TextField {...params} 
+          variant="outlined" 
+          label="Add Gear(s)" 
+          helperText="Available gear can be viewed below."
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <React.Fragment>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            ),
+          }}
+          />
         )}
       ></Autocomplete>
       <br />
     </FormControl>
+
   );
 
   return (
     <Stack spacing={0}>
       
       <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", textAlign: "left",
-          m: 1,
+          m: 2,
           fontSize: 24,
           fontFamily: "Monospace",
-          lineHeight: 2}}>
-        <FormControl sx={{ m: 1, width: 400 }} variant="standard">
+          lineHeight: 2,
+          width: 400 
+        }}>
+        
           <FormLabel component="legend">
             Need to checkout gear for the event?
           </FormLabel>
@@ -149,7 +208,7 @@ export default function CourseSelectionInput() {
             }
             label="Gear check-out"
           />
-        </FormControl>
+ 
       </Box>
       
       {isGear && 

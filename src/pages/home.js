@@ -41,7 +41,7 @@ base('SMC People').select({
     if (err) { console.error(err); return; }
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//change
+
 function Home() {
 
     const [userCount, setUserCount] = React.useState(0);
@@ -113,6 +113,7 @@ function Home() {
     const gearInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
         <GearCheckOut />
+        <br />
          </Paper>
     );
     

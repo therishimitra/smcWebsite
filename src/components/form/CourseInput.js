@@ -109,11 +109,13 @@ export default function CourseSelectionInput() {
   return (
     <Stack spacing={0}>
       <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", textAlign: "left",
-          m: 1,
+          m: 2,
           fontSize: 24,
           fontFamily: "Monospace",
-          lineHeight: 2}}>
-        <FormControl sx={{ m: 1, width: 400 }} variant="standard">
+          lineHeight: 2,
+          width: 400 
+        }}>
+    
           <FormLabel component="legend">
             Is this time slot for a course assignment?
           </FormLabel>
@@ -132,7 +134,7 @@ export default function CourseSelectionInput() {
             }
             label="Course assignment"
           />
-        </FormControl>
+
       </Box>
       <Box sx={{ justifyContent: 'center'}}>
        {isCourse && <Fade in={isCourse}>{courseInput}</Fade>}
