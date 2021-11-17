@@ -13,13 +13,27 @@ import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
-var x = 0 //counting number of records pulled using x
-
 const SMCpeople = [];
+const peopleRecIDs = [];
 const facultyList = [];
+
+const RecordingStudioRoomsList = [];
+const RecordingStudioRoomsIDs = [];
+
+const RehearsalRoomsList = [];
+const RehearsalRoomsIDs = [];
+
+const ECRoomsList = [];
+const ECRoomsIDs = [];
+
+///////////////////////////////////////////             ///////////////////////////////////////////
+///////////////////////////////////////////  API CALLS  ///////////////////////////////////////////
+///////////////////////////////////////////             ///////////////////////////////////////////
 
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+
+///////////////////////Peopling records from SMC People////////////////////////
 base('SMC People').select({
     view: "ALL PEOPLE"
 }).eachPage(function page(records, fetchNextPage) {
@@ -28,15 +42,15 @@ base('SMC People').select({
     records.forEach(function(record) {
       
       
-      SMCpeople.push( {name: record.get('Person'), id: x + 1});
-      x = x + 1;
+      SMCpeople.push( {name: record.get('Person'), id: record.id});
+      peopleRecIDs.push(record.id);
       
       if(record.get('Role').includes('Faculty/Staff 🎓'))
       {
         facultyList.push(record.get('Person'));
       }
 
-      //console.log(x,'Retrieved', record.get('Person'), record)
+        //console.log(x,'Retrieved', record.get('Person'), record)
         //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
     });
 
@@ -48,9 +62,80 @@ base('SMC People').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-console.log(facultyList);
+
+/////////////////////////////////////////// Pulling Records from Rooms  ///////////////////////////////////////////
+
+//Recording Studio:
+
+base('Rooms').select({
+    view: "Bookable Rooms 🔒 (Studio Booking Form)"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+
+      RecordingStudioRoomsList.push( {key: record.id, name: record.get('Name') });
+        
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+console.log(RecordingStudioRoomsList)
+
+//Rehearsal Rooms:
+
+base('Rooms').select({
+    view: "Bookable Rooms 🔒 (Rehearsal Booking Form)"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        
+      RehearsalRoomsList.push({key: record.id, name: record.get('Name') });
+        
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+
+
+//Edit and Collab:
+
+base('Rooms').select({
+    view: "Bookable Rooms 🔒 (Edit and Collab Booking Form)-devTeam"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        
+        ECRoomsList.push({key: record.id, name: record.get('Name') });
+        
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
+
+
+
 
 function Home() {
 
@@ -92,7 +177,7 @@ function Home() {
         }}
         >  Room Selection
         </Box>
-        <RoomSelection />
+        <RoomSelection roomOptionStudio={RecordingStudioRoomsList} roomOptionRehearsal={RehearsalRoomsList} roomOptionECspace={ECRoomsList}/>
         <br />
         </Paper>
     );

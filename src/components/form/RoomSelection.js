@@ -70,20 +70,20 @@ const roomTypes = [
   "Edit & Collaboration Spaces 🎒"
 ];
 
-const roomOptionStudio = [
-  { key: 0, name: "Studio Room1 😀" },
-  { key: 1, name: "Studio Room2 🎓" }
-];
+//const roomOptionStudio = [
+  //{ key: 0, name: "Studio Room1 😀" },
+  //{ key: 1, name: "Studio Room2 🎓" }
+//];
 
-const roomOptionRehearsal = [
-  { key: 0, name: "Rehearsal Room1 😀" },
-  { key: 1, name: "Rehearsal Room2 🎓" }
-];
+//const roomOptionRehearsal = [
+//  { key: 0, name: "Rehearsal Room1 😀" },
+//  { key: 1, name: "Rehearsal Room2 🎓" }
+//];
 
-const roomOptionECspace = [
-  { key: 0, name: "ECspace Room1 😀" },
-  { key: 1, name: "ECspace Room2 🎓" }
-];
+//const roomOptionECspace = [
+//  { key: 0, name: "ECspace Room1 😀" },
+//  { key: 1, name: "ECspace Room2 🎓" }
+//];
 
 function getStyles(type, eventType, theme) {
   return {
@@ -94,7 +94,7 @@ function getStyles(type, eventType, theme) {
   };
 }
 
-export default function RoomSelectionInput() {
+export default function RoomSelectionInput({roomOptionStudio, roomOptionRehearsal, roomOptionECspace}) {
   const classes = useStyles();
   const theme = useTheme();
   const [roomType, setRoomType] = React.useState([]);
