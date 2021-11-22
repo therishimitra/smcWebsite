@@ -105,8 +105,6 @@ function NameInput({SMCpeople, userSelected, setUserCount}) {
     userValues.splice(userValues.indexOf(item), 1);
     setUserCount(userNameList.length); // send data to home
     userSelected = userValues;
-
-    console.log(userNameList);
   };
 
   const handleClickOpen = () => {
@@ -143,7 +141,7 @@ function NameInput({SMCpeople, userSelected, setUserCount}) {
         setUserCount(userNameList.length); // send data to home 
         userSelected = userValues;
 
-
+        
         //console.log("Uservalues", userValues);
         //console.log(userNameList);
         //console.log(userNameList.length);

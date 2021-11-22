@@ -34,7 +34,7 @@ const ECRoomsIDs = [];
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
 
-///////////////////////Peopling records from SMC People////////////////////////
+///////////////////////Pulling records from SMC People///////////////////////
 base('SMC People').select({
     view: "ALL PEOPLE"
 }).eachPage(function page(records, fetchNextPage) {
@@ -136,7 +136,6 @@ base('Rooms').select({
 
 var userSelected;
 
-
 function Home() {
 
     const [userCount, setUserCount] = React.useState(0);
@@ -144,9 +143,9 @@ function Home() {
     const nameInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2}}>
          <NameInput SMCpeople={SMCpeople} userSelected={userSelected} setUserCount={setUserCount}/>
-        </Paper>
+        </Paper>  
     );
-
+    
     const eventDetailsInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
         <Box
@@ -220,9 +219,9 @@ function Home() {
             
         
             <Fade in={true}>{nameInput}</Fade>
- 
+
             {(userCount > 0) && <Fade in={userCount > 0}>{eventDetailsInput}</Fade>}
-  
+            
             {(userCount > 0) && <Fade in={userCount > 0}>{roomInput}</Fade>}
    
             {(userCount > 0) && <Fade in={userCount > 0}>{timeInput}</Fade>}
