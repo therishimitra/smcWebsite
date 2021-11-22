@@ -18,7 +18,7 @@ import contact from './pages/contact'
 const theme = createTheme({
   palette: {
     background: {
-      default: "#e8d6c0"
+      default: "#2e1667"
     },
     primary: {
       main:"#2e1667",
@@ -42,7 +42,16 @@ const theme = createTheme({
     },
   },
 
-  
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          backgroundImage:
+            "url(https://i.pinimg.com/originals/1b/17/03/1b1703c2d9a51372e2954f9f75c25fc9.jpg)"
+        }
+      }
+    }
+  }
 });
 
 
