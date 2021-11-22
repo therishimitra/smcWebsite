@@ -17,7 +17,6 @@ function schedules() {
 
         <div>
             <SlideMessageRec/>
-            hey
             <SlideCalendarRec/>
             <SlideMessageReh/> 
             <SlideCalendarReh/>

@@ -12,9 +12,10 @@ import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import CustomBtn from '../components/customBtn'
 
+const peopleAllInfo = [];
 const SMCpeople = [];
-const peopleRecIDs = [];
 const facultyList = [];
 
 const RecordingStudioRoomsList = [];
@@ -43,7 +44,7 @@ base('SMC People').select({
       
       
       SMCpeople.push( {name: record.get('Person'), id: record.id});
-      peopleRecIDs.push(record.id);
+      peopleAllInfo.push({id: record.id, name: record.get('Person'), roomAccess: record.get('Room Access'), lendLevel: record.get('Lending Level')} );
       
       if(record.get('Role').includes('Faculty/Staff 🎓'))
       {
@@ -62,7 +63,7 @@ base('SMC People').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-
+console.log(peopleAllInfo)
 
 /////////////////////////////////////////// Pulling Records from Rooms  ///////////////////////////////////////////
 
@@ -87,7 +88,6 @@ base('Rooms').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-console.log(RecordingStudioRoomsList)
 
 //Rehearsal Rooms:
 
@@ -134,7 +134,7 @@ base('Rooms').select({
     if (err) { console.error(err); return; }
 });
 
-
+var userSelected;
 
 
 function Home() {
@@ -142,8 +142,8 @@ function Home() {
     const [userCount, setUserCount] = React.useState(0);
 
     const nameInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
-         <NameInput SMCpeople={SMCpeople} setUserCount={setUserCount}/>
+        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2}}>
+         <NameInput SMCpeople={SMCpeople} userSelected={userSelected} setUserCount={setUserCount}/>
         </Paper>
     );
 
@@ -211,12 +211,6 @@ function Home() {
         <br />
          </Paper>
     );
-    
-    const test =() => {
-
-        console.log(NameInput().global.length);
-    };
-    
     
     return(  
 

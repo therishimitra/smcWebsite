@@ -84,7 +84,7 @@ function renderItem({ item, handleRemoveName }) {
 
 const filter = createFilterOptions();
 
-function NameInput({SMCpeople, setUserCount}) {
+function NameInput({SMCpeople, userSelected, setUserCount}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -104,6 +104,7 @@ function NameInput({SMCpeople, setUserCount}) {
     userNameList.splice(userNameList.indexOf(item), 1);
     userValues.splice(userValues.indexOf(item), 1);
     setUserCount(userNameList.length); // send data to home
+    userSelected = userValues;
 
     console.log(userNameList);
   };
@@ -139,11 +140,13 @@ function NameInput({SMCpeople, setUserCount}) {
         handleClose();
         userValues.push(newValue);
         userNameList.push(newValue.name);
-        setUserCount(userNameList.length); // send data to home
+        setUserCount(userNameList.length); // send data to home 
+        userSelected = userValues;
 
-        console.log(userValues);
-        console.log(userNameList);
-        console.log(userNameList.length);
+
+        //console.log("Uservalues", userValues);
+        //console.log(userNameList);
+        //console.log(userNameList.length);
         handleAddName();
       }
   }

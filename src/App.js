@@ -18,7 +18,7 @@ import contact from './pages/contact'
 const theme = createTheme({
   palette: {
     background: {
-      default: "#242424"
+      default: "#e8d6c0"
     },
     primary: {
       main:"#2e1667",
@@ -41,6 +41,8 @@ const theme = createTheme({
       lineHeight: '2rem',
     },
   },
+
+  
 });
 
 
@@ -52,7 +54,7 @@ function App() {
       <div className="App">
       
       <ThemeProvider theme={theme}>
-
+      <CssBaseline />
        <NavBar/>
         
         <Switch>
