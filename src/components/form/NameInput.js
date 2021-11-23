@@ -84,7 +84,7 @@ function renderItem({ item, handleRemoveName }) {
 
 const filter = createFilterOptions();
 
-function NameInput({SMCpeople, userSelected, setUserCount}) {
+function NameInput({peopleAllInfo, userSelected, setUserCount}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -141,9 +141,9 @@ function NameInput({SMCpeople, userSelected, setUserCount}) {
         setUserCount(userNameList.length); // send data to home 
         userSelected = userValues;
 
-        
+        //console.log(peopleAllInfo[0]);
         //console.log("Uservalues", userValues);
-        //console.log(userNameList);
+        console.log(userNameList);
         //console.log(userNameList.length);
         handleAddName();
       }
@@ -166,7 +166,7 @@ function NameInput({SMCpeople, userSelected, setUserCount}) {
             clearOnBlur={true}
             handleHomeEndKeys
             id="Search-for-name"
-            options={SMCpeople}
+            options={peopleAllInfo}
             getOptionLabel={(option) => {
               if (typeof option === "string") {
                 // Value selected with enter, right from the input
