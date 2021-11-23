@@ -50,22 +50,22 @@ function NavBar() {
                 
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 
-                <NavLink exact to='/' className="main-nav" activeClassName="main-nav-active">
+                <NavLink exact to='/' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
                     <CustomBtn txt="Book Rooms"/>                   
                 </NavLink>
                 
 
-                <NavLink to='/schedules' className="main-nav" activeClassName="main-nav-active" >
+                <NavLink to='/schedules' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active" >
                     <CustomBtn txt="Room Schedules"/>
                 </NavLink>
                 
 
-                <NavLink to='/gear' className="main-nav" activeClassName="main-nav-active">
+                <NavLink to='/gear' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
                     <CustomBtn txt="Gear Checkout"/>
                 </NavLink>
                 
 
-                <NavLink to='/contact' className="main-nav" activeClassName="main-nav-active">
+                <NavLink to='/contact' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
                     <CustomBtn txt="Contact Us"/>
                 </NavLink>
 
