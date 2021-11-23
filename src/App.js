@@ -47,7 +47,7 @@ const theme = createTheme({
       "@global": {
         body: {
           backgroundImage:
-            "url(https://i.pinimg.com/originals/1b/17/03/1b1703c2d9a51372e2954f9f75c25fc9.jpg)"
+            "url(https://brand.pfw.edu/sites/default/files/inline-images/PFW%20Brand%20Site_Visual%20Elements_26.jpg)"
         }
       }
     }
