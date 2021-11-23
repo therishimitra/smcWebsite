@@ -2,7 +2,7 @@ import React from 'react'
 import {useSpring, animated} from 'react-spring';
 
 const noteStyle = {
-    background: '#faa0a0',
+    background: '#transparent',
     color: 'white',
     padding: '1.5rem'
 
