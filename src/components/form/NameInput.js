@@ -216,28 +216,15 @@ function NameInput({SMCpeople, userSelected, setUserCount}) {
 
   return (
     <div>
-      <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 24,
-          fontFamily: "Monospace",
-          lineHeight: 2
-        }}
-      >
-        Who's booking?
-        <br />
-        <FormLabel component="legend">
-            i.e. takes all responsibility!
-          </FormLabel>
+      <Box sx={{textAlign: "left", m: 2}}>
         <Button variant="contained" onClick={handleClickOpen}>
           +ADD
         </Button>
       </Box>
       {nameInputDialog}
       {userNameList.length !== 0 && (
-        <Box sx={{ mt: 1, boxShadow: 2 }}>
-          <Paper elevation={3} />
+        <Paper variant="outlined" sx={{ mt: 2, boxShadow: 1 }}>
+          <Paper  />
           <List>
             <TransitionGroup>
               {nameInDisplay.map((item) => (
@@ -248,7 +235,7 @@ function NameInput({SMCpeople, userSelected, setUserCount}) {
               ))}
             </TransitionGroup>
           </List>
-        </Box>
+        </Paper>
       )}
     </div>
   );

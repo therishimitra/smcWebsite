@@ -1,5 +1,8 @@
 import React from 'react'
 import {useSpring, animated} from 'react-spring';
+import Typography from '@mui/material/Typography';
+import Box from "@mui/material/Box";
+import Grid from '@mui/material/Grid';
 
 const noteStyle = {
     background: '#ff6961',
@@ -23,17 +26,29 @@ function SlideMessage() {
 
 
     return (
-    
+        <Grid item xs={12}>
     <animated.div style={slideStyle}>
         <div style={noteStyle}>
             <h1>
-                Note:
+                Schedule SMC Events
             </h1>
-            <h3>
-                Please review the calendar below before booking your SMC time to see availability of rooms. Click on the 'Room Schedules' tab to view schedules for specific rooms.
-            </h3>
+            <Box
+            sx={{
+              textAlign: "left",
+              m: "auto",
+              fontSize: 16,
+              fontStyle: 'italic',
+              fontWeight: "Light",
+              lineHeight: 1.3,
+              width: 700
+            }}
+            >
+            Everyone can take advantage of scheduling time in the edit & collaboration spaces in the SMC building.  Approved students registered for certain classes have privileges to schedule time in the recording studio, rehearsal room and control room.
+         
+            </Box>
         </div>
     </animated.div>
+    </Grid>
            
     )
 }

@@ -5,7 +5,8 @@ import logoMobile from'../logo.png'
 import {Toolbar, Typography} from '@material-ui/core'
 import {makeStyles} from "@material-ui/core/styles"; 
 import { NavLink } from 'react-router-dom';
-
+import Box from "@mui/material/Box";
+import Grid from '@mui/material/Grid';
 
 const styles = makeStyles({
     bar:{
@@ -42,6 +43,8 @@ const styles = makeStyles({
 function NavBar() {
     const classes = styles()
     return (
+        <Grid container>
+        <Grid item xs={12}>
         <Toolbar position="sticky" color="rgba(0, 0, 0, 0.87)" className={classes.bar}>   
                 
                 <a href="https://pfw-smc.notion.site/pfw-smc/PFW-Sweetwater-Music-Center-17d134f1dd704a56909044ddb24d61ed">
@@ -70,6 +73,8 @@ function NavBar() {
                 </NavLink>
 
             </Toolbar>
+            </Grid>
+            </Grid>
     )
 }
 
