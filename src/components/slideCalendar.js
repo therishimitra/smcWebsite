@@ -3,7 +3,7 @@ import {useSpring, animated} from 'react-spring';
 import Grid from '@mui/material/Grid';
 
 const noteStyle = {
-    background: '#transparent',
+    background: '#e7dcc8',
     color: 'white',
     padding: '1.5rem'
 

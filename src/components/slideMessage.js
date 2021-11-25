@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
 
 const noteStyle = {
-    background: '#ff6961',
-    color: 'white',
+    background: '#CFB991',
+    color: '#3b3e43',
     padding: '1.5rem'
 
 }

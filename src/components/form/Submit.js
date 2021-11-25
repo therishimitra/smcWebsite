@@ -74,12 +74,11 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: '#CFB991',
+  bgcolor: '#e7dcc8',
   outline:0, 
   boxShadow: 20,
   p: 4,
-  fontFamily: "CONDENSED HEAVY", 
-  color: 'Black',
+  color: '#191b1d',
 };
 
 export default function BasicModal() {
