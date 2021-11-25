@@ -18,11 +18,14 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import Grid from '@mui/material/Grid';
 import MuiAlert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
+import Submit from '../components/form/Submit';
+
+
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-import Submit from '../components/form/Submit';
+
 
 const peopleAllInfo = [];
 const SMCpeople = [];
@@ -175,7 +178,7 @@ function Home() {
             i.e. takes all responsibility!
           </FormLabel>
         </Box>
-         <NameInput SMCpeople={SMCpeople} userSelected={userSelected} setUserCount={setUserCount}/>
+         <NameInput peopleAllInfo={peopleAllInfo} userSelected={userSelected} setUserCount={setUserCount}/>
         </Paper>  
         
     );
