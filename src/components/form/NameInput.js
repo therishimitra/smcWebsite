@@ -82,9 +82,37 @@ function renderItem({ item, handleRemoveName }) {
   );
 }
 
+var roomTypes;
+
+function filterRoomType(disabled) {
+  ////////////////////// Filtering rooms using API data
+  if (userValues.some(element => element.roomAccess === 'Room Access 3')) {
+    disabled = [];
+  }
+  else if (userValues.some(element => element.roomAccess === 'Room Access 2')){
+    disabled = ["Recording Studio 🎙️"];
+  }
+  else if (userValues.some(element => element.roomAccess === 'Room Access 1')){
+    disabled = [
+      "Recording Studio 🎙️",
+      "Rehearsal Spaces 🎧"
+    ];
+  }
+  else{
+    // roomTypes[] remains empty as the user has no access levels
+    disabled = [
+      "Recording Studio 🎙️",
+      "Rehearsal Spaces 🎧",
+      "Edit & Collaboration Spaces 🎒"
+   ];
+  }
+  return disabled;
+}
+
+
 const filter = createFilterOptions();
 
-function NameInput({peopleAllInfo, userSelected, setUserCount}) {
+function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoomTypes}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -100,11 +128,16 @@ function NameInput({peopleAllInfo, userSelected, setUserCount}) {
   };
 
   const handleRemoveName = (item) => {
+    console.log(item);
     setNameInDisplay((prev) => [...prev.filter((i) => i !== item)]);
     userNameList.splice(userNameList.indexOf(item), 1);
-    userValues.splice(userValues.indexOf(item), 1);
+    userValues = userValues.filter((user) => user.name !== item);
+
+    console.log(userNameList);
+    console.log(userValues);
     setUserCount(userNameList.length); // send data to home
-    userSelected = userValues;
+    setUserSelected(userValues);
+    setDisabledRoomTypes(filterRoomType(roomTypes));
   };
 
   const handleClickOpen = () => {
@@ -139,11 +172,12 @@ function NameInput({peopleAllInfo, userSelected, setUserCount}) {
         userValues.push(newValue);
         userNameList.push(newValue.name);
         setUserCount(userNameList.length); // send data to home 
-        userSelected = userValues;
-
+        setUserSelected(userValues);
+        setDisabledRoomTypes(filterRoomType(roomTypes));
         //console.log(peopleAllInfo[0]);
         //console.log("Uservalues", userValues);
         console.log(userNameList);
+        console.log(userValues);
         //console.log(userNameList.length);
         handleAddName();
       }
@@ -243,7 +277,3 @@ function NameInput({peopleAllInfo, userSelected, setUserCount}) {
 
 export default NameInput;
 
-export function nameEntered() {
-
-  return userNameList.length
-}

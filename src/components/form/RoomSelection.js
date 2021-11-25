@@ -63,12 +63,14 @@ const useStyles = makeStyles((theme) => ({
 // This will be used to store input data
 var userRoomType;
 var userRoomSelection;
-const roomTypes = [];
-// const roomTypes = [
-//   "Recording Studio 🎙️",
-//   "Rehearsal Spaces 🎧",
-//   "Edit & Collaboration Spaces 🎒"
-// ];
+//const roomTypes = [];
+var disabledRoomTypes;
+
+const roomTypes = [
+   "Recording Studio 🎙️",
+   "Rehearsal Spaces 🎧",
+   "Edit & Collaboration Spaces 🎒"
+];
 
 //const roomOptionStudio = [
   //{ key: 0, name: "Studio Room1 😀" },
@@ -94,7 +96,7 @@ function getStyles(type, eventType, theme) {
   };
 }
 
-export default function RoomSelectionInput({userSelected, roomOptionStudio, roomOptionRehearsal, roomOptionECspace}) {
+export default function RoomSelectionInput({userSelected, roomOptionStudio, roomOptionRehearsal, roomOptionECspace, disabledRoomTypes}) {
   
   const classes = useStyles();
   const theme = useTheme();
@@ -104,32 +106,6 @@ export default function RoomSelectionInput({userSelected, roomOptionStudio, room
   const [isStudio, setIsStudio] = React.useState(false);
   const [isRehearsal, setIsRehearsal] = React.useState(false);
   const [isECspace, setIsECspace] = React.useState(false);
-
-
-  const filterRoomType = () => {
-    ////////////////////// Filtering rooms using API data
-    if (userSelected.some(element => element.roomAccess === 'Room Access 3')) {
-      roomTypes = [
-        "Recording Studio 🎙️",
-        "Rehearsal Spaces 🎧",
-        "Edit & Collaboration Spaces 🎒"
-      ];
-    }
-    else if (userSelected.some(element => element.roomAccess === 'Room Access 2')){
-      roomTypes = [
-        "Rehearsal Spaces 🎧",
-        "Edit & Collaboration Spaces 🎒"
-      ];
-    }
-    else if (userSelected.some(element => element.roomAccess === 'Room Access 1')){
-      roomTypes = [
-        "Edit & Collaboration Spaces 🎒"
-      ];
-    }
-    else{
-      // roomTypes[] remains empty as the user has no access levels
-    }
-  };
 
   const handleChangeRoomType = (event) => {
     const {
@@ -141,6 +117,8 @@ export default function RoomSelectionInput({userSelected, roomOptionStudio, room
     );
     userRoomType = value;
     console.log(userRoomType);
+    console.log(userSelected);
+    console.log(disabledRoomTypes);
 
     if (userRoomType === "Recording Studio 🎙️") {
       setIsStudio(true);
@@ -344,7 +322,6 @@ export default function RoomSelectionInput({userSelected, roomOptionStudio, room
 
   return (
     <div>
-
       <Stack spacing={1}>
         <div>
           <FormControl sx={{ m: 1, width: 400 }}>
@@ -373,6 +350,7 @@ export default function RoomSelectionInput({userSelected, roomOptionStudio, room
                   key={type}
                   value={type}
                   style={getStyles(type, roomType, theme)}
+                  disabled={disabledRoomTypes.indexOf(type) > -1}
                 >
                   {type}
                 </MenuItem>

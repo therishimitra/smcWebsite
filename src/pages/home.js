@@ -156,11 +156,14 @@ base('Rooms').select({
     if (err) { console.error(err); return; }
 });
 
-var userSelected;
+//var userSelected;
+//var disabledRoomTypes;
 
 function Home() {
 
     const [userCount, setUserCount] = React.useState(0);
+    const [userSelected, setUserSelected] = React.useState([]); 
+    const [disabledRoomTypes, setDisabledRoomTypes] = React.useState([]); 
 
     const nameInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 1}}>
@@ -178,7 +181,7 @@ function Home() {
             i.e. takes all responsibility!
           </FormLabel>
         </Box>
-         <NameInput peopleAllInfo={peopleAllInfo} userSelected={userSelected} setUserCount={setUserCount}/>
+         <NameInput peopleAllInfo={peopleAllInfo} setUserSelected={setUserSelected} setUserCount={setUserCount} setDisabledRoomTypes={setDisabledRoomTypes}/>
         </Paper>  
         
     );
@@ -221,7 +224,7 @@ function Home() {
         </Grid>
         </Grid>
         </Box>
-        <RoomSelection userSelected = {userSelected} roomOptionStudio={RecordingStudioRoomsList} roomOptionRehearsal={RehearsalRoomsList} roomOptionECspace={ECRoomsList}/>
+        <RoomSelection userSelected = {userSelected} roomOptionStudio={RecordingStudioRoomsList} roomOptionRehearsal={RehearsalRoomsList} roomOptionECspace={ECRoomsList} disabledRoomTypes={disabledRoomTypes}/>
         <br />
         </Paper>
     );
