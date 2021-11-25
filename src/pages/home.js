@@ -22,6 +22,7 @@ import Typography from '@mui/material/Typography';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+import Submit from '../components/form/Submit';
 
 const peopleAllInfo = [];
 const SMCpeople = [];
@@ -42,7 +43,7 @@ const ECRoomsIDs = [];
 
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
-
+var x=0;
 ///////////////////////Pulling records from SMC People///////////////////////
 base('SMC People').select({
     view: "ALL PEOPLE"
@@ -53,7 +54,8 @@ base('SMC People').select({
       
       
       SMCpeople.push( {name: record.get('Person'), id: record.id});
-      peopleAllInfo.push({id: record.id, name: record.get('Person'), roomAccess: record.get('Room Access'), lendLevel: record.get('Lending Level')} );
+      peopleAllInfo[x] = {id: record.id, name: record.get('Person'), roomAccess: record.get('Room Access'), gearAccess: record.get('Gear Access')} ;
+      x=x+1;
       
       if(record.get('Role').includes('Faculty/Staff 🎓'))
       {
@@ -61,7 +63,7 @@ base('SMC People').select({
       }
 
         //console.log(x,'Retrieved', record.get('Person'), record)
-        //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Lending Level'));
+        //console.log(x,'Retrieved', record.get('Person'), record.get('Room Access'), record.get('Gear Access'));
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
@@ -72,7 +74,15 @@ base('SMC People').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-console.log(peopleAllInfo)
+
+//peopleAllInfo.forEach(element => console.log(element));
+
+// console.log(peopleAllInfo[2].lendLevel)
+console.log(peopleAllInfo[0])
+//console.log((SMCpeople[0]))
+//console.log(typeof(SMCpeople))
+//console.log(peopleAllInfo[0].name)
+
 
 /////////////////////////////////////////// Pulling Records from Rooms  ///////////////////////////////////////////
 
@@ -208,7 +218,7 @@ function Home() {
         </Grid>
         </Grid>
         </Box>
-        <RoomSelection roomOptionStudio={RecordingStudioRoomsList} roomOptionRehearsal={RehearsalRoomsList} roomOptionECspace={ECRoomsList}/>
+        <RoomSelection userSelected = {userSelected} roomOptionStudio={RecordingStudioRoomsList} roomOptionRehearsal={RehearsalRoomsList} roomOptionECspace={ECRoomsList}/>
         <br />
         </Paper>
     );
@@ -315,9 +325,13 @@ function Home() {
 
             <Fade in={true}>{gearInput}</Fade>
 
-            
+            <div>
+            <Submit/>
+            </div>
+           
         </div>
-            
+
+ 
 
     ) 
    

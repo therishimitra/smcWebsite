@@ -42,7 +42,16 @@ const theme = createTheme({
     },
   },
 
-  
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          backgroundImage:
+            "url(https://brand.pfw.edu/sites/default/files/inline-images/PFW%20Brand%20Site_Visual%20Elements_26.jpg)"
+        }
+      }
+    }
+  }
 });
 
 
