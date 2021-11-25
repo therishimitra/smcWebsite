@@ -161,12 +161,26 @@ base('Rooms').select({
 
 function Home() {
 
-    const [userCount, setUserCount] = React.useState(0);
+    // main input data
     const [userSelected, setUserSelected] = React.useState([]); 
+    const [sessionTitle, setSessionTitle] = React.useState([]);
+    const [eventTypeSelected, setEventTypeSelected] = React.useState([]);
+    const [facultySelected, setFacultySelected] = React.useState([]);
+    const [usageSelected, setUsageSelected] = React.useState([]);
+    const [roomTypeSelected, setRoomTypeSelected] = React.useState([]);
+    const [roomSelected, setRoomSelected] = React.useState([]); 
+    const [startTimeSelected, setStartTimeSelected] = React.useState([]); 
+    const [endTimeSelected, setEndTimeSelected] = React.useState([]); 
+    const [courseSelected, setCourseSelected] = React.useState([]); 
+    const [gearSelected, setGearSelected] = React.useState([]); 
+
+    // supportive input data
+    const [userCount, setUserCount] = React.useState(0);
     const [disabledRoomTypes, setDisabledRoomTypes] = React.useState([]); 
+    const [timeCorrect, setTimeCorrect] = React.useState(false); 
 
     const nameInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 1}}>
+        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2}}>
         <Box
         sx={{
           textAlign: "left",
@@ -181,13 +195,17 @@ function Home() {
             i.e. takes all responsibility!
           </FormLabel>
         </Box>
-         <NameInput peopleAllInfo={peopleAllInfo} setUserSelected={setUserSelected} setUserCount={setUserCount} setDisabledRoomTypes={setDisabledRoomTypes}/>
+         <NameInput 
+         peopleAllInfo={peopleAllInfo} 
+         setUserSelected={setUserSelected} 
+         setUserCount={setUserCount} 
+         setDisabledRoomTypes={setDisabledRoomTypes}/>
         </Paper>  
         
     );
     
     const eventDetailsInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 1 }}>
+        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
         <Box
         sx={{
           textAlign: "left",
@@ -198,7 +216,13 @@ function Home() {
       >  Event Details
       </Box>
 
-        <EventDetailsInput facultyList = {facultyList}/>
+        <EventDetailsInput 
+        facultyList = {facultyList} 
+        setSessionTitle={setSessionTitle}
+        setEventTypeSelected={setEventTypeSelected}
+        setFacultySelected={setFacultySelected}
+        setUsageSelected={setUsageSelected}
+        />
         <br />
         </Paper>
     );
@@ -224,7 +248,14 @@ function Home() {
         </Grid>
         </Grid>
         </Box>
-        <RoomSelection userSelected = {userSelected} roomOptionStudio={RecordingStudioRoomsList} roomOptionRehearsal={RehearsalRoomsList} roomOptionECspace={ECRoomsList} disabledRoomTypes={disabledRoomTypes}/>
+        <RoomSelection 
+        roomOptionStudio={RecordingStudioRoomsList} 
+        roomOptionRehearsal={RehearsalRoomsList} 
+        roomOptionECspace={ECRoomsList} 
+        disabledRoomTypes={disabledRoomTypes}
+        setRoomTypeSelected={setRoomTypeSelected}
+        setRoomSelected={setRoomSelected}
+        />
         <br />
         </Paper>
     );
@@ -250,20 +281,24 @@ function Home() {
         </Grid>
         </Grid>
         </Box>
-        <TimeInput />
+        <TimeInput 
+        setStartTimeSelected={setStartTimeSelected}
+        setEndTimeSelected={setEndTimeSelected}
+        setTimeCorrect={setTimeCorrect}
+        />
         <br />
          </Paper>
     );
     
     const courseInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
-        <CourseInput />
+        <CourseInput setCourseSelected={setCourseSelected}/>
         <br />
          </Paper>
     );
     const gearInput = (
         <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
-        <GearCheckOut />
+        <GearCheckOut setGearSelected={setGearSelected}/>
         <br />
          </Paper>
     );
@@ -317,7 +352,7 @@ function Home() {
         <div>
             <SlideMessage/>
             <SlideCalendar/>
-            
+            <paper>
             <Fade in={true}>{SMChours}</Fade>
             <Fade in={true}>{nameInput}</Fade>
 
@@ -334,6 +369,7 @@ function Home() {
             <div>
             <Submit/>
             </div>
+            </paper>
            
         </div>
 

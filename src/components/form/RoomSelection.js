@@ -64,28 +64,13 @@ const useStyles = makeStyles((theme) => ({
 var userRoomType;
 var userRoomSelection;
 //const roomTypes = [];
-var disabledRoomTypes;
+//var disabledRoomTypes;
 
 const roomTypes = [
    "Recording Studio 🎙️",
    "Rehearsal Spaces 🎧",
    "Edit & Collaboration Spaces 🎒"
 ];
-
-//const roomOptionStudio = [
-  //{ key: 0, name: "Studio Room1 😀" },
-  //{ key: 1, name: "Studio Room2 🎓" }
-//];
-
-//const roomOptionRehearsal = [
-//  { key: 0, name: "Rehearsal Room1 😀" },
-//  { key: 1, name: "Rehearsal Room2 🎓" }
-//];
-
-//const roomOptionECspace = [
-//  { key: 0, name: "ECspace Room1 😀" },
-//  { key: 1, name: "ECspace Room2 🎓" }
-//];
 
 function getStyles(type, eventType, theme) {
   return {
@@ -96,8 +81,12 @@ function getStyles(type, eventType, theme) {
   };
 }
 
-export default function RoomSelectionInput({userSelected, roomOptionStudio, roomOptionRehearsal, roomOptionECspace, disabledRoomTypes}) {
-  
+export default function RoomSelectionInput({roomOptionStudio, 
+                                            roomOptionRehearsal, 
+                                            roomOptionECspace, 
+                                            disabledRoomTypes, 
+                                            setRoomTypeSelected,
+                                            setRoomSelected}) {
   const classes = useStyles();
   const theme = useTheme();
   const [roomType, setRoomType] = React.useState([]);
@@ -116,9 +105,8 @@ export default function RoomSelectionInput({userSelected, roomOptionStudio, room
       typeof value === "string" ? value.split(",") : value
     );
     userRoomType = value;
+    setRoomTypeSelected(value);
     console.log(userRoomType);
-    console.log(userSelected);
-    console.log(disabledRoomTypes);
 
     if (userRoomType === "Recording Studio 🎙️") {
       setIsStudio(true);
@@ -147,6 +135,7 @@ export default function RoomSelectionInput({userSelected, roomOptionStudio, room
       typeof value === "string" ? value.split(",") : value
     );
     userRoomSelection = value;
+    setRoomSelected(value);
     console.log(userRoomSelection);
   };
 

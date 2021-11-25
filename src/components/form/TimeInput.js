@@ -56,7 +56,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" horizontal="center" {...props} />;
 });
 
-export default function DateTimeValidation() {
+export default function DateTimeValidation({setTimeCorrect,
+                                            setStartTimeSelected, 
+                                            setEndTimeSelected}) {
   const [startValue, setSartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
   const [invalidTime, setInvalidTime] = React.useState(false);
@@ -68,17 +70,26 @@ export default function DateTimeValidation() {
   }
 
   const EndTimeCheck = () => {
-    if (StartTime > EndTime) setInvalidTime(true);
-    else setInvalidTime(false);
-    return (
-      <div>
-        {invalidTime && 
-          <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="error">Proposed end time should not exceed start time!</Alert>
-          </Snackbar>
-        }
-      </div>
-    );
+    if (StartTime > EndTime) {
+      setInvalidTime(true);
+      setTimeCorrect(false);
+    }
+    else {
+      setInvalidTime(false);
+      setTimeCorrect(true);
+      setStartTimeSelected(StartTime);
+      setEndTimeSelected(EndTime);
+    }
+      return (
+        <div>
+          {invalidTime && 
+            <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Alert severity="error">Proposed end time should not exceed start time!</Alert>
+            </Snackbar>
+          }
+        </div>
+      );
+  
   };
 
   return (

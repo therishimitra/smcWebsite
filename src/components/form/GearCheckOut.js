@@ -75,7 +75,7 @@ function sleep(delay = 0) {
 }
 
 
-export default function CourseSelectionInput() {
+export default function CourseSelectionInput({setGearSelected}) {
   const [isGear, setIsGear] = React.useState(false);
   const [gear, setGear] = React.useState([]);
   const [open, setOpen] = React.useState(false);
@@ -134,6 +134,7 @@ export default function CourseSelectionInput() {
           } else {
             setGear(newValue);
             userGear = newValue;
+            setGearSelected(newValue);
             console.log(userGear);
           }
         }}

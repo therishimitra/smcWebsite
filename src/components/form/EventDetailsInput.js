@@ -56,7 +56,11 @@ function getStyles(type, eventType, theme) {
   };
 }
 
-export default function EventDetailsInput({facultyList}) {
+export default function EventDetailsInput({facultyList, 
+                                           setSessionTitle, 
+                                           setEventTypeSelected, 
+                                           setFacultySelected, 
+                                           setUsageSelected}) {
 
   const theme = useTheme();
   const [eventType, setEventType] = React.useState([]);
@@ -74,6 +78,7 @@ export default function EventDetailsInput({facultyList}) {
       typeof value === "string" ? value.split(",") : value
     );
     userEventType = value;
+    setEventTypeSelected(value);
     console.log(userEventType);
     if (userEventType === "Student Project 🎬") setIsProject(true);
     else setIsProject(false);
@@ -88,6 +93,7 @@ export default function EventDetailsInput({facultyList}) {
       typeof value === "string" ? value.split(",") : value
     );
     userEventUsage = value;
+    setUsageSelected(value);
     console.log(userEventUsage);
   };
 
@@ -106,6 +112,7 @@ export default function EventDetailsInput({facultyList}) {
           } else {
             setFaculty(newValue);
             userFacultyInput = newValue;
+            setFacultySelected(newValue);
             console.log(userFacultyInput);
           }
         }}
@@ -156,6 +163,7 @@ export default function EventDetailsInput({facultyList}) {
             onChange={(event) => {
               setTitle(event.target.value);
               userEventTitle = event.target.value;
+              setSessionTitle(event.target.value);
               console.log(userEventTitle);
             }}
           />

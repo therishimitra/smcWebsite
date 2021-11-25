@@ -51,7 +51,7 @@ const courseList = [
   { key: 1, name: "Course2 🎓" }
 ];
 
-export default function CourseSelectionInput() {
+export default function CourseSelectionInput({setCourseSelected}) {
   const [isCourse, setIsCourse] = React.useState(false);
   const [course, setCourse] = React.useState([]);
 
@@ -75,6 +75,7 @@ export default function CourseSelectionInput() {
           } else {
             setCourse(newValue);
             userCourse = newValue;
+            setCourseSelected(newValue);
             console.log(userCourse);
           }
         }}
