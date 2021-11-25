@@ -225,7 +225,7 @@ function NameInput({peopleAllInfo, userSelected, setUserCount}) {
           lineHeight: 2
         }}
       >
-        Who's booking?
+        Who's booking? 
         <br />
         <FormLabel component="legend">
             i.e. takes all responsibility!

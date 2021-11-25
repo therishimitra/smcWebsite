@@ -13,6 +13,7 @@ import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import CustomBtn from '../components/customBtn'
+import Submit from '../components/form/Submit';
 
 const peopleAllInfo = [];
 const SMCpeople = [];
@@ -239,9 +240,13 @@ function Home() {
 
             <Fade in={true}>{gearInput}</Fade>
 
-            
+            <div>
+            <Submit/>
+            </div>
+           
         </div>
-            
+
+ 
 
     ) 
    
