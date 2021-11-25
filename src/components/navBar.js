@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomBtn from './customBtn'
-import logo from '../logo.png'
+import logo from '../SOM2.png'
 import logoMobile from'../logo.png'
 import {Toolbar, Typography} from '@material-ui/core'
 import {makeStyles} from "@material-ui/core/styles"; 
@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 const styles = makeStyles({
     bar:{
         paddingTop: "0.40rem",
-        backgroundColor: "#2A2A31",
+        backgroundColor: "#000000",
         ['@media (max-width:780px)']: { 
            flexDirection: "column"
           }
@@ -33,7 +33,7 @@ const styles = makeStyles({
         cursor: "pointer", 
         flexGrow: 1,
         "&:hover": {
-            color:  "#F82528"
+            color:  "#CFB991"
         },
         ['@media (max-width:780px)']: { 
             paddingBottom: "1rem"    }
