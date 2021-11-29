@@ -15,7 +15,7 @@ const embedStyle = {
     
   };
 
-function contactInfo() {
+function ContactInfo() {
 
     const slideStyle = useSpring({
         from: {
@@ -56,4 +56,4 @@ function contactInfo() {
     )
 }
 
-export default contactInfo
+export default ContactInfo

@@ -45,7 +45,7 @@ function NavBar() {
     return (
         <Grid container>
         <Grid item xs={12}>
-        <Toolbar position="sticky" color="rgba(0, 0, 0, 0.87)" className={classes.bar}>   
+        <Toolbar color="rgba(0, 0, 0, 0.87)" className={classes.bar}>   
                 
                 <a href="https://pfw-smc.notion.site/pfw-smc/PFW-Sweetwater-Music-Center-17d134f1dd704a56909044ddb24d61ed">
                     <img src={logo} /> 

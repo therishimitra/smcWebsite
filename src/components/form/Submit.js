@@ -131,8 +131,6 @@ export default function BasicModal({userSelected,
 
         </Box>
     
-
-
       </Modal>
     </div>
   );
