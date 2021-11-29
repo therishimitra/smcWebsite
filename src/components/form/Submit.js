@@ -81,7 +81,18 @@ const style = {
   color: '#191b1d',
 };
 
-export default function BasicModal() {
+export default function BasicModal({userSelected, 
+                                    sessionTitle,
+                                    eventTypeSelected,
+                                    facultySelected,
+                                    usageSelected,
+                                    roomTypeSelected,
+                                    roomSelected,
+                                    startTimeSelected,
+                                    endTimeSelected,
+                                    courseSelected,
+                                    gearSelected,
+                                    timeCorrect}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -90,8 +101,10 @@ export default function BasicModal() {
 
   const handleClickOpen = () => {
     setOpen(true);
+
   };
 
+  
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
@@ -117,6 +130,9 @@ export default function BasicModal() {
           </Button> 
 
         </Box>
+    
+
+
       </Modal>
     </div>
   );
