@@ -8,7 +8,6 @@ const noteStyle = {
     background: '#CFB991',
     color: '#3b3e43',
     padding: '1.5rem'
-
 }
 
 function SlideMessage() {
