@@ -7,6 +7,8 @@ import RoomSelection from '../components/form/RoomSelection';
 import TimeInput from '../components/form/TimeInput';
 import GearCheckOut from '../components/form/GearCheckOut';
 import CourseInput from '../components/form/CourseInput';
+import OptionToUpdate from '../components/form/OptionToUpdate';
+import FormActions from '../components/form/FormActions';
 import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
@@ -179,6 +181,11 @@ function Home() {
     const [disabledRoomTypes, setDisabledRoomTypes] = React.useState([]); 
     const [timeCorrect, setTimeCorrect] = React.useState(false); 
 
+    // form action
+    const [newEvent, setNewEvent] = React.useState(false);
+    const [updateEvent, setUpdateEvent] = React.useState(false);
+    const [CancelEvent, setCancelEvent] = React.useState(false);
+
     const nameInput = (
         <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2}}>
         <Box
@@ -320,7 +327,7 @@ function Home() {
             <AccessTimeOutlinedIcon color = "pink"/>
             </Box>
         </Grid>
-        <Grid item xs={11}>
+        <Grid item xs>
         SMC Hours & Availability
         </Grid>
         </Grid>
@@ -348,6 +355,19 @@ function Home() {
          </Paper>
     );
 
+    const formActions = (
+      //<Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box m="auto" sx={{ maxWidth: 700, width: "90%"}}>
+      <FormActions 
+      setNewEvent={setNewEvent}
+      setUpdateEvent={setUpdateEvent}
+      setCancelEvent={setCancelEvent}
+      />
+      
+      <br />
+      </Box>
+  );
+
     
     return(  
 
@@ -356,7 +376,9 @@ function Home() {
             <SlideCalendar/>
             
             <Fade in={true}>{SMChours}</Fade>
-            <Fade in={true}>{nameInput}</Fade>
+            
+            <Fade in={true}>{formActions}</Fade>
+            <Fade in={(newEvent || updateEvent || CancelEvent)}>{nameInput}</Fade>
 
             {(userCount > 0) && <Fade in={userCount > 0}>{eventDetailsInput}</Fade>}
             
@@ -364,11 +386,12 @@ function Home() {
    
             {(userCount > 0) && <Fade in={userCount > 0}>{timeInput}</Fade>}
 
-            <Fade in={true}>{courseInput}</Fade>
+            {(newEvent || updateEvent || CancelEvent) && <Fade in={true}>{courseInput}</Fade>}
 
-            <Fade in={true}>{gearInput}</Fade>
+            {(newEvent || updateEvent || CancelEvent) && <Fade in={true}>{gearInput}</Fade>}
 
             <div>
+            {(newEvent || updateEvent || CancelEvent) &&
             <Submit
             userSelected={userSelected}
             sessionTitle={sessionTitle}
@@ -383,7 +406,7 @@ function Home() {
             gearSelected={gearSelected}
             timeCorrect={timeCorrect}
             setUserCount={setUserCount}
-            />
+            />}
             </div>
         
            

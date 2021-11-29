@@ -45,14 +45,14 @@ export default function BasicModal({userSelected,
 
   const handleClickOpen = () => {
     setOpen(true);
-    <AirtableAPI/> 
+    //<AirtableAPI/> 
 
     //set user count to 0 
   };
 
   const handleClear = () => {
     setOpen(true);
-    <AirtableAPI/> 
+    //<AirtableAPI/> 
 
     //called after everything is checked after everything has been checked  
   };
@@ -78,7 +78,6 @@ export default function BasicModal({userSelected,
             Please check your inbox for booking confirmation.
           </Typography>
 
-          
 
         </Box>
 
