@@ -5,68 +5,10 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from '@mui/material/TextField';
 import NameInput from './NameInput'; 
-//import AirtableAPI from "../AirtableAPI";
+import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
+import AirtableAPI from "../AirtableAPI";
 
-////////////////////////////////////////////API//////////////////////////////////////////////////////////
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'YOUR_API_KEY'}).base('appnYYXKxbNxYmalz');
-
-base('Events').create([
-  {
-    "fields": {
-      "Event Name": "TEST",
-      "Start Time": "2021-11-23T14:00:00.000Z",
-      "Proposed End Time": "2021-11-23T15:00:00.000Z",
-      "🚪 Room(s)": [
-        "124 SMC (Edit 4)"
-      ],
-      "Class": [
-        "recvOZ6BIE4yb6y8q"
-      ],
-      "Event Type": "Class 📚",
-      "Faculty": [
-        "Faculty 1"
-      ],
-      "Students": [
-        "recAXAHAZV2zjzm41"
-      ],
-      "Status": "Booked ✅"
-    }
-  },
-
-  {"fields": {
-    "Event Name": "TEST",
-    "Start Time": "2021-11-23T14:30:00.000Z",
-    "Proposed End Time": "2021-11-23T16:00:00.000Z",
-    "🚪 Room(s)": [
-      "104 SMC (Classroom)"
-    ],
-    "Class": [
-      "recuBEQ8CyKCIW8JN"
-    ],
-    "Event Type": "Class 📚",
-    "Faculty": [
-      "rec2mdimTDkynR5qz"
-    ],
-    "Status": "Booked ✅",
-    "Location": [
-      "recAQPTqQbRmFc9Oe"
-    ],
-    "For a Class?": true,
-    "Intent of Use": "Academic 🎓"
-  }
-}
-], function(err, records) {
-if (err) {
-  console.error(err);
-  return;
-}
-records.forEach(function (record) {
-  console.log(record.getId());
-});
-});
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//create global variables here
 
 const style = {
   position: "absolute",
@@ -101,10 +43,19 @@ export default function BasicModal({userSelected,
 
   const handleClickOpen = () => {
     setOpen(true);
+    <AirtableAPI/> 
 
+    //set user count to 0 
   };
 
-  
+  const handleClear = () => {
+    setOpen(true);
+    <AirtableAPI/> 
+
+    //called after everything is checked after everything has been checked  
+  };
+
+
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
@@ -125,9 +76,7 @@ export default function BasicModal({userSelected,
             Please check your inbox for booking confirmation.
           </Typography>
 
-          <Button variant="outlined" onClick={handleClickOpen}>
-           OK
-          </Button> 
+          
 
         </Box>
     
