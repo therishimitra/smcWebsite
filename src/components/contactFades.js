@@ -31,7 +31,7 @@ function App() {
       {colors.map(color => (
         <FadeInSection key={color}>
           <div className="box" style={{ backgroundColor: color }}>
-            <span>{color}</span>
+            {color}
           </div>
         </FadeInSection>
       ))}
