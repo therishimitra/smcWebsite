@@ -34,7 +34,7 @@ function SlideCalendar() {
     <animated.div style={slideStyle}>
         <div style={noteStyle}>
             <br></br>
-            <Box sx={{ maxWidth: 700, width: "90%"}}>
+            <Box m="auto" sx={{ maxWidth: 900, width: "90%"}}>
             <iframe class="airtable-embed" 
                 src="https://airtable.com/embed/shr7XfOauvLgRzajc?backgroundColor=red"
                 frameborder="0"

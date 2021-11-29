@@ -347,6 +347,8 @@ function Home() {
         
          </Paper>
     );
+
+    
     return(  
 
         <div>
@@ -380,6 +382,7 @@ function Home() {
             courseSelected={courseSelected}
             gearSelected={gearSelected}
             timeCorrect={timeCorrect}
+            setUserCount={setUserCount}
             />
             </div>
         
