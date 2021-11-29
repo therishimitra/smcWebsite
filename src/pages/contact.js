@@ -1,5 +1,5 @@
 import React from 'react'
-import contactInfo from '../components/ContactInfo'
+import ContactInfo from '../components/contactInfo'
 
 
 function contact() {
@@ -7,7 +7,7 @@ function contact() {
 
         
         <div>
-            <contactInfo/>
+            <ContactInfo/>
         </div>
 
     ) 
