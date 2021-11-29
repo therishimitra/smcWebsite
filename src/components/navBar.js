@@ -43,38 +43,65 @@ const styles = makeStyles({
 function NavBar() {
     const classes = styles()
     return (
-        <Grid container>
-        <Grid item xs={12}>
-        <Toolbar color="rgba(0, 0, 0, 0.87)" className={classes.bar}>   
-                
-                <a href="https://pfw-smc.notion.site/pfw-smc/PFW-Sweetwater-Music-Center-17d134f1dd704a56909044ddb24d61ed">
-                    <img src={logo} /> 
-                </a>
-                
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <div color="rgba(0, 0, 0, 0.87)" className={classes.bar}>
+        <Box sx={{ width: "90%",  flexGrow: 2 }}>
+        <Grid 
+        container 
+        spacing={0}
+        columns={16}
+        justifyContent="space-between"
+        alignItems="center"
+        >
 
-                <NavLink exact to='/' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
-                    <CustomBtn txt="Book Rooms"/>                   
-                </NavLink>
-                
+        <Grid item xs="auto">
+            <Box sx={{ m: 3,  flexGrow: 1 }}>
+            <a href="https://pfw-smc.notion.site/pfw-smc/PFW-Sweetwater-Music-Center-17d134f1dd704a56909044ddb24d61ed">
+                <img src={logo} /> 
+            </a>
+            </Box>
+        </Grid>      
+        
+        <Grid item xs>
+            <Box sx={{ m: 2,  flexGrow: 1 }}>
+            <Grid 
+            container 
+            justifyContent="center"
+            alignItems="center"
+            columns={15}
+            >
 
-                <NavLink to='/schedules' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active" >
-                    <CustomBtn txt="Room Schedules"/>
-                </NavLink>
-                
-
-                <NavLink to='/gear' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
-                    <CustomBtn txt="Gear Checkout"/>
-                </NavLink>
-                
-
-                <NavLink to='/contact' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
-                    <CustomBtn txt="Contact Us"/>
-                </NavLink>
-
-            </Toolbar>
+            <Grid item xs="auto">
+            <NavLink exact to='/' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
+                <CustomBtn txt="Book Rooms"/>                   
+            </NavLink>
             </Grid>
+
+            <Grid item xs="auto">
+            <NavLink to='/schedules' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active" >
+                <CustomBtn txt="Room Schedules"/>
+            </NavLink>
             </Grid>
+
+            <Grid item xs="auto">
+            <NavLink to='/gear' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
+                <CustomBtn txt="Gear Checkout"/>
+            </NavLink>
+            </Grid>  
+
+            <Grid item xs="auto">
+            <NavLink to='/contact' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
+                <CustomBtn txt="Contact Us"/>
+            </NavLink>
+            </Grid>  
+                     
+            </Grid>
+            </Box> 
+        </Grid>
+        
+          
+        </Grid>
+        </Box> 
+        </div>
     )
 }
 

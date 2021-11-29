@@ -40,7 +40,7 @@ function SlideMessage() {
               fontStyle: 'italic',
               fontWeight: "Light",
               lineHeight: 1.3,
-              width: 700
+              width: "80%"
             }}
             >
             Everyone can take advantage of scheduling time in the edit & collaboration spaces in the SMC building.  Approved students registered for certain classes have privileges to schedule time in the recording studio, rehearsal room and control room.

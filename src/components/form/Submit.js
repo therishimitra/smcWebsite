@@ -81,6 +81,7 @@ const style = {
   color: '#191b1d',
 };
 
+
 export default function BasicModal({userSelected, 
                                     sessionTitle,
                                     eventTypeSelected,
@@ -126,11 +127,11 @@ export default function BasicModal({userSelected,
           </Typography>
 
           <Button variant="outlined" onClick={handleClickOpen}>
-           OK
+          OK
           </Button> 
 
         </Box>
-    
+
       </Modal>
     </div>
   );
