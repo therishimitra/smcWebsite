@@ -217,7 +217,7 @@ function Home() {
       </Box>
 
         <EventDetailsInput 
-        facultyList = {facultyList} 
+        facultyList = {facultyList}
         setSessionTitle={setSessionTitle}
         setEventTypeSelected={setEventTypeSelected}
         setFacultySelected={setFacultySelected}

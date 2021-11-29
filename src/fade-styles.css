@@ -2,6 +2,21 @@
     text-align: center;
   }
   
+  
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }
+
+
+  a { color:black } /* Globally */
+
+  /* Each state */
+
+  a:visited { text-decoration: none; color:black; }
+  a:hover { text-decoration: none; color:black; }
+  a:focus { text-decoration: none; color:black; }
+  a:hover, a:active { text-decoration: none; color:black;}
+
   .fade-in-section {
     opacity: 0;
     transform: translateY(20vh);
@@ -11,7 +26,7 @@
     will-change: opacity, transform, visibility;
   }
   .fade-in-section.is-visible {
-    opacity: 1;
+    opacity: 0.9;
     transform: none;
     visibility: visible;
   }
@@ -20,7 +35,7 @@
   
   .box {
     padding: 50px;
-    margin: 20px 0;
+    margin: 1% 35%;
   }
   
   .box span {
@@ -31,9 +46,9 @@
   }
   
   html {
-    box-sizing: border-box;
+    box-sizing: content-box;
   }
   * {
-    box-sizing: inherit;
+    box-sizing: content-box;
   }
   
