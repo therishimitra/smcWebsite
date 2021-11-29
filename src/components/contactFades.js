@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import colors from '../css-colors';
+import colors from './css-colors';
 
-import '../fade-styles.css';
+import './styles.css';
 
 function FadeInSection(props) {
   const [isVisible, setVisible] = React.useState(false);
@@ -23,7 +23,7 @@ function FadeInSection(props) {
   );
 }
 
-export default function App() {
+function App() {
   return (
     <div className="App">
       <h1>All the CSS colors!</h1>

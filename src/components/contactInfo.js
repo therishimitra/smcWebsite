@@ -42,8 +42,8 @@ function ContactInfo() {
                 sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"
                 loading="lazy"
                 onmousewheel=""
-                width="50%" 
-                height="533"
+                width="90%" 
+                height="700"
                 style={embedStyle}
                 
             />
