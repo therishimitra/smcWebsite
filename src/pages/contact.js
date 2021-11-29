@@ -160,6 +160,3 @@ export default function Fades() {
     </div>
   );
 }
-
-const rootElement = document.getElementById('root');
-ReactDOM.render(<Fades />, rootElement);
