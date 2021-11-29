@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';  
 import NameInput from './NameInput'; 
 //import AirtableAPI from "../AirtableAPI";
 
@@ -93,7 +93,8 @@ export default function BasicModal({userSelected,
                                     endTimeSelected,
                                     courseSelected,
                                     gearSelected,
-                                    timeCorrect}) {
+                                    timeCorrect,
+                                    setUserCount}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -102,10 +103,10 @@ export default function BasicModal({userSelected,
 
   const handleClickOpen = () => {
     setOpen(true);
+    setUserCount(0);
 
   };
 
-  
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
