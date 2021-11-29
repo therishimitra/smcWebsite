@@ -36,17 +36,7 @@ function ContactInfo() {
             <br></br>
             <Grid container spacing={0}>
             <Grid item xs={12}>
-            <iframe class="embed" 
-                src="https://pfw-smc.notion.site/Contact-f3758d3e77c7465a9ccdeff157b22680"
-                frameborder="0"
-                sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"
-                loading="lazy"
-                onmousewheel=""
-                width="50%" 
-                height="533"
-                style={embedStyle}
-                
-            />
+            <iframe src="https://pfw-smc.notion.site/Contact-f3758d3e77c7465a9ccdeff157b22680" name="myFrame"></iframe>
             </Grid>
             </Grid>
             
