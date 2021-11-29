@@ -9,8 +9,11 @@ import GearCheckOut from '../components/form/GearCheckOut';
 import CourseInput from '../components/form/CourseInput';
 import OptionToUpdate from '../components/form/OptionToUpdate';
 import FormActions from '../components/form/FormActions';
+import EventID from '../components/form/EventID';
+
 import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
+import Grow from '@mui/material/Grow';
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import CustomBtn from '../components/customBtn'
@@ -244,9 +247,11 @@ function Home() {
           lineHeight: 2
         }}
         >  Room Selection
-        <Grid container spacing={2}>
-        <Grid item xs={0.7}>
-            <CommentIcon color="disabled" />
+        <Grid container spacing={1}>
+        <Grid item xs={1}>
+        <Box sx={{fontSize: 20,lineHeight: 1.5}}>
+        📌 
+        </Box>
         </Grid>
         <Grid item xs={11}>
             <FormLabel component="legend">
@@ -277,9 +282,11 @@ function Home() {
           lineHeight: 2
         }}
         >  Session Time
-        <Grid container spacing={2}>
-        <Grid item xs={0.7}>
-            <CommentIcon color="disabled" />
+        <Grid container spacing={1}>
+        <Grid item xs={1}>
+        <Box sx={{fontSize: 20,lineHeight: 1.5}}>
+        📌 
+        </Box>
         </Grid>
         <Grid item xs={11}>
             <FormLabel component="legend">
@@ -316,22 +323,13 @@ function Home() {
         <Paper variant="outlined" sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <Box
         sx={{
-          textAlign: "left",
+          textAlign: "center",
           m: 1,
           fontSize: 22,
           lineHeight: 2
         }}
         >  
-        <Grid container spacing={1}>
-        <Grid item xs="auto">
-            <Box sx={{ my: 0.5}}>
-            <AccessTimeOutlinedIcon color = "pink"/>
-            </Box>
-        </Grid>
-        <Grid item xs>
         SMC Hours & Availability
-        </Grid>
-        </Grid>
         </Box>
         <Box
         sx={{
@@ -374,13 +372,25 @@ function Home() {
         <Box
         sx={{
           textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
+          m: 1,
+          fontSize: 20,
+          lineHeight: 1.5
         }}
-      >  Event ID
-      </Box>
-        <br />
+        > 
+        <Grid container alignItems="flex-start" spacing={1}>
+        <Grid item xs={1}>
+        📌
+        </Grid>
+        <Grid item xs={11}>
+            <FormLabel component="legend">
+            Please enter the Event Record ID you recieved in the confirmation email before proceeding to the rest of the form.
+            </FormLabel>
+        </Grid>
+        </Grid>
+        </Box>
+        <Box m= "auto" sx={{ my: 2,display: "flex", alignItems: "center"}} >
+        <EventID />
+        </Box>
          </Paper>
     );
     
@@ -393,18 +403,20 @@ function Home() {
             <Fade in={true}>{SMChours}</Fade>
             
             <Fade in={true}>{formActions}</Fade>
-            {(updateEvent || CancelEvent) && <Fade in={true}>{requestEventID}</Fade>}
-            <Fade in={(newEvent || updateEvent || CancelEvent)}>{nameInput}</Fade>
 
-            {(userCount > 0) && <Fade in={userCount > 0}>{eventDetailsInput}</Fade>}
+            {(updateEvent) && <Grow in={(updateEvent)}>{requestEventID}</Grow>}
+            {(CancelEvent) && <Grow in={(CancelEvent)}>{requestEventID}</Grow>}
             
-            {(userCount > 0) && <Fade in={userCount > 0}>{roomInput}</Fade>}
+            <Grow in={(newEvent || updateEvent || CancelEvent)}>{nameInput}</Grow>
+
+            {(userCount > 0) && <Grow in={userCount > 0}>{eventDetailsInput}</Grow>}
+            
+            {(userCount > 0) && <Grow in={userCount > 0}>{roomInput}</Grow>}
    
-            {(userCount > 0) && <Fade in={userCount > 0}>{timeInput}</Fade>}
+            {(userCount > 0) && <Grow in={userCount > 0}>{timeInput}</Grow>}
 
-            {(newEvent || updateEvent || CancelEvent) && <Fade in={true}>{courseInput}</Fade>}
-
-            {(newEvent || updateEvent || CancelEvent) && <Fade in={true}>{gearInput}</Fade>}
+            <Grow in={(newEvent || updateEvent || CancelEvent)}>{courseInput}</Grow>
+            <Grow in={(newEvent || updateEvent || CancelEvent)}>{gearInput}</Grow>
 
             <div>
             {(newEvent || updateEvent || CancelEvent) &&
@@ -423,6 +435,7 @@ function Home() {
             timeCorrect={timeCorrect}
             setUserCount={setUserCount}
             />}
+            <br />
             </div>
         
            
