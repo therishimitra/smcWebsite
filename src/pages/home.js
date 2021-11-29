@@ -303,6 +303,7 @@ function Home() {
         <br />
          </Paper>
     );
+
     const gearInput = (
         <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <GearCheckOut setGearSelected={setGearSelected}/>
@@ -368,6 +369,20 @@ function Home() {
       </Box>
   );
 
+    const requestEventID = (
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+        <Box
+        sx={{
+          textAlign: "left",
+          m: 2,
+          fontSize: 22,
+          lineHeight: 2
+        }}
+      >  Event ID
+      </Box>
+        <br />
+         </Paper>
+    );
     
     return(  
 
@@ -378,6 +393,7 @@ function Home() {
             <Fade in={true}>{SMChours}</Fade>
             
             <Fade in={true}>{formActions}</Fade>
+            {(updateEvent || CancelEvent) && <Fade in={true}>{requestEventID}</Fade>}
             <Fade in={(newEvent || updateEvent || CancelEvent)}>{nameInput}</Fade>
 
             {(userCount > 0) && <Fade in={userCount > 0}>{eventDetailsInput}</Fade>}
