@@ -1,5 +1,4 @@
-.App {
-    font-family: sans-serif;
+.FadeStyles {
     text-align: center;
   }
   
@@ -18,10 +17,6 @@
   }
   
   /* Just for presentational purposes, please disregard in your own implementation */
-  .App {
-    max-width: 100%;
-    padding: 1em;
-  }
   
   .box {
     padding: 50px;
