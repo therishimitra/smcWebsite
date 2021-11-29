@@ -23,6 +23,7 @@ const style = {
   color: '#191b1d',
 };
 
+
 export default function BasicModal({userSelected, 
                                     sessionTitle,
                                     eventTypeSelected,
@@ -79,7 +80,7 @@ export default function BasicModal({userSelected,
           
 
         </Box>
-    
+
       </Modal>
     </div>
   );

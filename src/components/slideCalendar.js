@@ -1,12 +1,12 @@
 import React from 'react'
 import {useSpring, animated} from 'react-spring';
 import Grid from '@mui/material/Grid';
+import Box from "@mui/material/Box";
 
 const noteStyle = {
     background: '#e7dcc8',
     color: 'white',
     padding: '1.5rem'
-
 }
 
 const embedStyle = {
@@ -34,22 +34,20 @@ function SlideCalendar() {
     <animated.div style={slideStyle}>
         <div style={noteStyle}>
             <br></br>
-            <Grid container spacing={0}>
-            <Grid item xs={12}>
+            <Box sx={{ maxWidth: 700, width: "90%"}}>
             <iframe class="airtable-embed" 
                 src="https://airtable.com/embed/shr7XfOauvLgRzajc?backgroundColor=red"
                 frameborder="0"
                 sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"
                 loading="lazy"
                 onmousewheel=""
-                width="50%" 
+                width="100%" 
                 height="533"
                 style={embedStyle}
                 
             />
-            </Grid>
-            </Grid>
-            
+            </Box>
+    
         </div>
     </animated.div>
            

@@ -180,7 +180,7 @@ function Home() {
     const [timeCorrect, setTimeCorrect] = React.useState(false); 
 
     const nameInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2}}>
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2}}>
         <Box
         sx={{
           textAlign: "left",
@@ -205,7 +205,7 @@ function Home() {
     );
     
     const eventDetailsInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <Box
         sx={{
           textAlign: "left",
@@ -228,7 +228,7 @@ function Home() {
     );
 
     const roomInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <Box
         sx={{
           textAlign: "left",
@@ -261,7 +261,7 @@ function Home() {
     );
 
     const timeInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <Box
         sx={{
           textAlign: "left",
@@ -291,13 +291,13 @@ function Home() {
     );
     
     const courseInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <CourseInput setCourseSelected={setCourseSelected}/>
         <br />
          </Paper>
     );
     const gearInput = (
-        <Paper sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
+        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <GearCheckOut setGearSelected={setGearSelected}/>
         <br />
          </Paper>
@@ -305,7 +305,7 @@ function Home() {
     
 
     const SMChours = (
-        <Paper variant="outlined" sx={{ maxWidth: 700, width: 700, my: 2, mx: 'auto', p: 2 }}>
+        <Paper variant="outlined" sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
         <Box
         sx={{
           textAlign: "left",
@@ -314,8 +314,8 @@ function Home() {
           lineHeight: 2
         }}
         >  
-        <Grid container spacing={0}>
-        <Grid item xs={0.7}>
+        <Grid container spacing={1}>
+        <Grid item xs="auto">
             <Box sx={{ my: 0.5}}>
             <AccessTimeOutlinedIcon color = "pink"/>
             </Box>
@@ -336,10 +336,10 @@ function Home() {
         >  
         <br />
         <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
         <b>Monday — Friday: </b><li>8:00 AM — Midnight</li>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs="auto">
         <b>Saturday & Sunday: </b><li>12:00 PM — Midnight</li>
         </Grid>
         </Grid>
