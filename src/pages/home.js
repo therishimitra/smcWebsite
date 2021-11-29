@@ -352,7 +352,7 @@ function Home() {
         <div>
             <SlideMessage/>
             <SlideCalendar/>
-            <paper>
+            
             <Fade in={true}>{SMChours}</Fade>
             <Fade in={true}>{nameInput}</Fade>
 
@@ -367,9 +367,22 @@ function Home() {
             <Fade in={true}>{gearInput}</Fade>
 
             <div>
-            <Submit/>
+            <Submit
+            userSelected={userSelected}
+            sessionTitle={sessionTitle}
+            eventTypeSelected={eventTypeSelected}
+            facultySelected={facultySelected}
+            usageSelected={usageSelected}
+            roomTypeSelected={roomTypeSelected}
+            roomSelected={roomSelected}
+            startTimeSelected={startTimeSelected}
+            endTimeSelected={endTimeSelected}
+            courseSelected={courseSelected}
+            gearSelected={gearSelected}
+            timeCorrect={timeCorrect}
+            />
             </div>
-            </paper>
+        
            
         </div>
 
