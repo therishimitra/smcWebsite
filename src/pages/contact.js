@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SlideMessageContact from '../components/slideMessageContact';
 import colors from '../css-colors';
 
 import '../fade-styles.css';
@@ -23,21 +24,20 @@ function FadeInSection(props) {
   );
 }
 
-export default function App() {
+export default function Fades() {
   return (
-    <div className="App">
-      <h1>All the CSS colors!</h1>
-
-      {colors.map(color => (
-        <FadeInSection key={color}>
-          <div className="box" style={{ backgroundColor: color }}>
-            <span>{color}</span>
+    <div className="FadeStyles">
+        <SlideMessageContact/>
+      
+        <FadeInSection key={'darkred'}>
+          <div className="box" style={{ backgroundColor: 'darkred' }}>
+            Hey
           </div>
         </FadeInSection>
-      ))}
+      
     </div>
   );
 }
 
 const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(<Fades />, rootElement);
