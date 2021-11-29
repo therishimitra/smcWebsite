@@ -111,6 +111,11 @@ export default function BasicModal() {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Please check your inbox for booking confirmation.
           </Typography>
+
+          <Button variant="outlined" onClick={handleClickOpen}>
+           OK
+          </Button> 
+
         </Box>
       </Modal>
     </div>
