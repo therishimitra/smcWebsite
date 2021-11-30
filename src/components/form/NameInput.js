@@ -82,10 +82,63 @@ function renderItem({ item, handleRemoveName }) {
   );
 }
 
+var gearList = [];    //store list of gear available to user
+var lendLevel = "";      //store determined lending level
+
+////////////////////// Filtering gears accessible using API data
+function filterGear(){
+  
+  
+  if (userValues.some(element => element.gearAccess === 'Gear Level 4')) {
+    lendLevel = "Lending Level 4"; 
+  }
+
+  else if (userValues.some(element => element.gearAccess === 'Gear Level 3')){
+    lendLevel = "Lending Level 3";
+  }
+  else if (userValues.some(element => element.gearAccess === 'Gear Level 2')){
+    lendLevel = "Lending Level 2";
+  }
+  else if (userValues.some(element => element.gearAccess === 'Gear Level 1')){
+    lendLevel = "Lending Level 1";
+  }
+  else{
+    
+    return gearList;
+  }
+
+  var Airtable = require('airtable');
+    var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+
+    base('Gear').select({
+      view: lendLevel
+    }).eachPage(function page(records, fetchNextPage) {
+      // This function (`page`) will get called for each page of records.
+  
+      records.forEach(function(record) {
+          //console.log('Retrieved', record.get('Item'), record);
+          gearList.push(record.get('Item'))
+      });
+  
+      // To fetch the next page of records, call `fetchNextPage`.
+      // If there are more records, `page` will get called again.
+      // If there are no more records, `done` will get called.
+      fetchNextPage();
+  
+  }, function done(err) {
+      if (err) { console.error(err); return; }
+  });
+
+  return gearList;
+  
+}
+
+
 var roomTypes;
 
+////////////////////// Filtering gears using API data
 function filterRoomType(disabled) {
-  ////////////////////// Filtering rooms using API data
+  
   if (userValues.some(element => element.roomAccess === 'Room Access 3')) {
     disabled = [];
   }
@@ -112,7 +165,7 @@ function filterRoomType(disabled) {
 
 const filter = createFilterOptions();
 
-function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoomTypes}) {
+function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoomTypes, setGearList}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -138,6 +191,7 @@ function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoo
     setUserCount(userNameList.length); // send data to home
     setUserSelected(userValues);
     setDisabledRoomTypes(filterRoomType(roomTypes));
+    setGearList(filterGear());
   };
 
   const handleClickOpen = () => {
@@ -174,6 +228,7 @@ function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoo
         setUserCount(userNameList.length); // send data to home 
         setUserSelected(userValues);
         setDisabledRoomTypes(filterRoomType(roomTypes));
+        setGearList(filterGear());
         //console.log(peopleAllInfo[0]);
         //console.log("Uservalues", userValues);
         console.log(userNameList);
