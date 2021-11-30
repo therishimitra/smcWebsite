@@ -107,6 +107,7 @@ function filterGear(){
     return gearList;
   }
 
+  //API call to appropriate view on Airtable. View called depends on "lendLevel" determined above. 
   var Airtable = require('airtable');
     var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
 
