@@ -75,7 +75,7 @@ function sleep(delay = 0) {
 }
 
 
-export default function CourseSelectionInput({setGearSelected}) {
+export default function GearCheckOut({setGearSelected}) {
   const [isGear, setIsGear] = React.useState(false);
   const [gear, setGear] = React.useState([]);
   const [open, setOpen] = React.useState(false);
