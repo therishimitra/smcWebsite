@@ -406,8 +406,8 @@ function Home() {
 
             {(updateEvent) && <Grow in={(updateEvent)}>{requestEventID}</Grow>}
             {(CancelEvent) && <Grow in={(CancelEvent)}>{requestEventID}</Grow>}
-            
-            <Grow in={(newEvent || updateEvent || CancelEvent)}>{nameInput}</Grow>
+
+            <Grow in={(newEvent || updateEvent)}>{nameInput}</Grow>
 
             {(userCount > 0) && <Grow in={userCount > 0}>{eventDetailsInput}</Grow>}
             
@@ -415,8 +415,8 @@ function Home() {
    
             {(userCount > 0) && <Grow in={userCount > 0}>{timeInput}</Grow>}
 
-            <Grow in={(newEvent || updateEvent || CancelEvent)}>{courseInput}</Grow>
-            <Grow in={(newEvent || updateEvent || CancelEvent)}>{gearInput}</Grow>
+            <Grow in={(newEvent || updateEvent)}>{courseInput}</Grow>
+            <Grow in={(newEvent || updateEvent)}>{gearInput}</Grow>
 
             <div>
             {(newEvent || updateEvent || CancelEvent) &&
