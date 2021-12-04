@@ -50,8 +50,8 @@ function sleep(delay = 0) {
 }
 
 
-export default function GearCheckOut({setGearSelected, gearList}) {
-  const [isGear, setIsGear] = React.useState(false);
+export default function GearCheckOut({setGearSelected, gearList, addGear, setAddGear}) {
+  
   const [gear, setGear] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
@@ -84,7 +84,7 @@ export default function GearCheckOut({setGearSelected, gearList}) {
   }, [open]);
 
   const handleChangeGear = (event) => {
-    setIsGear(event.target.checked);
+    setAddGear(event.target.checked);
   };
 
   const gearInput = (
@@ -172,7 +172,7 @@ export default function GearCheckOut({setGearSelected, gearList}) {
           <FormControlLabel
             control={
               <Checkbox
-                checked={isGear}
+                checked={addGear}
                 onChange={handleChangeGear}
                 sx={{
                   color: pink[800],
@@ -187,11 +187,11 @@ export default function GearCheckOut({setGearSelected, gearList}) {
  
       </Box>
       
-      {isGear && 
+      {addGear && 
       <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", justifyContent: 'center' }}>
         
-        <Fade in={isGear}>{gearInput}</Fade>
-        <Fade in={isGear}>{iFrameGear}</Fade>
+        <Fade in={addGear}>{gearInput}</Fade>
+        <Fade in={addGear}>{iFrameGear}</Fade>
         
       </Box>
       }

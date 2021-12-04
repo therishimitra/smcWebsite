@@ -35,31 +35,103 @@ const style = {
   color: '#191b1d',
 };
 
+function CreateRecord(users,
+                      sessionTitle,
+                      eventTypeSelected,
+                      facultySelected,
+                      usageSelected,
+                      roomTypeSelected,
+                      roomSelected,
+                      startTimeSelected,
+                      endTimeSelected,
+                      courseSelected,
+                      gearSelected) {
 
-export default function BasicModal({userSelected, 
-                                    sessionTitle,
-                                    eventTypeSelected,
-                                    facultySelected,
-                                    usageSelected,
-                                    roomTypeSelected,
-                                    roomSelected,
-                                    startTimeSelected,
-                                    endTimeSelected,
-                                    courseSelected,
-                                    gearSelected,
-                                    timeCorrect,
-                                    setUserCount}) {
+  var Airtable = require('airtable');
+  var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
+
+  base('Events').create([
+    {
+      "fields": {
+        "Event Name": sessionTitle, //Need to be changed for a new record to be created
+        "Start Time": startTimeSelected,
+        "Proposed End Time": endTimeSelected,
+        "🚪 Room(s)": roomSelected,
+        "Class": [],
+        "Event Type": eventTypeSelected,
+        "Faculty": [],
+        "Students": users,
+        "Status": "Booked ✅"
+      }
+    }
+  ], function(err, records) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    records.forEach(function (record) {
+      console.log(record.getId());
+    });
+  });
+  
+
+
+}
+
+
+export default function Submit({userSelected, setUserSelected,
+                                sessionTitle, setSessionTitle,
+                                eventTypeSelected, setEventTypeSelected,
+                                facultySelected, setFacultySelected,
+                                usageSelected, setUsageSelected,
+                                roomTypeSelected, setRoomTypeSelected,
+                                roomSelected, setRoomSelected,
+                                startTimeSelected, setStartTimeSelected,
+                                endTimeSelected, setEndTimeSelected,
+                                courseSelected, setCourseSelected,
+                                gearSelected, setGearSelected,
+
+                                eventID, setEventID,
+                                newEvent, setNewEvent,
+                                updateEvent, setUpdateEvent,
+                                CancelEvent, setCancelEvent,
+                                timeCorrect,
+                                setUserCount,
+                                setAddCourse,
+                                setAddGear
+                                }) {
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
 
-  const handleClickOpen = () => {
+  const handleSubmit = () => {
     setOpen(true);
-    //<AirtableAPI/> 
+    console.log(userSelected.id);
+    var users = [];
+    userSelected.forEach(function(obj){
+        users.push(obj.id);
+    })
 
-    //set user count to 0 
+    //<AirtableAPI/> 
+    CreateRecord(
+      users,
+      sessionTitle,
+      eventTypeSelected,
+      facultySelected,
+      usageSelected,
+      roomTypeSelected,
+      roomSelected,
+      startTimeSelected,
+      endTimeSelected,
+      courseSelected,
+      gearSelected);
+      
+
+    console.log("checking error");
+
   };
 
   const handleClear = () => {
@@ -69,10 +141,43 @@ export default function BasicModal({userSelected,
     //called after everything is checked after everything has been checked  
   };
 
+  const handleClose = () => {
+    // Clears all form fields
+    // event record data
+    setUserSelected();
+    setSessionTitle();
+    setEventTypeSelected();
+    setFacultySelected();
+    setUsageSelected();
+    setRoomTypeSelected();
+    setRoomSelected([]);
+    setStartTimeSelected();
+    setEndTimeSelected();
+    setCourseSelected();
+    setGearSelected();
+    setEventID();
+
+    // form actions
+    setNewEvent();
+    setUpdateEvent();
+    setCancelEvent();
+
+    // other display related variables
+    setUserCount();
+    setAddCourse();
+    setAddGear();
+
+    setOpen(false); 
+  }
+
 
   return (
     <div>
-      <SubmitButton variant="contained" onClick={handleClickOpen}>
+      <formCompletionCheck/>
+      <SubmitButton 
+      variant="contained" 
+      disabled={!(sessionTitle && roomTypeSelected && endTimeSelected && startTimeSelected)}
+      onClick={handleSubmit}>
         SUBMIT
       </SubmitButton>   
 

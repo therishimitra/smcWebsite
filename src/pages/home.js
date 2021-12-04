@@ -50,7 +50,11 @@ const ECRoomsIDs = [];
 ///////////////////////////////////////////             ///////////////////////////////////////////
 
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx')
+
+//({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox')
+// original: ({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+
 var x=0;
 ///////////////////////Pulling records from SMC People///////////////////////
 base('SMC People').select({
@@ -174,10 +178,16 @@ function Home() {
     const [usageSelected, setUsageSelected] = React.useState([]);
     const [roomTypeSelected, setRoomTypeSelected] = React.useState([]);
     const [roomSelected, setRoomSelected] = React.useState([]); 
-    const [startTimeSelected, setStartTimeSelected] = React.useState([]); 
-    const [endTimeSelected, setEndTimeSelected] = React.useState([]); 
+    const [startTimeSelected, setStartTimeSelected] = React.useState(""); 
+    const [endTimeSelected, setEndTimeSelected] = React.useState(""); 
     const [courseSelected, setCourseSelected] = React.useState([]);
     const [gearSelected, setGearSelected] = React.useState([]); 
+
+    // form update or delete
+    const [IDerror, setIDError] = React.useState(false);
+    const [eventID, setEventID] = React.useState("");
+    const [goodID, setGoodID] = React.useState(false);
+  
 
     // supportive input data
     const [userCount, setUserCount] = React.useState(0);
@@ -185,6 +195,9 @@ function Home() {
     const [timeCorrect, setTimeCorrect] = React.useState(false);
     const [gearList, setGearList] = React.useState([]);
 
+    const [addGear, setAddGear] = React.useState(false);
+    const [addCourse, setAddCourse] = React.useState(false);
+    
     // form action
     const [newEvent, setNewEvent] = React.useState(false);
     const [updateEvent, setUpdateEvent] = React.useState(false);
@@ -308,7 +321,10 @@ function Home() {
     
     const courseInput = (
         <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <CourseInput setCourseSelected={setCourseSelected}/>
+        <CourseInput 
+        setCourseSelected={setCourseSelected}
+        addCourse={addCourse} setAddCourse={setAddCourse}
+        />
         <br />
          </Paper>
     );
@@ -318,6 +334,7 @@ function Home() {
         <GearCheckOut 
         setGearSelected={setGearSelected}
         gearList={gearList}
+        addGear={addGear} setAddGear={setAddGear}
         />
         <br />
          </Paper>
@@ -366,6 +383,10 @@ function Home() {
       setNewEvent={setNewEvent}
       setUpdateEvent={setUpdateEvent}
       setCancelEvent={setCancelEvent}
+      setEventID={setEventID}
+      setIDError={setIDError}
+      setGoodID={setGoodID}
+      setUserSelected={setUserSelected}
       />
       
       <br />
@@ -394,7 +415,11 @@ function Home() {
         </Grid>
         </Box>
         <Box m= "auto" sx={{ my: 2,display: "flex", alignItems: "center"}} >
-        <EventID />
+        <EventID 
+        error={IDerror} setError={setIDError}
+        eventID={eventID} setEventID={setEventID}
+        goodID={goodID} setGoodID={goodID}
+        />
         </Box>
          </Paper>
     );
@@ -412,41 +437,45 @@ function Home() {
             {(updateEvent) && <Grow in={(updateEvent)}>{requestEventID}</Grow>}
             {(CancelEvent) && <Grow in={(CancelEvent)}>{requestEventID}</Grow>}
 
-            <Grow in={(newEvent || updateEvent)}>{nameInput}</Grow>
+            <Grow in={(newEvent || (updateEvent && goodID))}>{nameInput}</Grow>
 
-            {(userCount > 0) && <Grow in={userCount > 0}>{eventDetailsInput}</Grow>}
+            {(userCount > 0) && (newEvent || (updateEvent && goodID)) && <Grow in={userCount > 0}>{eventDetailsInput}</Grow>}
             
-            {(userCount > 0) && <Grow in={userCount > 0}>{roomInput}</Grow>}
+            {(userCount > 0) && (newEvent || (updateEvent && goodID)) && <Grow in={userCount > 0}>{roomInput}</Grow>}
    
-            {(userCount > 0) && <Grow in={userCount > 0}>{timeInput}</Grow>}
+            {(userCount > 0) && (newEvent || (updateEvent && goodID)) && (roomSelected.length !== 0) && <Grow in={userCount > 0}>{timeInput}</Grow>}
 
-            <Grow in={(newEvent || updateEvent)}>{courseInput}</Grow>
-            <Grow in={(newEvent || updateEvent)}>{gearInput}</Grow>
+            <Grow in={(newEvent || (updateEvent && goodID))}>{courseInput}</Grow>
+            <Grow in={(newEvent || (updateEvent && goodID))}>{gearInput}</Grow>
 
-            <div>
-            {(newEvent || updateEvent || CancelEvent) &&
+            {(userCount > 0) && (newEvent || (updateEvent && goodID)) &&
             <Submit
-            userSelected={userSelected}
-            sessionTitle={sessionTitle}
-            eventTypeSelected={eventTypeSelected}
-            facultySelected={facultySelected}
-            usageSelected={usageSelected}
-            roomTypeSelected={roomTypeSelected}
-            roomSelected={roomSelected}
-            startTimeSelected={startTimeSelected}
-            endTimeSelected={endTimeSelected}
-            courseSelected={courseSelected}
-            gearSelected={gearSelected}
-            timeCorrect={timeCorrect}
+            userSelected={userSelected} setUserSelected={setUserSelected}
+            sessionTitle={sessionTitle} setSessionTitle={setSessionTitle}
+            eventTypeSelected={eventTypeSelected} setEventTypeSelected={setEventTypeSelected}
+            facultySelected={facultySelected} setFacultySelected={setFacultySelected}
+            usageSelected={usageSelected} setUsageSelected={setUsageSelected}
+            roomTypeSelected={roomTypeSelected} setRoomTypeSelected={setRoomTypeSelected}
+            roomSelected={roomSelected} setRoomSelected={setRoomSelected}
+            startTimeSelected={startTimeSelected} setStartTimeSelected={setStartTimeSelected}
+            endTimeSelected={endTimeSelected} setEndTimeSelected={setEndTimeSelected}
+            courseSelected={courseSelected} setCourseSelected={setCourseSelected}
+            gearSelected={gearSelected} setGearSelected={setGearSelected}
+
+            eventID={eventID} setEventID={setEventID}
+            newEvent={newEvent} setNewEvent={setNewEvent}
+            updateEvent={updateEvent} setUpdateEvent={setUpdateEvent}
+            CancelEvent={CancelEvent} setCancelEvent={setCancelEvent}
+
+            setAddCourse={setAddCourse}
+            setAddGear={setAddGear}
             setUserCount={setUserCount}
+            timeCorrect={timeCorrect}
+            
             />}
             <br />
-            </div>
-        
-           
+         
         </div>
-
- 
 
     ) 
    

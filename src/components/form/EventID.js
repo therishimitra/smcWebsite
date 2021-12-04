@@ -5,12 +5,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-export default function EventID() {
-  const [error, setError] = React.useState(false);
-  const [eventID, setEventID] = React.useState([]);
+export default function EventID({error, setError, eventID, setEventID}) {
 
   const handleClickOpen = () => {
     setError(true);
+    // we check the ID here
   };
 
   return (

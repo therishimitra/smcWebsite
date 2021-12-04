@@ -86,7 +86,8 @@ export default function RoomSelectionInput({roomOptionStudio,
                                             roomOptionECspace, 
                                             disabledRoomTypes, 
                                             setRoomTypeSelected,
-                                            setRoomSelected}) {
+                                            setRoomSelected
+                                            }) {
   const classes = useStyles();
   const theme = useTheme();
   const [roomType, setRoomType] = React.useState([]);
@@ -142,6 +143,7 @@ export default function RoomSelectionInput({roomOptionStudio,
   const handleDelete = (e, value) => {
     e.preventDefault();
     setRoom((current) => _without(current, value));
+    setRoomSelected((current) => _without(current, value));
   };
 
   const roomSelectionStudio = (
@@ -239,7 +241,7 @@ export default function RoomSelectionInput({roomOptionStudio,
             style={getStyles(option.name, room, theme)}
           >
             <Checkbox
-              checked={room.indexOf(option.name) > -1} // thank fucking god this fucking works
+              checked={room.indexOf(option.name) > -1} 
               sx={{
                 color: pink[800],
                 "&.Mui-checked": {
@@ -350,9 +352,7 @@ export default function RoomSelectionInput({roomOptionStudio,
 
         <div>
           {isStudio && <Fade in={isStudio}>{roomSelectionStudio}</Fade>}
-          {isRehearsal && (
-            <Fade in={isRehearsal}>{roomSelectionRehearsal}</Fade>
-          )}
+          {isRehearsal && <Fade in={isRehearsal}>{roomSelectionRehearsal}</Fade>}
           {isECspace && <Fade in={isECspace}>{roomSelectionECspace}</Fade>}
         </div>
       </Stack>
