@@ -176,13 +176,14 @@ function Home() {
     const [roomSelected, setRoomSelected] = React.useState([]); 
     const [startTimeSelected, setStartTimeSelected] = React.useState([]); 
     const [endTimeSelected, setEndTimeSelected] = React.useState([]); 
-    const [courseSelected, setCourseSelected] = React.useState([]); 
+    const [courseSelected, setCourseSelected] = React.useState([]);
     const [gearSelected, setGearSelected] = React.useState([]); 
 
     // supportive input data
     const [userCount, setUserCount] = React.useState(0);
     const [disabledRoomTypes, setDisabledRoomTypes] = React.useState([]); 
-    const [timeCorrect, setTimeCorrect] = React.useState(false); 
+    const [timeCorrect, setTimeCorrect] = React.useState(false);
+    const [gearList, setGearList] = React.useState([]);
 
     // form action
     const [newEvent, setNewEvent] = React.useState(false);
@@ -209,7 +210,8 @@ function Home() {
          peopleAllInfo={peopleAllInfo} 
          setUserSelected={setUserSelected} 
          setUserCount={setUserCount} 
-         setDisabledRoomTypes={setDisabledRoomTypes}/>
+         setDisabledRoomTypes={setDisabledRoomTypes}
+         setGearList={setGearList}/>
         </Paper>  
         
     );
@@ -313,7 +315,10 @@ function Home() {
 
     const gearInput = (
         <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <GearCheckOut setGearSelected={setGearSelected}/>
+        <GearCheckOut 
+        setGearSelected={setGearSelected}
+        gearList={gearList}
+        />
         <br />
          </Paper>
     );

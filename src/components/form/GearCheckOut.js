@@ -18,32 +18,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
 
-////////////////////////////////////API Magic//////////////////////////////////////////////////////
-const gearList = []; 
 
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
-
-base('Gear').select({
-    view: "All Gear 🔒"
-}).eachPage(function page(records, fetchNextPage) {
-    // This function (`page`) will get called for each page of records.
-
-    records.forEach(function(record) {
-        //console.log('Retrieved', record.get('Item'), record);
-        gearList.push(record.get('Item'))
-    });
-
-    // To fetch the next page of records, call `fetchNextPage`.
-    // If there are more records, `page` will get called again.
-    // If there are no more records, `done` will get called.
-    fetchNextPage();
-
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
-//console.log(gList)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // This will be used to store input data
 var userGear;
@@ -75,7 +50,7 @@ function sleep(delay = 0) {
 }
 
 
-export default function GearCheckOut({setGearSelected}) {
+export default function GearCheckOut({setGearSelected, gearList}) {
   const [isGear, setIsGear] = React.useState(false);
   const [gear, setGear] = React.useState([]);
   const [open, setOpen] = React.useState(false);
