@@ -86,7 +86,7 @@ base('SMC People').select({
 //peopleAllInfo.forEach(element => console.log(element));
 
 // console.log(peopleAllInfo[2].lendLevel)
-console.log(peopleAllInfo[0])
+//console.log(peopleAllInfo[0])
 //console.log((SMCpeople[0]))
 //console.log(typeof(SMCpeople))
 //console.log(peopleAllInfo[0].name)
@@ -103,7 +103,7 @@ base('Rooms').select({
 
     records.forEach(function(record) {
 
-      RecordingStudioRoomsList.push( {key: record.id, name: record.get('Name') });
+      RecordingStudioRoomsList.push( {key: record.id, name: record.get('Name')});
         
     });
 
@@ -125,7 +125,7 @@ base('Rooms').select({
 
     records.forEach(function(record) {
         
-      RehearsalRoomsList.push({key: record.id, name: record.get('Name') });
+      RehearsalRoomsList.push({key: record.id, name: record.get('Name'), events: record.get('Events') });
         
     });
 
@@ -148,7 +148,8 @@ base('Rooms').select({
 
     records.forEach(function(record) {
         
-        ECRoomsList.push({key: record.id, name: record.get('Name') });
+        ECRoomsList.push({key: record.id, name: record.get('Name'), events: record.get('Events')});
+        //console.log(record);
         
     });
 
