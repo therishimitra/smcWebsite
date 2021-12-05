@@ -81,6 +81,12 @@ function getStyles(type, eventType, theme) {
   };
 }
 
+// Variables to used for API filtering
+var roomOptionsAllInfo=[];
+var roomSelectedAllInfo=[];
+var eventsList = [];
+var unavailableTimes = [];
+
 export default function RoomSelectionInput({roomOptionStudio, 
                                             roomOptionRehearsal, 
                                             roomOptionECspace, 
@@ -109,16 +115,21 @@ export default function RoomSelectionInput({roomOptionStudio,
     console.log(userRoomType);
 
     if (userRoomType === "Recording Studio 🎙️") {
+      roomOptionsAllInfo = roomOptionStudio;
       setIsStudio(true);
       setIsRehearsal(false);
       setIsECspace(false);
       setRoom([]); // Clear user input
+      console.log(roomOptionsAllInfo);
     } else if (userRoomType === "Rehearsal Spaces 🎧") {
+      roomOptionsAllInfo = roomOptionRehearsal;
       setIsStudio(false);
       setIsRehearsal(true);
       setIsECspace(false);
       setRoom([]); // Clear user input
+      console.log(roomOptionsAllInfo);
     } else if (userRoomType === "Edit & Collaboration Spaces 🎒") {
+      roomOptionsAllInfo = roomOptionECspace;
       setIsStudio(false);
       setIsRehearsal(false);
       setIsECspace(true);
@@ -136,7 +147,83 @@ export default function RoomSelectionInput({roomOptionStudio,
     );
     userRoomSelection = value;
     setRoomSelected(value);
-    console.log(userRoomSelection);
+    //console.log(value);
+    //console.log(roomOptionsAllInfo);
+    
+    //GENERATING ARRAY WITH ALL INFO ON ROOM SELECTED
+    var valueLength = value.length;
+    var roomOptionsLength = roomOptionsAllInfo.length;
+    roomSelectedAllInfo = [];
+
+    for (var i = 0; i < valueLength; i++) 
+    {
+      for (var x = 0; x < roomOptionsLength; x++)
+      {
+        if(roomOptionsAllInfo[x].name === value[i])
+          roomSelectedAllInfo.push(roomOptionsAllInfo[x]);
+      }
+    }
+    console.log("filtered array",roomSelectedAllInfo);
+
+    ///////////////////   API Magic   ////////////////////////////////
+    var Airtable = require('airtable');
+    var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+    //Crawling all rooms to find associated events whose recordIDs are stored in eventsList[]
+    var roomSelectedAllInfoLength = roomSelectedAllInfo.length;
+    eventsList = [];
+    var eventsListLength = 0;
+    for (var j = 0; j < roomSelectedAllInfoLength; j++){
+      
+      base('Rooms').find(roomSelectedAllInfo[j].key, function(err, record) {
+    
+        if (err) { console.error(err); return; }
+      //console.log('Retrieved', record);
+
+      eventsList.push({name: record.get('Name'), events: record.get('Events')});
+      eventsListLength++;
+      
+    });      
+    }
+    console.log("Events:",eventsList);
+    
+
+    //Please ignore this battlefield. But honor the fallen.
+
+    // //Crawling all events to find associated times which are stored in unavailableTimes[]
+    // unavailableTimes = [];
+    
+    // console.log(j);
+    // console.log(eventsList);
+    // console.log(eventsList[0]);
+    
+    // console.log("Here");
+    // console.log(JSON.stringify(eventsList[0]))
+
+    // for(const element in eventsList){
+    //   console.log(typeof(element));
+    //   console.log(element);
+    // }
+
+
+    //eventsList.forEach(element => console.log(element));
+
+
+    // eventsList.forEach(function (element) {
+    //   console.log(element);
+    // });
+
+
+    // for (var k = 0; k < eventsListLength; k++){
+      
+    //   base('Events').find(eventsListLength[k].key, function(err, record) {
+    //     if (err) { console.error(err); return; }
+    //   console.log('Retrieved event rec', record);
+
+    // });
+
+    // }
+    
+
   };
 
   const handleDelete = (e, value) => {
