@@ -18,25 +18,43 @@ const ActionButton = styled(Button)({
   padding: "0 20px"
 });
 
-export default function FormActions({setNewEvent, setUpdateEvent, setCancelEvent}) {
+export default function FormActions({setNewEvent, setUpdateEvent, setCancelEvent, setEventID, setIDError, setGoodID, setUserSelected}) {
 
 
   const handleNewEvent = () => {
     setNewEvent(true);
     setUpdateEvent(false);
     setCancelEvent(false);
+    
+    // initialize ID status
+    setEventID("");
+    setIDError(false);
+    setGoodID(false);
+
+    // initialize form values
+    setUserSelected([]);
   };
 
   const handleUpdateEvent = () => {
     setNewEvent(false);
     setUpdateEvent(true);
     setCancelEvent(false);
+
+    // initialize ID status
+    setEventID("");
+    setIDError(false);
+    setGoodID(false);
   };
 
   const handleCancelEvent = () => {
     setNewEvent(false);
     setUpdateEvent(false);
     setCancelEvent(true);
+
+    // initialize ID status
+    setEventID("");
+    setIDError(false);
+    setGoodID(false);
   };
 
 

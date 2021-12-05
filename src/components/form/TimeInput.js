@@ -62,6 +62,7 @@ export default function DateTimeValidation({setTimeCorrect,
   const [startValue, setSartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
   const [invalidTime, setInvalidTime] = React.useState(false);
+  const [invalidFormat, setInvalidFormat] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -70,6 +71,8 @@ export default function DateTimeValidation({setTimeCorrect,
   }
 
   const EndTimeCheck = () => {
+    
+
     if (StartTime > EndTime) {
       setInvalidTime(true);
       setTimeCorrect(false);
@@ -80,11 +83,20 @@ export default function DateTimeValidation({setTimeCorrect,
       setStartTimeSelected(StartTime);
       setEndTimeSelected(EndTime);
     }
+
+    if (StartTime === "NaN-NaN-NaNTNaN:NaN:00.000z" || EndTime === "NaN-NaN-NaNTNaN:NaN:00.000z") setInvalidFormat(true);
+    else setInvalidFormat(false);
+
       return (
         <div>
           {invalidTime && 
             <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
             <Alert severity="error">Proposed end time should not exceed start time!</Alert>
+            </Snackbar>
+          }
+          {invalidFormat && 
+            <Snackbar open={invalidFormat} autoHideDuration={10} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Alert severity="error">Time format invalid!</Alert>
             </Snackbar>
           }
         </div>

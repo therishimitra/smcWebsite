@@ -51,12 +51,12 @@ const courseList = [
   { key: 1, name: "Course2 🎓" }
 ];
 
-export default function CourseSelectionInput({setCourseSelected}) {
-  const [isCourse, setIsCourse] = React.useState(false);
+export default function CourseSelectionInput({setCourseSelected, addCourse, setAddCourse}) {
+
   const [course, setCourse] = React.useState([]);
 
   const handleChangeCourse = (event) => {
-    setIsCourse(event.target.checked);
+    setAddCourse(event.target.checked);
   };
 
   const courseInput = (
@@ -123,7 +123,7 @@ export default function CourseSelectionInput({setCourseSelected}) {
           <FormControlLabel
             control={
               <Checkbox
-                checked={isCourse}
+                checked={addCourse}
                 onChange={handleChangeCourse}
                 sx={{
                   color: pink[800],
@@ -138,7 +138,7 @@ export default function CourseSelectionInput({setCourseSelected}) {
 
       </Box>
       <Box sx={{ justifyContent: 'center'}}>
-       {isCourse && <Fade in={isCourse}>{courseInput}</Fade>}
+       {addCourse && <Fade in={addCourse}>{courseInput}</Fade>}
        </Box>
     </Stack>
   );

@@ -1,3 +1,5 @@
+import * as React from "react";
+
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appnYYXKxbNxYmalz');
 
