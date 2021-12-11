@@ -7,29 +7,16 @@ import RoomSelection from '../components/form/RoomSelection';
 import TimeInput from '../components/form/TimeInput';
 import GearCheckOut from '../components/form/GearCheckOut';
 import CourseInput from '../components/form/CourseInput';
-import OptionToUpdate from '../components/form/OptionToUpdate';
 import FormActions from '../components/form/FormActions';
 import EventID from '../components/form/EventID';
 import Submit from '../components/form/Submit';
 
-import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
 import Grow from '@mui/material/Grow';
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import CustomBtn from '../components/customBtn'
 import FormLabel from "@mui/material/FormLabel";
-import CommentIcon from '@mui/icons-material/Comment'; 
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import Grid from '@mui/material/Grid';
-import MuiAlert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
-
-
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 
 const peopleAllInfo = [];
@@ -189,7 +176,6 @@ function Home() {
     const [gearList, setGearList] = React.useState([]);
     const [roomBookingRecord, setRoomBookingRecord] = React.useState([]);
     
-
     const [addGear, setAddGear] = React.useState(false);
     const [addCourse, setAddCourse] = React.useState(false);
     

@@ -10,12 +10,10 @@ import TextField from "@material-ui/core/TextField";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Stack from "@mui/material/Stack";
-import Fade from "@mui/material/Fade";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
 
 
 // This will be used to store input data
@@ -48,9 +46,8 @@ function sleep(delay = 0) {
 }
 
 
-export default function GearCheckOut({setGearSelected, gearList, addGear, setAddGear}) {
+export default function GearCheckOut({gearList, gear, setGear}) {
   
-  const [gear, setGear] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -81,12 +78,10 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
     }
   }, [open]);
 
-  const handleChangeGear = (event) => {
-    setAddGear(event.target.checked);
-  };
-
-  const gearInput = (
-    <FormControl sx={{ m: 1, width: 400 }} variant="standard">
+  return (
+    <Stack spacing={0}>
+      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", justifyContent: 'center' }}>
+      <FormControl sx={{ m: 1, width: 400 }} variant="standard">
       <Autocomplete
         open={open}
         onOpen={() => {
@@ -107,7 +102,6 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
           } else {
             setGear(newValue);
             userGear = newValue;
-            setGearSelected(newValue);
             console.log(userGear);
           }
         }}
@@ -155,49 +149,8 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
       ></Autocomplete>
       <br />
     </FormControl>
-
-  );
-
-  return (
-    <Stack spacing={0}>
-      
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", textAlign: "left",
-          m: 2,
-          fontSize: 24,
-          fontFamily: "Monospace",
-          lineHeight: 2,
-          width: 400 
-        }}>
-        
-          <FormLabel component="legend">
-            Need to checkout gear for the event?
-          </FormLabel>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={addGear}
-                onChange={handleChangeGear}
-                sx={{
-                  color: pink[800],
-                  "&.Mui-checked": {
-                    color: pink[600]
-                  }
-                }}
-              />
-            }
-            label="Gear check-out"
-          />
- 
+    {iFrameGear}
       </Box>
-      
-      {addGear && 
-      <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", justifyContent: 'center' }}>
-        
-        <Fade in={addGear}>{gearInput}</Fade>
-        <Fade in={addGear}>{iFrameGear}</Fade>
-        
-      </Box>
-      }
     </Stack>
   );
 }
