@@ -417,7 +417,6 @@ function Home() {
             <SlideCalendar/>
             
             <Fade in={true}>{SMChours}</Fade>
-            
             <Fade in={true}>{formActions}</Fade>
 
             {(updateEvent) && <Grow in={(updateEvent)}>{requestEventID}</Grow>}
@@ -426,9 +425,7 @@ function Home() {
             <Grow in={(newEvent || (updateEvent && goodID))}>{nameInput}</Grow>
 
             {(userCount > 0) && (newEvent || (updateEvent && goodID)) && <Grow in={userCount > 0}>{eventDetailsInput}</Grow>}
-            
             {(userCount > 0) && (newEvent || (updateEvent && goodID)) && <Grow in={userCount > 0}>{roomInput}</Grow>}
-   
             {(userCount > 0) && (newEvent || (updateEvent && goodID)) && (roomSelected.length !== 0) && <Grow in={userCount > 0}>{timeInput}</Grow>}
 
             <Grow in={(newEvent || (updateEvent && goodID))}>{courseInput}</Grow>
@@ -458,7 +455,6 @@ function Home() {
             setUserCount={setUserCount}
             timeCorrect={timeCorrect}
             roomBookingRecord={roomBookingRecord}
-            
             />}
             <br />
          
