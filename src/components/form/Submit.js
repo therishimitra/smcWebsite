@@ -61,12 +61,12 @@ function CreateRecord(users,
         "Start Time": startTimeSelected,
         "Proposed End Time": endTimeSelected,
         "🚪 Room(s)": roomSelected,
-        "Class": [],
+        "Class": courses,
         "Event Type": eventTypeSelected,
         "Faculty": faculties,
         "Students": users,
         "Status": "Booked ✅",
-        "Intent of Use": usageSelected ? usageSelected : "",
+        "Intent of Use": usageSelected,
         "Gear Selection" : gears,
         "Location": locations
         
@@ -107,7 +107,7 @@ base('Events').update([
       "Start Time": startTimeSelected,
       "Proposed End Time": endTimeSelected,
       "🚪 Room(s)": roomSelected,
-      "Class": [],
+      "Class": courses,
       "Event Type": eventTypeSelected,
       "Students": users,
       "Faculty": faculties,
@@ -127,17 +127,6 @@ base('Events').update([
   });
 });
 }
-
-function DeleteRecord(eventID) {
-  base('Events').destroy(eventID, function(err, deletedRecords) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log('Deleted', deletedRecords.length, 'records');
-  });
-}
-
 
 export default function Submit({userSelected, setUserSelected,
                                 sessionTitle, setSessionTitle,
@@ -190,7 +179,7 @@ export default function Submit({userSelected, setUserSelected,
     }
     if (courseSelected) {
       courseSelected.forEach(function(obj){
-        courses.push(obj.id);
+        courses.push(obj.key);
       })
     }
     if (gearSelected) {
@@ -236,19 +225,9 @@ export default function Submit({userSelected, setUserSelected,
         gears,
         locations);
 
-    } else if (CancelEvent) {
-      DeleteRecord(eventID);
-    }
-
+    } 
     console.log("checking error");
 
-  };
-
-  const handleClear = () => {
-    setOpen(true);
-    //<AirtableAPI/> 
-
-    //called after everything is checked after everything has been checked  
   };
 
   const handleClose = () => {
@@ -285,7 +264,6 @@ export default function Submit({userSelected, setUserSelected,
 
   return (
     <div>
-      <formCompletionCheck/>
       <SubmitButton 
       variant="contained" 
       disabled={!(sessionTitle && roomTypeSelected && eventTypeSelected && endTimeSelected && startTimeSelected && timeCorrect)}
