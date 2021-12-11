@@ -45,13 +45,7 @@ function NavBar() {
     return (
         <div color="rgba(0, 0, 0, 0.87)" className={classes.bar}>
         <Box sx={{ width: "90%",  flexGrow: 2 }}>
-        <Grid 
-        container 
-        spacing={0}
-        columns={16}
-        justifyContent="space-between"
-        alignItems="center"
-        >
+        <Grid container spacing={0} columns={16} justifyContent="space-between" alignItems="center">
 
         <Grid item xs="auto">
             <Box sx={{ m: 3,  flexGrow: 1 }}>
@@ -63,12 +57,7 @@ function NavBar() {
         
         <Grid item xs>
             <Box sx={{ m: 2,  flexGrow: 1 }}>
-            <Grid 
-            container 
-            justifyContent="center"
-            alignItems="center"
-            columns={15}
-            >
+            <Grid container justifyContent="center" alignItems="center" columns={15}>
 
             <Grid item xs="auto">
             <NavLink exact to='/' style={{ textDecoration: 'none' }} className="main-nav" activeClassName="main-nav-active">
