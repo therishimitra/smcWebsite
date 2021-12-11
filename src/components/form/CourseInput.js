@@ -17,7 +17,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
 ////////////////////////////////////API Magic//////////////////////////////////////////////////////
-const classList = []; 
+var courseList = []; 
 
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
@@ -28,8 +28,8 @@ base('Classes').select({
     // This function (`page`) will get called for each page of records.
 
     records.forEach(function(record) {
-        //console.log('Retrieved', record.get('Item'), record);
-        classList.push(record.get('Name'))
+        
+        courseList.push({key: record.id, name: record.get('Name')})
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
@@ -40,16 +40,13 @@ base('Classes').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-//console.log(classList)
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // This will be used to store input data
 var userCourse;
 
-const courseList = [
-  { key: 0, name: "Course1 😀" },
-  { key: 1, name: "Course2 🎓" }
-];
+
 
 export default function CourseSelectionInput({setCourseSelected, addCourse, setAddCourse}) {
 
@@ -89,7 +86,7 @@ export default function CourseSelectionInput({setCourseSelected, addCourse, setA
               checkedIcon={checkedIcon}
               style={{ marginRight: 8 }}
               checked={selected}
-              // thank fucking god this fucking works
+              
               sx={{
                 color: pink[800],
                 "&.Mui-checked": {
