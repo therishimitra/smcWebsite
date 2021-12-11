@@ -58,10 +58,8 @@ function CreateRecord(users,
     {
       "fields": {
         "Event Name": sessionTitle, //Need to be changed for a new record to be created
-        //"Start Time": startTimeSelected,
-        //"Proposed End Time": endTimeSelected,
-        "Start Time": "2021-12-15T28:00:00.000Z",
-        "Proposed End Time": "2021-12-15T28:50:00.000Z",
+        "Start Time": startTimeSelected,
+        "Proposed End Time": endTimeSelected,
         "🚪 Room(s)": roomSelected,
         "Class": [],
         "Event Type": eventTypeSelected,

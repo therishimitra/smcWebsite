@@ -40,6 +40,19 @@ function ISODateString(d) {
   );
 }
 
+function Add5Hours (time) {
+  var newTime = new Date(time);
+  if (newTime.getHours() > 18) {
+    newTime.setDate(newTime.getDate() + 1);
+    newTime.setHours(newTime.getHours() - 19);
+  } else {
+    newTime.setHours(newTime.getHours() + 5);
+  }
+  newTime = newTime.toISOString();
+  console.log("comparableTime:", newTime);
+  return newTime;
+}
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" horizontal="center" {...props} />;
 });
@@ -71,6 +84,17 @@ export default function DateTimeValidation({setTimeCorrect,
 
   const EndTimeCheck = () => {
 
+    StartTime = Add5Hours(StartTime);
+    EndTime = Add5Hours(EndTime);
+    console.log("comparableStartTime:", StartTime);
+    console.log("comparableEndTime:", EndTime);
+
+    //var realEndTime = new Date(EndTime);
+    //    realEndTime.setHours(realEndTime.getHours() + 1);
+    //    realEndTime = realEndTime.toISOString();
+    //    console.log("realEndTime:", realEndTime);
+    //    console.log("realEndTimehours:", realEndTime.getHours());
+
     if (StartTime > EndTime) {
       setInvalidTime(true);
       setTimeCorrect(false);
@@ -90,11 +114,10 @@ export default function DateTimeValidation({setTimeCorrect,
     else { 
       setInvalidFormat(false);    
       if (roomBookingRecord.length !== 0 && StartTime && EndTime) {
-
         var realEndTime = new Date(EndTime);
         realEndTime.setHours(realEndTime.getHours() + 1);
         realEndTime = realEndTime.toISOString();
-
+        
         var conflictFound = false;
         
         for (var i = 0; !conflictFound && (i < roomBookingRecord.length); i++) {

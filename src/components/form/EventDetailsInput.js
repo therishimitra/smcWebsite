@@ -37,15 +37,16 @@ var userEventUsage;
 var userFacultyInput;
 
 const eventTypes = [
-  "Recording Session 🎤",
+  "Summer Booking 🏖️",
+  "Recording Session 🎙️",
   "Student Project 🎬",
+  "Class 📚",
   "Meeting 🤝",
-  "Rehearsal 🎼"
+  "Rehearsal 💪",
+  "Audition 👨‍⚖️"
 ];
 
-
-
-const eventUsages = ["Personal 😀", "Academic 🎓"];
+const eventUsages = ["Personal Use 👤", "Academic 🎓", "Sweetwater 🤝"];
 
 function getStyles(type, eventType, theme) {
   return {

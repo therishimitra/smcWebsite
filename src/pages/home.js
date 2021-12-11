@@ -417,7 +417,7 @@ function Home() {
         <EventID 
         error={IDerror} setError={setIDError}
         eventID={eventID} setEventID={setEventID}
-        goodID={goodID} setGoodID={goodID}
+        goodID={goodID} setGoodID={setGoodID}
         />
         </Box>
          </Paper>
