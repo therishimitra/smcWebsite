@@ -10,6 +10,7 @@ import CourseInput from '../components/form/CourseInput';
 import OptionToUpdate from '../components/form/OptionToUpdate';
 import FormActions from '../components/form/FormActions';
 import EventID from '../components/form/EventID';
+import Submit from '../components/form/Submit';
 
 import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
@@ -23,7 +24,6 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import Grid from '@mui/material/Grid';
 import MuiAlert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
-import Submit from '../components/form/Submit';
 
 
 
@@ -415,9 +415,10 @@ function Home() {
         </Box>
         <Box m= "auto" sx={{ my: 2,display: "flex", alignItems: "center"}} >
         <EventID 
-        error={IDerror} setError={setIDError}
+        IDerror={IDerror} setIDError={setIDError}
         eventID={eventID} setEventID={setEventID}
         goodID={goodID} setGoodID={setGoodID}
+        updateEvent={updateEvent} CancelEvent={CancelEvent}
         />
         </Box>
          </Paper>
