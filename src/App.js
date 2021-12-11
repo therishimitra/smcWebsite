@@ -12,9 +12,6 @@ import gear from './pages/gear'
 import contact from './pages/contact'
 
 
-
-
-
 const theme = createTheme({
   palette: {
     background: {
@@ -64,7 +61,7 @@ function App() {
       
       <ThemeProvider theme={theme}>
       <CssBaseline />
-       <NavBar/>
+      <NavBar/>
         
         <Switch>
           <Route path = "/" exact component={home}/>
@@ -82,3 +79,4 @@ function App() {
 }
 
 export default App;
+
