@@ -21,7 +21,9 @@ import Paper from "@mui/material/Paper";
 import FormLabel from "@mui/material/FormLabel";
 
 
-
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
+//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
 
 // This will be used to store input data
 var userValues = [];
@@ -108,8 +110,6 @@ function filterGear(){
   }
 
   //API call to appropriate view on Airtable. View called depends on "lendLevel" determined above. 
-  var Airtable = require('airtable');
-    var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
 
     base('Gear').select({
       view: lendLevel
@@ -118,7 +118,7 @@ function filterGear(){
   
       records.forEach(function(record) {
           //console.log('Retrieved', record.get('Item'), record);
-          gearList.push(record.get('Item'))
+          gearList.push({name: record.get('Item'), id: record.id})
       });
   
       // To fetch the next page of records, call `fetchNextPage`.
@@ -166,16 +166,18 @@ function filterRoomType(disabled) {
 
 const filter = createFilterOptions();
 
-function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoomTypes, setGearList}) {
+function NameInput({peopleAllInfo, userSelected, setUserSelected, setUserCount, setDisabledRoomTypes, setGearList}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
 
-  //const {handleSubmit} = useForm();
-
   const [nameInDisplay, setNameInDisplay] = React.useState(
     userNameList.slice(0, 3)
   );
+
+  const Initilize = () => {
+    if (!userSelected) userNameList = [];
+  }
 
   const handleAddName = () => {
     setNameInDisplay(userNameList);
@@ -187,8 +189,6 @@ function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoo
     userNameList.splice(userNameList.indexOf(item), 1);
     userValues = userValues.filter((user) => user.name !== item);
 
-    console.log(userNameList);
-    console.log(userValues);
     setUserCount(userNameList.length); // send data to home
     setUserSelected(userValues);
     setDisabledRoomTypes(filterRoomType(roomTypes));
@@ -226,15 +226,12 @@ function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoo
         handleClose();
         userValues.push(newValue);
         userNameList.push(newValue.name);
+
         setUserCount(userNameList.length); // send data to home 
         setUserSelected(userValues);
         setDisabledRoomTypes(filterRoomType(roomTypes));
         setGearList(filterGear());
-        //console.log(peopleAllInfo[0]);
-        //console.log("Uservalues", userValues);
-        console.log(userNameList);
-        console.log(userValues);
-        //console.log(userNameList.length);
+
         handleAddName();
       }
   }
@@ -306,6 +303,7 @@ function NameInput({peopleAllInfo, setUserSelected, setUserCount, setDisabledRoo
 
   return (
     <div>
+      {Initilize}
       <Box sx={{textAlign: "left", m: 2}}>
         <Button variant="contained" onClick={handleClickOpen}>
           +ADD

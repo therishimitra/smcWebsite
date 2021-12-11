@@ -115,7 +115,12 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
         }}
         id="Search-for-course"
         options={options}
-        getOptionLabel={(option) => option}
+        getOptionLabel={(option) => {
+          if (typeof option === "string") {
+            // Value selected with enter, right from the input
+            return option;
+          } else return option.name; // Regular option
+        }}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -130,7 +135,7 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
                 }
               }}
             />
-            {option}
+            {option.name}
           </li>
         )}
         renderInput={(params) => (

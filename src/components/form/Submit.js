@@ -9,6 +9,12 @@ import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import AirtableAPI from "../AirtableAPI";
 import { styled } from "@mui/styles";
 
+
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
+//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
+
+
 const SubmitButton = styled(Button)({
   background: "linear-gradient(45deg, #ffd06a 30%, #fded2d 90%)",
   border: 0,
@@ -38,30 +44,34 @@ const style = {
 function CreateRecord(users,
                       sessionTitle,
                       eventTypeSelected,
-                      facultySelected,
+                      faculties,
                       usageSelected,
                       roomTypeSelected,
                       roomSelected,
                       startTimeSelected,
                       endTimeSelected,
-                      courseSelected,
-                      gearSelected) {
-
-  var Airtable = require('airtable');
-  var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
+                      courses,
+                      gears,
+                      locations) {
 
   base('Events').create([
     {
       "fields": {
         "Event Name": sessionTitle, //Need to be changed for a new record to be created
-        "Start Time": startTimeSelected,
-        "Proposed End Time": endTimeSelected,
+        //"Start Time": startTimeSelected,
+        //"Proposed End Time": endTimeSelected,
+        "Start Time": "2021-12-15T28:00:00.000Z",
+        "Proposed End Time": "2021-12-15T28:50:00.000Z",
         "🚪 Room(s)": roomSelected,
         "Class": [],
         "Event Type": eventTypeSelected,
-        "Faculty": [],
+        "Faculty": faculties,
         "Students": users,
-        "Status": "Booked ✅"
+        "Status": "Booked ✅",
+        "Intent of Use": usageSelected ? usageSelected : "",
+        "Gear Selection" : gears,
+        "Location": locations
+        
       }
     }
   ], function(err, records) {
@@ -73,9 +83,61 @@ function CreateRecord(users,
       console.log(record.getId());
     });
   });
+}
+
+
+function UpdateRecord(eventID,
+                      users,
+                      sessionTitle,
+                      eventTypeSelected,
+                      faculties,
+                      usageSelected,
+                      roomTypeSelected,
+                      roomSelected,
+                      startTimeSelected,
+                      endTimeSelected,
+                      courses,
+                      gears,
+                      locations) {
+
   
+base('Events').update([
+  {
+    "id": eventID,
+    "fields": {
+      "Event Name": sessionTitle,
+      "Start Time": startTimeSelected,
+      "Proposed End Time": endTimeSelected,
+      "🚪 Room(s)": roomSelected,
+      "Class": [],
+      "Event Type": eventTypeSelected,
+      "Students": users,
+      "Faculty": faculties,
+      "Status": "Booked ✅",
+      "Intent of Use": usageSelected,
+      "Gear Selection" : gears,
+      "Location": locations
+    }
+  }
+], function(err, records) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  records.forEach(function(record) {
+    console.log("record updated");
+  });
+});
+}
 
-
+function DeleteRecord(eventID) {
+  base('Events').destroy(eventID, function(err, deletedRecords) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('Deleted', deletedRecords.length, 'records');
+  });
 }
 
 
@@ -98,7 +160,8 @@ export default function Submit({userSelected, setUserSelected,
                                 timeCorrect,
                                 setUserCount,
                                 setAddCourse,
-                                setAddGear
+                                setAddGear,
+                                roomBookingRecord
                                 }) {
 
   const [open, setOpen] = React.useState(false);
@@ -109,26 +172,75 @@ export default function Submit({userSelected, setUserSelected,
 
   const handleSubmit = () => {
     setOpen(true);
-    console.log(userSelected.id);
-    var users = [];
-    userSelected.forEach(function(obj){
-        users.push(obj.id);
-    })
 
-    //<AirtableAPI/> 
-    CreateRecord(
-      users,
-      sessionTitle,
-      eventTypeSelected,
-      facultySelected,
-      usageSelected,
-      roomTypeSelected,
-      roomSelected,
-      startTimeSelected,
-      endTimeSelected,
-      courseSelected,
-      gearSelected);
-      
+    // getting the IDs lists for linking fields
+    var users = [];
+    var faculties = [];
+    var courses = [];
+    var gears = [];
+    var locations = [];
+
+    if (userSelected) {
+      userSelected.forEach(function(obj){
+          users.push(obj.id);
+      })
+    }
+    if (facultySelected) {
+      facultySelected.forEach(function(obj){
+        faculties.push(obj.id);
+      })
+    }
+    if (courseSelected) {
+      courseSelected.forEach(function(obj){
+        courses.push(obj.id);
+      })
+    }
+    if (gearSelected) {
+      gearSelected.forEach(function(obj){
+        gears.push(obj.id);
+      })
+    }
+    if (roomBookingRecord) {
+      roomBookingRecord.forEach(function(obj){
+        locations.push(obj.id);
+      })
+    }
+
+    // perform form action
+    if (newEvent) {
+      CreateRecord(
+        users,
+        sessionTitle,
+        eventTypeSelected,
+        faculties,
+        usageSelected,
+        roomTypeSelected,
+        roomSelected,
+        startTimeSelected,
+        endTimeSelected,
+        courses,
+        gears,
+        locations);
+    }
+    else if (updateEvent) {
+      UpdateRecord(
+        eventID,
+        users,
+        sessionTitle,
+        eventTypeSelected,
+        faculties,
+        usageSelected,
+        roomTypeSelected,
+        roomSelected,
+        startTimeSelected,
+        endTimeSelected,
+        courses,
+        gears,
+        locations);
+
+    } else if (CancelEvent) {
+      DeleteRecord(eventID);
+    }
 
     console.log("checking error");
 
@@ -142,31 +254,33 @@ export default function Submit({userSelected, setUserSelected,
   };
 
   const handleClose = () => {
+
     // Clears all form fields
     // event record data
-    setUserSelected();
-    setSessionTitle();
-    setEventTypeSelected();
-    setFacultySelected();
-    setUsageSelected();
-    setRoomTypeSelected();
+    setUserSelected([]);
+    setSessionTitle("");
+    setEventTypeSelected([]);
+    setFacultySelected([]);
+    setUsageSelected([]);
+    setRoomTypeSelected([]);
     setRoomSelected([]);
-    setStartTimeSelected();
-    setEndTimeSelected();
-    setCourseSelected();
-    setGearSelected();
-    setEventID();
+    setStartTimeSelected("");
+    setEndTimeSelected("");
+    setCourseSelected([]);
+    setGearSelected([]);
+    setEventID("");
 
     // form actions
-    setNewEvent();
-    setUpdateEvent();
-    setCancelEvent();
+    setNewEvent(false);
+    setUpdateEvent(false);
+    setCancelEvent(false);
 
     // other display related variables
-    setUserCount();
-    setAddCourse();
-    setAddGear();
+    setUserCount(0);
+    setAddCourse(false);
+    setAddGear(false);
 
+    // slose the confirmation page
     setOpen(false); 
   }
 
@@ -176,7 +290,7 @@ export default function Submit({userSelected, setUserSelected,
       <formCompletionCheck/>
       <SubmitButton 
       variant="contained" 
-      disabled={!(sessionTitle && roomTypeSelected && endTimeSelected && startTimeSelected)}
+      disabled={!(sessionTitle && roomTypeSelected && eventTypeSelected && endTimeSelected && startTimeSelected && timeCorrect)}
       onClick={handleSubmit}>
         SUBMIT
       </SubmitButton>   
@@ -194,8 +308,6 @@ export default function Submit({userSelected, setUserSelected,
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Please check your inbox for booking confirmation.
           </Typography>
-
-
         </Box>
 
       </Modal>

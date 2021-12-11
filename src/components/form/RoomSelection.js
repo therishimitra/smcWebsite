@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from 'react'; //test
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,6 +14,12 @@ import { pink } from "@mui/material/colors";
 import _without from "lodash/without";
 import Checkbox from "@mui/material/Checkbox";
 import Fade from "@mui/material/Fade";
+
+
+///////////////////   API Magic   ////////////////////////////////
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
+//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -92,7 +99,9 @@ export default function RoomSelectionInput({roomOptionStudio,
                                             roomOptionECspace, 
                                             disabledRoomTypes, 
                                             setRoomTypeSelected,
-                                            setRoomSelected
+                                            setRoomSelected,
+                                            roomBookingRecord,
+                                            setRoomBookingRecord
                                             }) {
   const classes = useStyles();
   const theme = useTheme();
@@ -167,8 +176,7 @@ export default function RoomSelectionInput({roomOptionStudio,
     console.log("filtered array",roomSelectedAllInfo);
 
     ///////////////////   API Magic   ////////////////////////////////
-    var Airtable = require('airtable');
-    var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+
     //Crawling all rooms to find associated events whose recordIDs are stored in eventsList[]
     var roomSelectedAllInfoLength = roomSelectedAllInfo.length;
     eventsList = [];
@@ -178,13 +186,19 @@ export default function RoomSelectionInput({roomOptionStudio,
       base('Rooms').find(roomSelectedAllInfo[j].key, function(err, record) {
     
         if (err) { console.error(err); return; }
-      //console.log('Retrieved', record);
-
-      eventsList.push({name: record.get('Name'), events: record.get('Events')});
-      eventsListLength++;
-      
-    });      
+        //console.log('Retrieved', record);
+        eventsList.push({
+          name: record.get('Name'), 
+          id: record.id,
+          eventStart: record.get('Start Time (from Events)'),
+          eventEnd: record.get('End Time (from Events)'),
+          eventStatus: record.get('Status (from Events)')});
+        eventsListLength++;
+        
+        
+      });      
     }
+    setRoomBookingRecord(eventsList)
     console.log("Events:",eventsList);
     
 
@@ -195,7 +209,7 @@ export default function RoomSelectionInput({roomOptionStudio,
     
     // console.log(j);
     // console.log(eventsList);
-    // console.log(eventsList[0]);
+    
     
     // console.log("Here");
     // console.log(JSON.stringify(eventsList[0]))
@@ -227,6 +241,18 @@ export default function RoomSelectionInput({roomOptionStudio,
 
   };
 
+  /*
+
+  useEffect(() => { 
+    //console.log("roomBookingRecord:", roomBookingRecord);
+    if (roomBookingRecord.length !== 0) {
+      console.log("one room records", roomBookingRecord[0].eventStart[0], roomBookingRecord[0].eventEnd[0], roomBookingRecord[0].eventStatus[0] );
+      //var test = roomBookingRecord[0].events[0];
+      //console.log("test",test)
+    }
+  }, [roomBookingRecord]);
+
+*/
   const handleDelete = (e, value) => {
     e.preventDefault();
     setRoom((current) => _without(current, value));

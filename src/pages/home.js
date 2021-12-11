@@ -50,7 +50,9 @@ const ECRoomsIDs = [];
 ///////////////////////////////////////////             ///////////////////////////////////////////
 
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx')
+var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
+//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
+
 
 //({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox')
 // original: ({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
@@ -71,7 +73,7 @@ base('SMC People').select({
       
       if(record.get('Role').includes('Faculty/Staff 🎓'))
       {
-        facultyList.push(record.get('Person'));
+        facultyList.push({name: record.get('Person'), id: record.id});
       }
 
         //console.log(x,'Retrieved', record.get('Person'), record)
@@ -86,14 +88,6 @@ base('SMC People').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-
-//peopleAllInfo.forEach(element => console.log(element));
-
-// console.log(peopleAllInfo[2].lendLevel)
-//console.log(peopleAllInfo[0])
-//console.log((SMCpeople[0]))
-//console.log(typeof(SMCpeople))
-//console.log(peopleAllInfo[0].name)
 
 
 /////////////////////////////////////////// Pulling Records from Rooms  ///////////////////////////////////////////
@@ -166,14 +160,12 @@ base('Rooms').select({
     if (err) { console.error(err); return; }
 });
 
-//var userSelected;
-//var disabledRoomTypes;
 
 function Home() {
 
     // main input data
     const [userSelected, setUserSelected] = React.useState([]); 
-    const [sessionTitle, setSessionTitle] = React.useState([]);
+    const [sessionTitle, setSessionTitle] = React.useState("");
     const [eventTypeSelected, setEventTypeSelected] = React.useState([]);
     const [facultySelected, setFacultySelected] = React.useState([]);
     const [usageSelected, setUsageSelected] = React.useState([]);
@@ -195,6 +187,8 @@ function Home() {
     const [disabledRoomTypes, setDisabledRoomTypes] = React.useState([]); 
     const [timeCorrect, setTimeCorrect] = React.useState(false);
     const [gearList, setGearList] = React.useState([]);
+    const [roomBookingRecord, setRoomBookingRecord] = React.useState([]);
+    
 
     const [addGear, setAddGear] = React.useState(false);
     const [addCourse, setAddCourse] = React.useState(false);
@@ -222,7 +216,7 @@ function Home() {
         </Box>
          <NameInput 
          peopleAllInfo={peopleAllInfo} 
-         setUserSelected={setUserSelected} 
+         setUserSelected={setUserSelected} userSelected={userSelected}
          setUserCount={setUserCount} 
          setDisabledRoomTypes={setDisabledRoomTypes}
          setGearList={setGearList}/>
@@ -283,6 +277,9 @@ function Home() {
         disabledRoomTypes={disabledRoomTypes}
         setRoomTypeSelected={setRoomTypeSelected}
         setRoomSelected={setRoomSelected}
+
+        roomBookingRecord={roomBookingRecord} setRoomBookingRecord={setRoomBookingRecord}
+
         />
         <br />
         </Paper>
@@ -315,6 +312,7 @@ function Home() {
         setStartTimeSelected={setStartTimeSelected}
         setEndTimeSelected={setEndTimeSelected}
         setTimeCorrect={setTimeCorrect}
+        roomBookingRecord={roomBookingRecord}
         />
         <br />
          </Paper>
@@ -447,7 +445,7 @@ function Home() {
             {(userCount > 0) && (newEvent || (updateEvent && goodID)) && (roomSelected.length !== 0) && <Grow in={userCount > 0}>{timeInput}</Grow>}
 
             <Grow in={(newEvent || (updateEvent && goodID))}>{courseInput}</Grow>
-            <Grow in={(newEvent || (updateEvent && goodID))}>{gearInput}</Grow>
+            {(userCount > 0) && (newEvent || (updateEvent && goodID)) && <Grow in={userCount > 0}>{gearInput}</Grow>}
 
             {(userCount > 0) && (newEvent || (updateEvent && goodID)) &&
             <Submit
@@ -472,6 +470,7 @@ function Home() {
             setAddGear={setAddGear}
             setUserCount={setUserCount}
             timeCorrect={timeCorrect}
+            roomBookingRecord={roomBookingRecord}
             
             />}
             <br />

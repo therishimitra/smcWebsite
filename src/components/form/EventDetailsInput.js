@@ -118,7 +118,12 @@ export default function EventDetailsInput({facultyList,
         }}
         id="Search-for-faculty"
         options={facultyList}
-        getOptionLabel={(option) => option}
+        getOptionLabel={(option) => {
+          if (typeof option === "string") {
+            // Value selected with enter, right from the input
+            return option;
+          } else return option.name; // Regular option
+        }}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -134,7 +139,7 @@ export default function EventDetailsInput({facultyList,
                 }
               }}
             />
-            {option}
+            {option.name}
           </li>
         )}
         renderInput={(params) => (
