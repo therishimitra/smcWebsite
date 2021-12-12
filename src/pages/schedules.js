@@ -10,7 +10,7 @@ function schedules() {
     return(  
 
         <div>
-            <SlideMessageRec/>
+            <SlideMessageRec/>  
             <SlideCalendarRec/>
             <SlideMessageReh/> 
             <SlideCalendarReh/>
