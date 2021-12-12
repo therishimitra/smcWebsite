@@ -220,131 +220,103 @@ function Home() {
     );
 
     const roomInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-        >  Room Selection
-        <Grid container spacing={1}>
-        <Grid item xs={1}>
-        <Box sx={{fontSize: 20,lineHeight: 1.5}}>
-        📌 
-        </Box>
-        </Grid>
-        <Grid item xs={11}>
-            <FormLabel component="legend">
-            If the Edit & Collaboration Spaces is selected, option to add gear(s) to your booking will be available at the end of the form :)
-            </FormLabel>
-        </Grid>
-        </Grid>
-        </Box>
-        <RoomSelection 
-        roomOptionStudio={RecordingStudioRoomsList} 
-        roomOptionRehearsal={RehearsalRoomsList} 
-        roomOptionECspace={ECRoomsList} 
-        disabledRoomTypes={disabledRoomTypes}
-        setRoomTypeSelected={setRoomTypeSelected}
-        setRoomSelected={setRoomSelected}
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box sx={{ textAlign: "left", m: 2, fontSize: 22, lineHeight: 2 }}>  
+        Room Selection
+      <Grid container spacing={1}>
+      <Grid item xs={1}>
+      <Box sx={{fontSize: 20,lineHeight: 1.5}}>
+      📌 
+      </Box>
+      </Grid>
+      <Grid item xs={11}>
+        <FormLabel component="legend">
+        If the Edit & Collaboration Spaces is selected, option to add gear(s) to your booking will be available at the end of the form :)
+        </FormLabel>
+      </Grid>
+      </Grid>
+      </Box>
+      <RoomSelection 
+      roomOptionStudio={RecordingStudioRoomsList} 
+      roomOptionRehearsal={RehearsalRoomsList} 
+      roomOptionECspace={ECRoomsList} 
+      disabledRoomTypes={disabledRoomTypes}
+      setRoomTypeSelected={setRoomTypeSelected}
+      setRoomSelected={setRoomSelected}
 
-        roomBookingRecord={roomBookingRecord} setRoomBookingRecord={setRoomBookingRecord}
+      roomBookingRecord={roomBookingRecord} setRoomBookingRecord={setRoomBookingRecord}
 
-        />
-        <br />
-        </Paper>
+      />
+      <br />
+      </Paper>
     );
 
     const timeInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-        >  Session Time
-        <Grid container spacing={1}>
-        <Grid item xs={1}>
-        <Box sx={{fontSize: 20,lineHeight: 1.5}}>
-        📌 
-        </Box>
-        </Grid>
-        <Grid item xs={11}>
-            <FormLabel component="legend">
-            Based on the your chosen Session Time, we wil notify you with the availability of the room(s) selected above. 
-            </FormLabel>
-        </Grid>
-        </Grid>
-        </Box>
-        <TimeInput 
-        setStartTimeSelected={setStartTimeSelected}
-        setEndTimeSelected={setEndTimeSelected}
-        setTimeCorrect={setTimeCorrect}
-        roomBookingRecord={roomBookingRecord}
-        />
-        <br />
-         </Paper>
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box sx={{ textAlign: "left", m: 2, fontSize: 22, lineHeight: 2}}>  
+      Session Time
+      <Grid container spacing={1}>
+      <Grid item xs={1}>
+      <Box sx={{fontSize: 20,lineHeight: 1.5}}>
+      📌 
+      </Box>
+      </Grid>
+      <Grid item xs={11}>
+          <FormLabel component="legend">
+          Based on the your chosen Session Time, we wil notify you with the availability of the room(s) selected above. 
+          </FormLabel>
+      </Grid>
+      </Grid>
+      </Box>
+      <TimeInput 
+      setStartTimeSelected={setStartTimeSelected}
+      setEndTimeSelected={setEndTimeSelected}
+      setTimeCorrect={setTimeCorrect}
+      roomBookingRecord={roomBookingRecord}
+      />
+      <br />
+      </Paper>
     );
     
     const courseInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <CourseInput 
-        setCourseSelected={setCourseSelected}
-        addCourse={addCourse} setAddCourse={setAddCourse}
-        />
-        <br />
-         </Paper>
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <CourseInput 
+      setCourseSelected={setCourseSelected}
+      addCourse={addCourse} setAddCourse={setAddCourse}
+      />
+      <br />
+      </Paper>
     );
 
     const gearInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <GearCheckOut 
-        setGearSelected={setGearSelected}
-        gearList={gearList}
-        addGear={addGear} setAddGear={setAddGear}
-        />
-        <br />
-         </Paper>
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <GearCheckOut 
+      setGearSelected={setGearSelected}
+      gearList={gearList}
+      addGear={addGear} setAddGear={setAddGear}
+      />
+      <br />
+      </Paper>
     );
     
 
     const SMChours = (
-        <Paper variant="outlined" sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <Box
-        sx={{
-          textAlign: "center",
-          m: 1,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-        >  
-        SMC Hours & Availability
-        </Box>
-        <Box
-        sx={{
-          mt: -5,
-          ml: 6,
-          textAlign: "left",
-          fontSize: 17,
-          lineHeight: 2
-        }}
-        >  
-        <br />
-        <Grid container>
-        <Grid item xs={7}>
-        <b>Monday — Friday: </b><li>8:00 AM — Midnight</li>
-        </Grid>
-        <Grid item xs="auto">
-        <b>Saturday & Sunday: </b><li>12:00 PM — Midnight</li>
-        </Grid>
-        </Grid>
-        </Box>
-        
-         </Paper>
+      <Paper variant="outlined" sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box sx={{ textAlign: "center", m: 1, fontSize: 22, lineHeight: 2}}>  
+      SMC Hours & Availability
+      </Box>
+      <Box sx={{ mt: -5, ml: 6, textAlign: "left", fontSize: 17, lineHeight: 2}}>  
+      <br />
+      <Grid container>
+      <Grid item xs={7}>
+      <b>Monday — Friday: </b><li>8:00 AM — Midnight</li>
+      </Grid>
+      <Grid item xs="auto">
+      <b>Saturday & Sunday: </b><li>12:00 PM — Midnight</li>
+      </Grid>
+      </Grid>
+      </Box>
+      </Paper>
     );
 
     const formActions = (
@@ -359,41 +331,33 @@ function Home() {
       setGoodID={setGoodID}
       setUserSelected={setUserSelected}
       />
-      
       <br />
       </Box>
   );
 
     const requestEventID = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 1,
-          fontSize: 20,
-          lineHeight: 1.5
-        }}
-        > 
-        <Grid container alignItems="flex-start" spacing={1}>
-        <Grid item xs={1}>
-        📌
-        </Grid>
-        <Grid item xs={11}>
-            <FormLabel component="legend">
-            Please enter the Event Record ID you recieved in the confirmation email before proceeding to the rest of the form.
-            </FormLabel>
-        </Grid>
-        </Grid>
-        </Box>
-        <Box m= "auto" sx={{ my: 2,display: "flex", alignItems: "center"}} >
-        <EventID 
-        IDerror={IDerror} setIDError={setIDError}
-        eventID={eventID} setEventID={setEventID}
-        goodID={goodID} setGoodID={setGoodID}
-        updateEvent={updateEvent} CancelEvent={CancelEvent}
-        />
-        </Box>
-         </Paper>
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box sx={{ textAlign: "left", m: 1, fontSize: 20, lineHeight: 1.5 }}> 
+      <Grid container alignItems="flex-start" spacing={1}>
+      <Grid item xs={1}>
+      📌
+      </Grid>
+      <Grid item xs={11}>
+          <FormLabel component="legend">
+          Please enter the Event Record ID you recieved in the confirmation email before proceeding to the rest of the form.
+          </FormLabel>
+      </Grid>
+      </Grid>
+      </Box>
+      <Box m= "auto" sx={{ my: 2,display: "flex", alignItems: "center"}} >
+      <EventID 
+      IDerror={IDerror} setIDError={setIDError}
+      eventID={eventID} setEventID={setEventID}
+      goodID={goodID} setGoodID={setGoodID}
+      updateEvent={updateEvent} CancelEvent={CancelEvent}
+      />
+      </Box>
+      </Paper>
     );
     
     return(  
