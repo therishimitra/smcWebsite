@@ -185,43 +185,29 @@ function Home() {
     const [CancelEvent, setCancelEvent] = React.useState(false);
 
     const nameInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2}}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-      >
-        Who's booking?
-        <br />
-        <FormLabel component="legend">
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2}}>
+        <Box sx={{textAlign: "left", m: 2, fontSize: 22, lineHeight: 2}}>
+          Who's booking?
+          <br />
+          <FormLabel component="legend">
             i.e. takes all responsibility!
           </FormLabel>
         </Box>
-         <NameInput 
-         peopleAllInfo={peopleAllInfo} 
-         setUserSelected={setUserSelected} userSelected={userSelected}
-         setUserCount={setUserCount} 
-         setDisabledRoomTypes={setDisabledRoomTypes}
-         setGearList={setGearList}/>
-        </Paper>  
-        
+        <NameInput 
+        peopleAllInfo={peopleAllInfo} 
+        userSelected={userSelected}
+        setUserSelected={setUserSelected} 
+        setUserCount={setUserCount} 
+        setDisabledRoomTypes={setDisabledRoomTypes}
+        setGearList={setGearList}/>
+      </Paper>  
     );
     
     const eventDetailsInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-      >  Event Details
-      </Box>
-
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+        <Box sx={{ textAlign: "left", m: 2, fontSize: 22, lineHeight: 2}}>  
+          Event Details
+        </Box>
         <EventDetailsInput 
         facultyList = {facultyList}
         setSessionTitle={setSessionTitle}
@@ -230,7 +216,7 @@ function Home() {
         setUsageSelected={setUsageSelected}
         />
         <br />
-        </Paper>
+      </Paper>
     );
 
     const roomInput = (

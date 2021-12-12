@@ -30,7 +30,6 @@ function SlideCalendar() {
 
 
     return (
-    
     <animated.div style={slideStyle}>
         <div style={noteStyle}>
             <br></br>
@@ -44,13 +43,10 @@ function SlideCalendar() {
                 width="100%" 
                 height="533"
                 style={embedStyle}
-                
             />
             </Box>
-    
         </div>
     </animated.div>
-           
     )
 }
 
