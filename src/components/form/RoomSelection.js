@@ -192,7 +192,8 @@ export default function RoomSelectionInput({roomOptionStudio,
           id: record.id,
           eventStart: record.get('Start Time (from Events)'),
           eventEnd: record.get('End Time (from Events)'),
-          eventStatus: record.get('Status (from Events)')});
+          eventStatus: record.get('Status (from Events)')
+        });
         eventsListLength++;
         
         

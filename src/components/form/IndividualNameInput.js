@@ -106,6 +106,7 @@ function filterGear(){
   }
   else{
     
+    
     return gearList;
   }
 
@@ -140,39 +141,9 @@ function filterGear(){
   
 }
 
-
-var roomTypes;
-
-////////////////////// Filtering gears using API data
-function filterRoomType(disabled) {
-  
-  if (userValues.some(element => element.roomAccess === 'Room Access 3')) {
-    disabled = [];
-  }
-  else if (userValues.some(element => element.roomAccess === 'Room Access 2')){
-    disabled = ["Recording Studio 🎙️"];
-  }
-  else if (userValues.some(element => element.roomAccess === 'Room Access 1')){
-    disabled = [
-      "Recording Studio 🎙️",
-      "Rehearsal Spaces 🎧"
-    ];
-  }
-  else{
-    // roomTypes[] remains empty as the user has no access levels
-    disabled = [
-      "Recording Studio 🎙️",
-      "Rehearsal Spaces 🎧",
-      "Edit & Collaboration Spaces 🎒"
-   ];
-  }
-  return disabled;
-}
-
-
 const filter = createFilterOptions();
 
-function NameInput({peopleAllInfo, userSelected, setUserSelected, setUserCount, setDisabledRoomTypes, setGearList}) {
+function NameInput({peopleAllInfo, userSelected, setUserSelected, setGearList}) {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -195,9 +166,7 @@ function NameInput({peopleAllInfo, userSelected, setUserSelected, setUserCount, 
     userNameList.splice(userNameList.indexOf(item), 1);
     userValues = userValues.filter((user) => user.name !== item);
 
-    setUserCount(userNameList.length); // send data to home
     setUserSelected(userValues);
-    setDisabledRoomTypes(filterRoomType(roomTypes));
     setGearList(filterGear());
   };
 
@@ -233,9 +202,7 @@ function NameInput({peopleAllInfo, userSelected, setUserSelected, setUserCount, 
         userValues.push(newValue);
         userNameList.push(newValue.name);
 
-        setUserCount(userNameList.length); // send data to home 
         setUserSelected(userValues);
-        setDisabledRoomTypes(filterRoomType(roomTypes));
         setGearList(filterGear());
 
         handleAddName();

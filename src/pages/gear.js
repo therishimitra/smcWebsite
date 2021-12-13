@@ -1,7 +1,8 @@
 import React from 'react'
-import NameInput from '../components/form/NameInput';
-import TimeInput from '../components/form/TimeInput';
+import IndividualNameInput from '../components/form/IndividualNameInput';
+import IndividualTimeInput from '../components/form/IndividualTimeInput';
 import IndividualGearCheckOut from '../components/form/IndividualGearCheckOut';
+import IndividualSubmit from '../components/form/IndividualSubmit';
 
 import Paper from "@mui/material/Paper";
 import Grid from '@mui/material/Grid';
@@ -49,89 +50,78 @@ function Gear() {
     const [userSelected, setUserSelected] = React.useState([]); 
     const [gear, setGear] = React.useState([]);
     const [gearList, setGearList] = React.useState([]);
+    const [gearSelected, setGearSelected] = React.useState([]); 
     const [startTimeSelected, setStartTimeSelected] = React.useState(""); 
     const [endTimeSelected, setEndTimeSelected] = React.useState(""); 
 
     const [timeCorrect, setTimeCorrect] = React.useState(false);
-    const [userCount, setUserCount] = React.useState(0);
 
     const nameInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2}}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-      >
-        Who's booking?
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2}}>
+        <Box sx={{ textAlign: "left", m: 2, fontSize: 22, lineHeight: 2}}>
+          Who's booking?
         <br />
         <FormLabel component="legend">
-            i.e. takes all responsibility!
-          </FormLabel>
+        Add users to see a list of gear available to your access level in the Select Gear menu.
+        </FormLabel>
         </Box>
-         <NameInput 
-         peopleAllInfo={peopleAllInfo} 
-         setUserSelected={setUserSelected} userSelected={userSelected}
-         setGearList={setGearList}
-         setUserCount={setUserCount} 
-         />
-        </Paper>  
+        <IndividualNameInput
+        peopleAllInfo={peopleAllInfo} 
+        setUserSelected={setUserSelected} userSelected={userSelected}
+        setGearList={setGearList}
+        />
+      </Paper>  
         
     );
 
     const timeInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <Box
-        sx={{
-          textAlign: "left",
-          m: 2,
-          fontSize: 22,
-          lineHeight: 2
-        }}
-        >  Session Time
-        <Grid container spacing={1}>
-        <Grid item xs={1}>
-        <Box sx={{fontSize: 20,lineHeight: 1.5}}>
-        📌 
-        </Box>
-        </Grid>
-        <Grid item xs={11}>
-            <FormLabel component="legend">
-            Based on the your chosen Session Time, we wil notify you with the availability of the gear(s) selected above. 
-            </FormLabel>
-        </Grid>
-        </Grid>
-        </Box>
-        <TimeInput 
-        setStartTimeSelected={setStartTimeSelected}
-        setEndTimeSelected={setEndTimeSelected}
-        setTimeCorrect={setTimeCorrect}
-
-        />
-        <br />
-         </Paper>
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box sx={{ textAlign: "left", m: 2, fontSize: 22, lineHeight: 2}}>  
+        Session Time
+        <FormLabel component="legend">
+        Based on the your chosen Session Time, we wil notify you with the availability of the room(s) selected above. 
+        </FormLabel>
+      </Box>
+      <IndividualTimeInput 
+      setStartTimeSelected={setStartTimeSelected}
+      setEndTimeSelected={setEndTimeSelected}
+      setTimeCorrect={setTimeCorrect}
+      />
+      <br />
+      </Paper>
     );
 
     const gearInput = (
-        <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
-        <IndividualGearCheckOut 
-        gearList={gearList}
-        gear={gear} setGear={setGear}
-        />
+      <Paper sx={{ maxWidth: 700, width: "90%", my: 2, mx: 'auto', p: 2 }}>
+      <Box sx={{ textAlign: "left", m: 2, fontSize: 22, lineHeight: 2}}>
+          Select Gear
         <br />
-         </Paper>
+      </Box>
+      <IndividualGearCheckOut 
+      setGearSelected={setGearSelected}
+      gearList={gearList}
+      gear={gear} setGear={setGear}
+      startTimeSelected={startTimeSelected}
+      endTimeSelected={endTimeSelected}
+      />
+      <br />
+      </Paper>
     );
 
     return(  
 
         <div>
-
-            <Grow in={true}>{nameInput}</Grow>
-            <Grow in={true}>{timeInput}</Grow>
-            <Grow in={true}>{gearInput}</Grow>
-
+          <Grow in={true}>{nameInput}</Grow>
+          <Grow in={true}>{timeInput}</Grow>
+          <Grow in={true}>{gearInput}</Grow>
+          
+          <IndividualSubmit
+          userSelected={userSelected} 
+          startTimeSelected={startTimeSelected} 
+          endTimeSelected={endTimeSelected} 
+          gearSelected={gearSelected} 
+          timeCorrect={timeCorrect} 
+          />
         </div>
     ) 
   

@@ -6,7 +6,6 @@ import Modal from "@mui/material/Modal";
 import TextField from '@mui/material/TextField';  
 import NameInput from './NameInput'; 
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
-import AirtableAPI from "../AirtableAPI";
 import { styled } from "@mui/styles";
 
 
@@ -193,6 +192,7 @@ export default function Submit({userSelected, setUserSelected,
       })
     }
 
+    console.log(courses);
     // perform form action
     if (newEvent) {
       CreateRecord(
@@ -259,6 +259,7 @@ export default function Submit({userSelected, setUserSelected,
 
     // slose the confirmation page
     setOpen(false); 
+    window.location.reload();
   }
 
 

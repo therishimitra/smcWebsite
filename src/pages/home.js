@@ -262,9 +262,9 @@ function Home() {
       </Box>
       </Grid>
       <Grid item xs={11}>
-          <FormLabel component="legend">
-          Based on the your chosen Session Time, we wil notify you with the availability of the room(s) selected above. 
-          </FormLabel>
+        <FormLabel component="legend">
+        Based on the your chosen Session Time, we wil notify you with the availability of the room(s) selected above. 
+        </FormLabel>
       </Grid>
       </Grid>
       </Box>
@@ -294,6 +294,8 @@ function Home() {
       setGearSelected={setGearSelected}
       gearList={gearList}
       addGear={addGear} setAddGear={setAddGear}
+      startTimeSelected={startTimeSelected}
+      endTimeSelected={endTimeSelected}
       />
       <br />
       </Paper>

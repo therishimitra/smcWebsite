@@ -57,14 +57,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function DateTimeValidation({setTimeCorrect,
                                             setStartTimeSelected, 
-                                            setEndTimeSelected,
-                                            roomBookingRecord}) {
+                                            setEndTimeSelected}) {
   const [startValue, setSartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
   const [invalidTime, setInvalidTime] = React.useState(false);
   const [invalidFormat, setInvalidFormat] = React.useState(false);
-  const [roomUnavailable, setRoomUnavailable] = React.useState(false);
-  const [successMsg, setSuccessMsg] = React.useState(false);
 
   const handleFakeClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -72,20 +69,21 @@ export default function DateTimeValidation({setTimeCorrect,
     }
   }
 
-  const handleRealClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSuccessMsg(false);
-  }
-
-
   const EndTimeCheck = () => {
 
-    if (StartTime === "NaN-NaN-NaNTNaN:NaN:00.000z" || EndTime === "NaN-NaN-NaNTNaN:NaN:00.000z") {
+    //console.log("StartTime:", StartTime);
+    //console.log("EndTime:", EndTime);
+    /*
+    if (StartTime && EndTime) {
+    StartTime = Add5Hours(StartTime);
+    EndTime = Add5Hours(EndTime);
+    
+    }
+*/
+
+    if (StartTime === "NaN-NaN-NaNTNaN:NaN:00.000Z" || EndTime === "NaN-NaN-NaNTNaN:NaN:00.000Z") {
       setInvalidFormat(true);
       setTimeCorrect(false);
-      return;
     } 
     else { 
       setInvalidFormat(false);    
@@ -93,65 +91,32 @@ export default function DateTimeValidation({setTimeCorrect,
       if (StartTime > EndTime) {
         setInvalidTime(true);
         setTimeCorrect(false);
-        return;
       }
       else {
         setInvalidTime(false);
         setTimeCorrect(true);
         setStartTimeSelected(StartTime);
         setEndTimeSelected(EndTime);
+
+        console.log("StartTime:", StartTime);
+        console.log("EndTime:", EndTime);
       }
-
-
-      if (roomBookingRecord.length !== 0 && StartTime && EndTime) {
-
-        StartTime = Add5Hours(StartTime);
-        EndTime = Add5Hours(EndTime);
-        //console.log("comparableStartTime:", StartTime);
-        //console.log("comparableEndTime:", EndTime);
-
-        var realEndTime = new Date(EndTime);
-        realEndTime.setHours(realEndTime.getHours() + 1);
-        realEndTime = realEndTime.toISOString();
-        
-        var conflictFound = false;
-        
-        for (var i = 0; !conflictFound && (i < roomBookingRecord.length); i++) {
-          for (var j = 0; !conflictFound && (j < roomBookingRecord[i].eventStart.length); j++){
-
-              // User selected time is covering and existing session 
-              if ((StartTime <= roomBookingRecord[i].eventStart[j]) && (realEndTime >= roomBookingRecord[i].eventEnd[j])) {
-                conflictFound = true;
-                unavailableRoom = roomBookingRecord[i].name;
-                break;
-              } 
-              // User selected start time is during an existing session 
-              else if ((StartTime >= roomBookingRecord[i].eventStart[j]) && (StartTime <= roomBookingRecord[i].eventEnd[j])) {
-                conflictFound = true;
-                unavailableRoom = roomBookingRecord[i].name;
-                break;
-              }
-              // User selected end time is during an existing session 
-              else if ((realEndTime >= roomBookingRecord[i].eventStart[j]) && (realEndTime <= roomBookingRecord[i].eventEnd[j])) {
-                conflictFound = true;
-                unavailableRoom = roomBookingRecord[i].name;
-                break;
-              }
-          }
-        }
-
-        if (conflictFound) {
-          setRoomUnavailable(true);
-          setSuccessMsg(false);
-          setTimeCorrect(false);
-        } else {
-          setRoomUnavailable(false);
-          setSuccessMsg(true);
-          setTimeCorrect(true);
-        }
-        
-      }
+  
     }
+    return (
+        <div>
+        {invalidTime && 
+          <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <Alert severity="error">Proposed end time should not exceed start time!</Alert>
+          </Snackbar>
+        }
+        {invalidFormat && 
+          <Snackbar open={invalidFormat} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <Alert severity="error">Time format invalid!</Alert>
+          </Snackbar>
+        }
+      </div>
+    );
   };
 
   return (
@@ -166,8 +131,10 @@ export default function DateTimeValidation({setTimeCorrect,
               label="Event start time"
               value={startValue}
               onChange={(newValue) => {
-                setSartValue(newValue);
+                setSartValue(newValue);    
                 StartTime = ISODateString(newValue);
+                if (StartTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
+                    StartTime = Add5Hours(StartTime)
                 console.log(StartTime);
                 setTimeCorrect(false);
               }}
@@ -187,6 +154,8 @@ export default function DateTimeValidation({setTimeCorrect,
               onChange={(newValue) => {
                 setEndValue(newValue);
                 EndTime = ISODateString(newValue);
+                if (EndTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
+                    EndTime = Add5Hours(EndTime);
                 console.log(EndTime);
                 setTimeCorrect(false);
               }}
@@ -200,32 +169,8 @@ export default function DateTimeValidation({setTimeCorrect,
           </FormControl>
         </div>
       </Stack>
+      <EndTimeCheck />
 
-      <Box justifyContent="center" alignItems="center">
-        <br /><Button variant="contained" onClick={EndTimeCheck}>check availability</Button>
-      </Box>
-      <div>
-        {invalidTime && 
-          <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="error">Proposed end time should not exceed start time!</Alert>
-          </Snackbar>
-        }
-        {invalidFormat && 
-          <Snackbar open={invalidFormat} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="error">Time format invalid!</Alert>
-          </Snackbar>
-        }
-        {roomUnavailable && 
-          <Snackbar open={roomUnavailable} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="error">{unavailableRoom} is not available at inputted time!</Alert>
-          </Snackbar>
-        }
-        {successMsg && 
-          <Snackbar open={successMsg} autoHideDuration={2000} onClose={handleRealClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="success">Room availability is good at inputted time</Alert>
-          </Snackbar>
-        }
-      </div>
     </LocalizationProvider>
 
   );

@@ -11,6 +11,8 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Stack from "@mui/material/Stack";
 import CircularProgress from '@mui/material/CircularProgress';
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar'; 
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -18,6 +20,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 // This will be used to store input data
 var userGear;
+var unavailableGear;
 
 const embedStyle = {
   background: "transparent",
@@ -45,12 +48,18 @@ function sleep(delay = 0) {
   });
 }
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" horizontal="center" {...props} />;
+  });
 
-export default function GearCheckOut({gearList, gear, setGear}) {
+export default function GearCheckOut({setGearSelected, gearList, gear, setGear, startTimeSelected, endTimeSelected}) {
   
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
+  const [gearUnavailable, setGearUnavailable] = React.useState(false);
+  const [successMsg, setSuccessMsg] = React.useState(false);
+
 
   React.useEffect(() => {
     let active = true;
@@ -78,6 +87,91 @@ export default function GearCheckOut({gearList, gear, setGear}) {
     }
   }, [open]);
 
+  const handleFakeClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+  }
+
+  const handleRealClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSuccessMsg(false);
+  }
+ 
+  const availabilityCheck = () => {
+    var gears = userGear;
+    var StartTime = startTimeSelected;
+    var EndTime = endTimeSelected;
+    console.log(gears);
+    console.log(startTimeSelected);
+    console.log(endTimeSelected);
+    if (gears && StartTime && EndTime) {
+      var realEndTime = new Date(EndTime);
+      realEndTime.setHours(realEndTime.getHours() + 1);
+      realEndTime = realEndTime.toISOString();
+      
+      var conflictFound = false;
+      console.log("test2");
+      for (var i = 0; !conflictFound && (i < gears.length); i++) {
+        if (!gears[i].eventStart) continue;
+        for (var j = 0; !conflictFound && (j < gears[i].eventStart.length); j++){
+
+            // User selected time is covering and existing session 
+            if ((StartTime <= gears[i].eventStart[j]) && (realEndTime >= gears[i].eventEnd[j])) {
+              conflictFound = true;
+              unavailableGear = gears[i].name;
+              break;
+            } 
+            // User selected start time is during an existing session 
+            else if ((StartTime >= gears[i].eventStart[j]) && (StartTime <= gears[i].eventEnd[j])) {
+              conflictFound = true;
+              unavailableGear = gears[i].name;
+              break;
+            }
+            // User selected end time is during an existing session 
+            else if ((realEndTime >= gears[i].eventStart[j]) && (realEndTime <= gears[i].eventEnd[j])) {
+              conflictFound = true;
+              unavailableGear = gears[i].name;
+              break;
+            }
+        }
+      }
+  
+      if (conflictFound) {
+        setGearUnavailable(true);
+        setSuccessMsg(false);
+
+      } else {
+        setGearUnavailable(false);
+        setSuccessMsg(true);
+      }
+      
+    }
+  
+  };
+
+  const handleOnChange = (event, newValue) => {
+    if (typeof newValue === "string") {
+      setGear({
+        title: newValue
+      });
+    } else {
+      setGear(newValue);
+      userGear = newValue;
+      setGearSelected(newValue);
+      console.log(userGear);
+
+      // call function to check for availability
+      setGearUnavailable(false);
+      setSuccessMsg(false);
+      if (newValue.length !==0) availabilityCheck();
+
+    };
+  };
+
+
   return (
     <Stack spacing={0}>
       <Box sx={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", justifyContent: 'center' }}>
@@ -94,17 +188,7 @@ export default function GearCheckOut({gearList, gear, setGear}) {
         freeSolo
         disableCloseOnSelect
         value={gear}
-        onChange={(event, newValue) => {
-          if (typeof newValue === "string") {
-            setGear({
-              title: newValue
-            });
-          } else {
-            setGear(newValue);
-            userGear = newValue;
-            console.log(userGear);
-          }
-        }}
+        onChange={handleOnChange}
         id="Search-for-course"
         options={options}
         getOptionLabel={(option) => {
@@ -134,7 +218,7 @@ export default function GearCheckOut({gearList, gear, setGear}) {
           <TextField {...params} 
           variant="outlined" 
           label="Add Gear(s)" 
-          helperText="Available gear can be viewed below."
+          helperText="Note: All gear at the SMC (and the Level needed to checkout) can be viewd below"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
@@ -150,7 +234,17 @@ export default function GearCheckOut({gearList, gear, setGear}) {
       <br />
     </FormControl>
     {iFrameGear}
-      </Box>
+    {gearUnavailable && 
+        <Snackbar open={gearUnavailable} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert severity="error">{unavailableGear} is not available at the inputted time!</Alert>
+        </Snackbar>
+      }
+      {successMsg && 
+        <Snackbar open={successMsg} autoHideDuration={2000} onClose={handleRealClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert severity="success">Gear availability is good at inputted time</Alert>
+        </Snackbar>
+      }
+    </Box>
     </Stack>
   );
 }
