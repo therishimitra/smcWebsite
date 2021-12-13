@@ -28,6 +28,26 @@ function DeleteRecord(eventID) {
   });
 }
 
+function UpdateRecord(eventID) {
+
+base('Events').update([
+  {
+    "id": eventID,
+    "fields": {
+      "Status": "Canceled ⛔️"
+      }
+  }
+], function(err, records) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    records.forEach(function(record) {
+      console.log("record updated");
+    });
+  });
+}
+
 const style = {
   position: "absolute",
   top: "40%",
@@ -89,7 +109,8 @@ export default function EventID({IDerror, setIDError, eventID, setEventID, goodI
   };
 
   const handleSubmitCancellation = () => {
-    DeleteRecord(eventID);
+    UpdateRecord(eventID);
+    //DeleteRecord(eventID); 
     setOpenCancelDialog(false);
     setOpenCancelSuccess(true);
 
@@ -184,7 +205,7 @@ export default function EventID({IDerror, setIDError, eventID, setEventID, goodI
           alignItems="center"
           sx={{ textAlign: "left" }}
         >
-          <Button variant="contained" onClick={handleCheckID}>
+          <Button variant="contained" disabled={!eventID} onClick={handleCheckID}>
             confirm
           </Button>
           {successMsg && 
