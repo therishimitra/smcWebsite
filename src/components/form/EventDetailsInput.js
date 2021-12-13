@@ -37,8 +37,8 @@ var userEventUsage;
 var userFacultyInput;
 
 const eventTypes = [
-  "Summer Booking 🏖️",
-  "Recording Session 🎙️",
+  "Summer Booking 🏖",
+  "Recording Session 🎙",
   "Student Project 🎬",
   "Class 📚",
   "Meeting 🤝",
