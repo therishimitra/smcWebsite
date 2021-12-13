@@ -31,7 +31,7 @@ function SlideMessageRec() {
                 Ready to go on record?
             </h1>
             <h3>
-                Please fill the form below to book a slot at the Recording Studio
+                Please check out the calendar below before you book a slot at the Recording Studio
             </h3>
         </div>
     </animated.div>

@@ -104,7 +104,8 @@ function filterGear(){
   else if (userValues.some(element => element.gearAccess === 'Gear Level 1')){
     lendLevel = "Lending Level 1";
   }
-  else{
+  //CASE: User has no lendLevel (staff) RETURN: Empty gearList for selection options
+  else{ 
     
     return gearList;
   }

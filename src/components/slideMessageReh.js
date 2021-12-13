@@ -31,7 +31,7 @@ function SlideMessageReh() {
                 Need some practice?
             </h1>
             <h3>
-                Please fill the form below to book a Rehearsal Space
+                Please check out the calendar below before you book a Rehearsal Space
             </h3>
         </div>
     </animated.div>
