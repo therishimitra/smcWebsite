@@ -90,6 +90,9 @@ export default function DateTimeValidation({setTimeCorrect,
     else { 
       setInvalidFormat(false);    
 
+      StartTime = Add5Hours(StartTime);
+      EndTime = Add5Hours(EndTime);
+
       if (StartTime > EndTime) {
         setInvalidTime(true);
         setTimeCorrect(false);
@@ -105,8 +108,7 @@ export default function DateTimeValidation({setTimeCorrect,
 
       if (roomBookingRecord.length !== 0 && StartTime && EndTime) {
 
-        StartTime = Add5Hours(StartTime);
-        EndTime = Add5Hours(EndTime);
+        
         //console.log("comparableStartTime:", StartTime);
         //console.log("comparableEndTime:", EndTime);
 
