@@ -1,4 +1,5 @@
-# From SMC Team
+# From CS360 Team: 
+
 The source code for the website can be found in the GitHub repository (therishimitra/smcWebsite). Maintenance and deployment of new builds can be carried out as described below.
 
 #	Maintenance
