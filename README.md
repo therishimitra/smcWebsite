@@ -4,12 +4,12 @@ The source code for the website can be found in the GitHub repository (therishim
 #	Maintenance
 •	Clone the smcWebsite repo
 •	Install node modules: 
-### npm install
+### 'npm install'
 •	.env file is not on GitHub to prevent leaking of user data. For more information on creating this file please refer to: https://dev.to/rajatetc/configure-environment-variables-in-create-react-app-netlify-4b33
 The values to be inputted can be found as described in section 13.2.2
 •	(optional) If changing the API Key (say, in order to test on a copy of the Airtable base) this will have to be changed in the file named .env in the root of the project directory. If this change needs to be deployed, the environment variable on Netlify will have to be changed as outlined under section 13.2.2
 •	To test changes on development server: 
-### npm start
+### 'npm start'
 
 
 
@@ -28,9 +28,9 @@ The prod branch on GitHub is meant for live deployments of the application. The 
 This allows a built project folder to be dragged and dropped which is then deployed. Configurations will not be necessary as create-react-app was used during the initial stages which Netlify will automatically detect.
 •	Clone repo
 •	Install node modules: 
-### npm install
+### 'npm install'
 •	Build project: 
-### npm run build
+### 'npm run build'
 •	Build folder will be generated in project directory 
 •	Login to Netlify
 •	Team overview>Add new site>Manually deploy
