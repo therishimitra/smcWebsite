@@ -34,12 +34,11 @@ function SlideCalendar() {
         <div style={noteStyle}>
             <br></br>
             <Box m="auto" sx={{ maxWidth: 900, width: "90%"}}>
-            <iframe class="airtable-embed" 
+            <iframe className ="airtable-embed" 
                 src="https://airtable.com/embed/shr7XfOauvLgRzajc?backgroundColor=red"
-                frameborder="0"
+                frameBorder="0"
                 sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"
                 loading="lazy"
-                onmousewheel=""
                 width="100%" 
                 height="533"
                 style={embedStyle}

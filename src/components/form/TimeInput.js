@@ -9,6 +9,7 @@ import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar'; 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useEffect } from 'react'; //test
 
 // This will be used to store input data
 var StartTime;
@@ -65,6 +66,7 @@ export default function DateTimeValidation({setTimeCorrect,
   const [invalidFormat, setInvalidFormat] = React.useState(false);
   const [roomUnavailable, setRoomUnavailable] = React.useState(false);
   const [successMsg, setSuccessMsg] = React.useState(false);
+  const [bookedStart, setBookedStart] = React.useState([]);
 
   const handleFakeClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -79,10 +81,18 @@ export default function DateTimeValidation({setTimeCorrect,
     setSuccessMsg(false);
   }
 
-
   const EndTimeCheck = () => {
 
-    if (StartTime === "NaN-NaN-NaNTNaN:NaN:00.000z" || EndTime === "NaN-NaN-NaNTNaN:NaN:00.000z") {
+    if (!StartTime || !EndTime){
+      setInvalidFormat(true);
+      setTimeCorrect(false);
+      return;
+    } 
+    else { 
+      setInvalidFormat(false);
+    }    
+
+    if (StartTime === "NaN-NaN-NaNTNaN:NaN:00.000Z" || EndTime === "NaN-NaN-NaNTNaN:NaN:00.000Z") {
       setInvalidFormat(true);
       setTimeCorrect(false);
       return;
@@ -102,22 +112,24 @@ export default function DateTimeValidation({setTimeCorrect,
         setEndTimeSelected(EndTime);
       }
 
+      //StartTime = Add5Hours(StartTime);
+      //EndTime = Add5Hours(EndTime);
+      //console.log("comparableStartTime:", StartTime);
+      //console.log("comparableEndTime:", EndTime);
 
-      if (roomBookingRecord.length !== 0 && StartTime && EndTime) {
+      var conflictFound = false;
 
-        StartTime = Add5Hours(StartTime);
-        EndTime = Add5Hours(EndTime);
-        //console.log("comparableStartTime:", StartTime);
-        //console.log("comparableEndTime:", EndTime);
+      if (typeof roomBookingRecord !== 'undefined') {
 
         var realEndTime = new Date(EndTime);
         realEndTime.setHours(realEndTime.getHours() + 1);
         realEndTime = realEndTime.toISOString();
         
-        var conflictFound = false;
-        
         for (var i = 0; !conflictFound && (i < roomBookingRecord.length); i++) {
+          if (typeof roomBookingRecord[i].eventStart == 'undefined') continue;
           for (var j = 0; !conflictFound && (j < roomBookingRecord[i].eventStart.length); j++){
+
+              if (roomBookingRecord[i].eventStatus[j] !== "Booked ✅") continue;
 
               // User selected time is covering and existing session 
               if ((StartTime <= roomBookingRecord[i].eventStart[j]) && (realEndTime >= roomBookingRecord[i].eventEnd[j])) {
@@ -139,18 +151,19 @@ export default function DateTimeValidation({setTimeCorrect,
               }
           }
         }
-
-        if (conflictFound) {
-          setRoomUnavailable(true);
-          setSuccessMsg(false);
-          setTimeCorrect(false);
-        } else {
-          setRoomUnavailable(false);
-          setSuccessMsg(true);
-          setTimeCorrect(true);
-        }
         
       }
+
+      if (conflictFound) {
+        setRoomUnavailable(true);
+        setSuccessMsg(false);
+        setTimeCorrect(false);
+      } else {
+        setRoomUnavailable(false);
+        setSuccessMsg(true);
+        setTimeCorrect(true);
+      }
+
     }
   };
 
@@ -168,6 +181,8 @@ export default function DateTimeValidation({setTimeCorrect,
               onChange={(newValue) => {
                 setSartValue(newValue);
                 StartTime = ISODateString(newValue);
+                if (StartTime && StartTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
+                    StartTime = Add5Hours(StartTime)
                 console.log(StartTime);
                 setTimeCorrect(false);
               }}
@@ -187,6 +202,8 @@ export default function DateTimeValidation({setTimeCorrect,
               onChange={(newValue) => {
                 setEndValue(newValue);
                 EndTime = ISODateString(newValue);
+                if (EndTime && EndTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
+                    EndTime = Add5Hours(EndTime);
                 console.log(EndTime);
                 setTimeCorrect(false);
               }}
@@ -207,7 +224,7 @@ export default function DateTimeValidation({setTimeCorrect,
       <div>
         {invalidTime && 
           <Snackbar open={invalidTime} autoHideDuration={10} onClose={handleFakeClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="error">Proposed end time should not exceed start time!</Alert>
+          <Alert severity="error">Proposed start time should not exceed end time!</Alert>
           </Snackbar>
         }
         {invalidFormat && 
@@ -222,7 +239,7 @@ export default function DateTimeValidation({setTimeCorrect,
         }
         {successMsg && 
           <Snackbar open={successMsg} autoHideDuration={2000} onClose={handleRealClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="success">Room availability is good at inputted time</Alert>
+          <Alert severity="success">Room is available at inputted time</Alert>
           </Snackbar>
         }
       </div>

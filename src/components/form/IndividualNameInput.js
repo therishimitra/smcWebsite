@@ -22,8 +22,7 @@ import FormLabel from "@mui/material/FormLabel";
 
 
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
-//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
+var base = new Airtable({apiKey: process.env.REACT_APP_API_KEY}).base('appYke0X4d4wy6GUx');
 
 // This will be used to store input data
 var userValues = [];

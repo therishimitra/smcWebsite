@@ -20,8 +20,8 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 var courseList = []; 
 
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
-//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
+var base = new Airtable({apiKey: process.env.REACT_APP_API_KEY}).base('appYke0X4d4wy6GUx');
+
 
 base('Classes').select({
     view: "Grid view"

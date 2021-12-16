@@ -133,7 +133,7 @@ export default function DateTimeValidation({setTimeCorrect,
               onChange={(newValue) => {
                 setSartValue(newValue);    
                 StartTime = ISODateString(newValue);
-                if (StartTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
+                if (StartTime && StartTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
                     StartTime = Add5Hours(StartTime)
                 console.log(StartTime);
                 setTimeCorrect(false);
@@ -154,7 +154,7 @@ export default function DateTimeValidation({setTimeCorrect,
               onChange={(newValue) => {
                 setEndValue(newValue);
                 EndTime = ISODateString(newValue);
-                if (EndTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
+                if (EndTime && EndTime !== "NaN-NaN-NaNTNaN:NaN:00.000Z")
                     EndTime = Add5Hours(EndTime);
                 console.log(EndTime);
                 setTimeCorrect(false);

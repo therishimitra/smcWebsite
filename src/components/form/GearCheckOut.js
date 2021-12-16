@@ -31,12 +31,11 @@ const embedStyle = {
 };
 
 const iFrameGear =(
-  <iframe class="airtable-embed" 
+  <iframe className="airtable-embed" 
           src="https://airtable.com/embed/shrmH9r8B0Zd8LwcU?backgroundColor=red"
-          frameborder="0"
+          frameBorder="0"
           sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"
           loading="lazy"
-          onmousewheel=""
           width="100%" 
           height="533"
           style={embedStyle}
@@ -114,16 +113,20 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
     console.log(gears);
     console.log(startTimeSelected);
     console.log(endTimeSelected);
+
+    var conflictFound = false;
+
     if (gears && StartTime && EndTime) {
       var realEndTime = new Date(EndTime);
       realEndTime.setHours(realEndTime.getHours() + 1);
       realEndTime = realEndTime.toISOString();
       
-      var conflictFound = false;
       console.log("test2");
       for (var i = 0; !conflictFound && (i < gears.length); i++) {
         if (!gears[i].eventStart) continue;
         for (var j = 0; !conflictFound && (j < gears[i].eventStart.length); j++){
+
+          if (gears[i].eventStatus[j] !== "Booked ✅") continue;
 
             // User selected time is covering and existing session 
             if ((StartTime <= gears[i].eventStart[j]) && (realEndTime >= gears[i].eventEnd[j])) {
@@ -145,16 +148,15 @@ export default function GearCheckOut({setGearSelected, gearList, addGear, setAdd
             }
         }
       }
-  
-      if (conflictFound) {
-        setGearUnavailable(true);
-        setSuccessMsg(false);
-
-      } else {
-        setGearUnavailable(false);
-        setSuccessMsg(true);
-      }
       
+    }
+
+    if (conflictFound) {
+      setGearUnavailable(true);
+      setSuccessMsg(false);
+    } else {
+      setGearUnavailable(false);
+      setSuccessMsg(true);
     }
   
   };

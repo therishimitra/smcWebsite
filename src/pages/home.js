@@ -35,14 +35,10 @@ const ECRoomsIDs = [];
 ///////////////////////////////////////////             ///////////////////////////////////////////
 ///////////////////////////////////////////  API CALLS  ///////////////////////////////////////////
 ///////////////////////////////////////////             ///////////////////////////////////////////
+//const API_KEY = process.env.REACT_APP_API_KEY;
 
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
-//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
-
-
-//({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox')
-// original: ({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx');
+var base = new Airtable({apiKey: process.env.REACT_APP_API_KEY}).base('appYke0X4d4wy6GUx');
 
 var x=0;
 ///////////////////////Pulling records from SMC People///////////////////////
@@ -365,6 +361,8 @@ function Home() {
     return(  
 
         <div>
+            
+            
             <SlideMessage/>
             <SlideCalendar/>
             

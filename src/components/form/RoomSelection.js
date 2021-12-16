@@ -18,8 +18,8 @@ import Fade from "@mui/material/Fade";
 
 ///////////////////   API Magic   ////////////////////////////////
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyGJts1v9eIz3Dki'}).base('appqapwXvgL64Efox');
-//({apiKey: 'keyn6GGT4mwqMtlaF'}).base('appYke0X4d4wy6GUx'); // real base
+var base = new Airtable({apiKey: process.env.REACT_APP_API_KEY}).base('appYke0X4d4wy6GUx');
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -190,9 +190,9 @@ export default function RoomSelectionInput({roomOptionStudio,
         eventsList.push({
           name: record.get('Name'), 
           id: record.id,
-          eventStart: record.get('Start Time (from Events)'),
-          eventEnd: record.get('End Time (from Events)'),
-          eventStatus: record.get('Status (from Events)')
+          eventStart: record.get('Events Start'),
+          eventEnd: record.get('Events End'),
+          eventStatus: record.get('Events Status')
         });
         eventsListLength++;
         
@@ -242,7 +242,7 @@ export default function RoomSelectionInput({roomOptionStudio,
 
   };
 
-  /*
+  
 
   useEffect(() => { 
     //console.log("roomBookingRecord:", roomBookingRecord);
@@ -253,7 +253,7 @@ export default function RoomSelectionInput({roomOptionStudio,
     }
   }, [roomBookingRecord]);
 
-*/
+
   const handleDelete = (e, value) => {
     e.preventDefault();
     setRoom((current) => _without(current, value));

@@ -12,6 +12,7 @@ import gear from './pages/gear'
 import contact from './pages/contact'
 
 
+
 const theme = createTheme({
   palette: {
     background: {
@@ -58,6 +59,7 @@ function App() {
 
     <Router>
       <div className="App">
+      
       
       <ThemeProvider theme={theme}>
       <CssBaseline />
