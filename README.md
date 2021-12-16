@@ -1,3 +1,47 @@
+# From SMC Team
+The source code for the website can be found in the GitHub repository (therishimitra/smcWebsite). Maintenance and deployment of new builds can be carried out as described below.
+
+#	Maintenance
+•	Clone the smcWebsite repo
+•	Install node modules: 
+### npm install
+•	.env file is not on GitHub to prevent leaking of user data. For more information on creating this file please refer to: https://dev.to/rajatetc/configure-environment-variables-in-create-react-app-netlify-4b33
+The values to be inputted can be found as described in section 13.2.2
+•	(optional) If changing the API Key (say, in order to test on a copy of the Airtable base) this will have to be changed in the file named .env in the root of the project directory. If this change needs to be deployed, the environment variable on Netlify will have to be changed as outlined under section 13.2.2
+•	To test changes on development server: 
+### npm start
+
+
+
+#	Netlify Deployment
+The prod branch on GitHub is meant for live deployments of the application. The web application can be deployed in one of the following ways using Netlify. You will want to do this whenever new modifications are made by following the steps in 13.1
+13.2.1	Continuous deployment
+ Netlify lets you link a GitHub, GitLab, or Bitbucket repository to a site for continuous deployment. On making changes to the default branch, a new build is automatically generated and deployed. To do this:
+•	Login to Netlify
+•	Team overview>Add new site>Import an existing project
+•	Select the repository where the project resides
+•	Build and deploy
+
+
+
+##	Build file deployment (Drag and drop)
+This allows a built project folder to be dragged and dropped which is then deployed. Configurations will not be necessary as create-react-app was used during the initial stages which Netlify will automatically detect.
+•	Clone repo
+•	Install node modules: 
+### npm install
+•	Build project: 
+### npm run build
+•	Build folder will be generated in project directory 
+•	Login to Netlify
+•	Team overview>Add new site>Manually deploy
+•	Drag and drop Build folder to Netlify web interface
+•	Build and deploy
+•	Since the API Key is sensitive information it needs to be saved on Netlify as an environment variable. Steps on doing this:
+    o	go to Site settings > Build & deploy > Environment > Environment variables and add the following values.
+    o	Key field should contain: REACT_APP_API_KEY 
+    o	Value field should contain the actual API Key of the base which can be found at airtable.com/api 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +112,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
