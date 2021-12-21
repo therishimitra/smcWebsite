@@ -15,7 +15,7 @@ var base = new Airtable({apiKey: process.env.REACT_APP_API_KEY}).base('appYke0X4
 
 
 const SubmitButton = styled(Button)({
-  background: "linear-gradient(45deg, #ffd06a 30%, #fded2d 90%)",
+  background: "linear-gradient(45deg, #4568dc 30%, #b06ab3 90%)",
   border: 0,
   borderRadius: 4,
   boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
